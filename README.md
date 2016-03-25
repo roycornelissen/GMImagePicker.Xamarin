@@ -38,7 +38,6 @@ Clone or download solution and use GMImagePicker.Xamarin csproj in your solution
 ###### Nuget 
 Get GMImagePicker.Xamarin package from Nuget and add it to your iOS application project.
 
-````
 
 #### Initialize the picker, set the delegate and present it.
 ```` c#
