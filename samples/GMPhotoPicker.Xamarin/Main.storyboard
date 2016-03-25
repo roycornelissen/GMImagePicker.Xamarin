@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YmP-1T-47v">
+                                <rect key="frame" x="20" y="550" width="108" height="30"/>
+                                <state key="normal" title="GMImagePicker"/>
+                                <connections>
+                                    <action selector="ShowGMImagePicker:" destination="BYZ-38-t0r" eventType="touchUpInside" id="33L-9M-zOZ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3mU-dg-x7w">
+                                <rect key="frame" x="481" y="550" width="99" height="30"/>
+                                <state key="normal" title="UIImagePicker"/>
+                                <connections>
+                                    <action selector="ShowUIImagePicker:" destination="BYZ-38-t0r" eventType="touchUpInside" id="PGB-A4-FTl"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Cei-Qz-nPs">
+                                <rect key="frame" x="20" y="40" width="560" height="490"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="YmP-1T-47v" secondAttribute="bottom" constant="20" id="1dp-pQ-ihP"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="3mU-dg-x7w" secondAttribute="trailing" id="9K4-qZ-rF9"/>
+                            <constraint firstItem="Cei-Qz-nPs" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="Exj-l5-hO0"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="3mU-dg-x7w" secondAttribute="bottom" constant="20" id="QP3-iF-M8f"/>
+                            <constraint firstItem="YmP-1T-47v" firstAttribute="top" secondItem="Cei-Qz-nPs" secondAttribute="bottom" constant="20" id="TDh-1P-HXs"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Cei-Qz-nPs" secondAttribute="trailing" id="U7D-xf-5HE"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="YmP-1T-47v" secondAttribute="leading" id="eu1-2r-EGB"/>
+                            <constraint firstItem="Cei-Qz-nPs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="jYj-WP-aM5"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="gmImagePickerButton" destination="YmP-1T-47v" id="LbF-Zf-V8b"/>
+                        <outlet property="imagePreview" destination="Cei-Qz-nPs" id="0dp-U1-Woe"/>
+                        <outlet property="uiImagePickerButton" destination="3mU-dg-x7w" id="ObU-7I-43k"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="305" y="357"/>
+        </scene>
+    </scenes>
+</document>

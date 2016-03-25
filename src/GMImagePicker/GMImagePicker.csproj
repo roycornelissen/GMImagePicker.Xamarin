@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{85DD427F-E5E4-462F-9EEA-E869369996E3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>GMImagePicker</RootNamespace>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <AssemblyName>GMImagePicker</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Xamarin.iOS" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+    <Folder Include="nl.lproj\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GMAlbumsViewCell.cs" />
+    <Compile Include="GMGridViewCell.cs" />
+    <Compile Include="GMGridViewController.cs" />
+    <Compile Include="GMImagePickerController.cs" />
+    <Compile Include="Events.cs" />
+    <Compile Include="GMAlbumsViewController.cs" />
+    <Compile Include="TranslationExtensions.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+  <ItemGroup>
+    <BundleResource Include="Resources\GMEmptyFolder%401x.png" />
+    <BundleResource Include="Resources\GMEmptyFolder%402x.png" />
+    <BundleResource Include="Resources\GMSelected.png" />
+    <BundleResource Include="Resources\GMSelected%402x.png" />
+    <BundleResource Include="Resources\GMVideoIcon.png" />
+    <BundleResource Include="Resources\GMVideoIcon%402x.png" />
+    <BundleResource Include="Base.lproj\GMImagePicker.strings" />
+    <BundleResource Include="ca.lproj\GMImagePicker.strings" />
+    <BundleResource Include="de.lproj\GMImagePicker.strings" />
+    <BundleResource Include="en.lproj\GMImagePicker.strings" />
+    <BundleResource Include="es.lproj\GMImagePicker.strings" />
+    <BundleResource Include="fr.lproj\GMImagePicker.strings" />
+    <BundleResource Include="it.lproj\GMImagePicker.strings" />
+    <BundleResource Include="pt.lproj\GMImagePicker.strings" />
+    <BundleResource Include="nl.lproj\GMImagePicker.strings" />
+  </ItemGroup>
+</Project>
