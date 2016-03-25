@@ -39,73 +39,73 @@ Clone or download solution and use GMImagePicker.Xamarin csproj in your solution
 Get GMImagePicker.Xamarin package from Nuget and add it to your iOS application project.
 
 ````
-#### Initialize the picker, set the delegate and present it.
 
+#### Initialize the picker, set the delegate and present it.
 ```` c#
-	var picker = new GMImagePickerController ();
-    picker.FinishedPickingAssets += (sender, args) => { 
-        Console.WriteLine ("User finished picking assets. {0} items selected.", args.Assets.Length); 
-    };
-    await PresentViewControllerAsync (picker, true);
+var picker = new GMImagePickerController ();
+picker.FinishedPickingAssets += (sender, args) => { 
+    Console.WriteLine ("User finished picking assets. {0} items selected.", args.Assets.Length); 
+};
+await PresentViewControllerAsync (picker, true);
 ````
 
 You can also implement optional an optional event handler for the `Canceled` event
 ```` c#
-    picker.Canceled += (sender, args) { Console.WriteLine ("user canceled picking assets"); };
+picker.Canceled += (sender, args) { Console.WriteLine ("user canceled picking assets"); };
 ````
 
 #### Customization
 Before presenting the picker, you can customize some of its properties
 ```` c#
-    ...
-    //Display or not the selection info Toolbar:
-    picker.DisplaySelectionInfoToolbar = true;
+...
+//Display or not the selection info Toolbar:
+picker.DisplaySelectionInfoToolbar = true;
 
-    //Display or not the number of assets in each album:
-    picker.DisplayAlbumsNumberOfAssets = true;
-   
-    //Customize the picker title and prompt (helper message over the title)
-    picker.Title = "Custom title";
-    picker.CustomNavigationBarPrompt = "Custom helper message!";
+//Display or not the number of assets in each album:
+picker.DisplayAlbumsNumberOfAssets = true;
 
-    //Customize the number of cols depending on orientation and the inter-item spacing
-    picker.ColsInPortrait = 3;
-    picker.ColsInLandscape = 5;
-    picker.MinimumInteritemSpacing = 2.0f;
+//Customize the picker title and prompt (helper message over the title)
+picker.Title = "Custom title";
+picker.CustomNavigationBarPrompt = "Custom helper message!";
 
-    //You can pick the smart collections you want to show:
-    picker.CustomSmartCollections = new [] { PHAssetCollectionSubtype.AlbumRegular, PHAssetCollectionSubtype.AlbumImported };
+//Customize the number of cols depending on orientation and the inter-item spacing
+picker.ColsInPortrait = 3;
+picker.ColsInLandscape = 5;
+picker.MinimumInteritemSpacing = 2.0f;
 
-    //Disable multiple selecion
-    picker.AllowsMultipleSelection = false;
+//You can pick the smart collections you want to show:
+picker.CustomSmartCollections = new [] { PHAssetCollectionSubtype.AlbumRegular, PHAssetCollectionSubtype.AlbumImported };
 
-    //Show a promt to confirm single selection
-    picker.ConfirmSingleSelection = true;
-    picker.ConfirmSingleSelectionPrompt = "Do you want to select the image you have chosen?";
-    
-    //Camera integration
-    picker.ShowCameraButton = true;
-    picker.AutoSelectCameraImages = true;
-    
-    //Select the media types you want to show and filter out the rest
-    picker.MediaTypes = new [] { PHAssetMediaType.Image };
+//Disable multiple selecion
+picker.AllowsMultipleSelection = false;
 
-    //UI color & text customizations
-    picker.PickerBackgroundColor = UIColor.Black;
-    picker.PickerTextColor = UIColor.White;
-    picker.ToolbarBarTintColor = UIColor.DarkGray;
-    picker.ToolbarTextColor = UIColor.White;
-    picker.ToolbarTintColor = UIColor.Red;
-    picker.NavigationBarBackgroundColor = UIColor.Black;
-    picker.NavigationBarTextColor = UIColor.White;
-    picker.NavigationBarTintColor = UIColor.Red;
-    picker.PickerFontName = "Verdana";
-    picker.PickerBoldFontName = "Verdana-Bold";
-    picker.PickerFontNormalSize = 14.0f;
-    picker.PickerFontHeaderSize = 17.0f;
-    picker.PickerStatusBarStyle = UIStatusBarStyle.LightContent;
-    picker.UseCustomFontForNavigationBar = true;
-    ...
+//Show a promt to confirm single selection
+picker.ConfirmSingleSelection = true;
+picker.ConfirmSingleSelectionPrompt = "Do you want to select the image you have chosen?";
+
+//Camera integration
+picker.ShowCameraButton = true;
+picker.AutoSelectCameraImages = true;
+
+//Select the media types you want to show and filter out the rest
+picker.MediaTypes = new [] { PHAssetMediaType.Image };
+
+//UI color & text customizations
+picker.PickerBackgroundColor = UIColor.Black;
+picker.PickerTextColor = UIColor.White;
+picker.ToolbarBarTintColor = UIColor.DarkGray;
+picker.ToolbarTextColor = UIColor.White;
+picker.ToolbarTintColor = UIColor.Red;
+picker.NavigationBarBackgroundColor = UIColor.Black;
+picker.NavigationBarTextColor = UIColor.White;
+picker.NavigationBarTintColor = UIColor.Red;
+picker.PickerFontName = "Verdana";
+picker.PickerBoldFontName = "Verdana-Bold";
+picker.PickerFontNormalSize = 14.0f;
+picker.PickerFontHeaderSize = 17.0f;
+picker.PickerStatusBarStyle = UIStatusBarStyle.LightContent;
+picker.UseCustomFontForNavigationBar = true;
+...
 ````
 
 
@@ -116,22 +116,22 @@ Also works as Popover on the iPad! (with customizable size)
 
 This code works in both iPhone & iPad
 ```` c#
-    ...
-    var picker = new GMImagePickerController ();
-    
-    picker.Title = "Custom title";
-    picker.CustomNavigationBarPrompt = "Custom helper message!";
-    picker.ColsInPortrait = 3;
-    picker.ColsInLandscape = 5;
-    picker.MinimumInteritemSpacing = 2.0f;
-    picker.ModalPresentationStyle = UIModalPresentation.Popover;
-    
-    var popPC = picker.PopoverPresentationController;
-    popPC.PermittedArrowDirections = UIPopoverArrowDirection.Any;
-    popPC.SourceView = _gmImagePickerButton;
-    popPC.SourceRect = _gmImagePickerButton.Bounds;
-    
-    ShowViewController(picker, null);
+...
+var picker = new GMImagePickerController ();
+
+picker.Title = "Custom title";
+picker.CustomNavigationBarPrompt = "Custom helper message!";
+picker.ColsInPortrait = 3;
+picker.ColsInLandscape = 5;
+picker.MinimumInteritemSpacing = 2.0f;
+picker.ModalPresentationStyle = UIModalPresentation.Popover;
+
+var popPC = picker.PopoverPresentationController;
+popPC.PermittedArrowDirections = UIPopoverArrowDirection.Any;
+popPC.SourceView = _gmImagePickerButton;
+popPC.SourceRect = _gmImagePickerButton.Bounds;
+
+ShowViewController(picker, null);
 ````
 
 
