@@ -1,16 +1,23 @@
+//
+//  Events.cs
+//  GMPhotoPicker.Xamarin
+//
+//  Created by Roy Cornelissen on 23/03/16.
+//  Based on original GMImagePicker implementation by Guillermo Muntaner Perelló.
+//  https://github.com/guillermomuntaner/GMImagePicker
+//
+
 using System;
-using UIKit;
 using Photos;
-using CoreGraphics;
 
 namespace GMImagePicker
 {
-	/// <summary>
-	/// Contains the context assets for the event.
-	/// </summary>
-	public class MultiAssetEventArgs: EventArgs
+    /// <summary>
+    /// Contains the context assets for the event.
+    /// </summary>
+    public class MultiAssetEventArgs: EventArgs
 	{
-		public MultiAssetEventArgs(PHAsset[] assets)
+		internal MultiAssetEventArgs(PHAsset[] assets)
 		{
 			Assets = assets;
 		}
@@ -26,7 +33,7 @@ namespace GMImagePicker
 	/// </summary>
 	public class SingleAssetEventArgs: EventArgs
 	{
-		public SingleAssetEventArgs (PHAsset asset)
+		internal SingleAssetEventArgs (PHAsset asset)
 		{
 			Asset = asset;
 		}
@@ -42,7 +49,7 @@ namespace GMImagePicker
 	/// </summary>
 	public class CancellableAssetEventArgs: SingleAssetEventArgs
 	{
-		public CancellableAssetEventArgs(PHAsset asset) : base (asset) { }
+		internal CancellableAssetEventArgs(PHAsset asset) : base (asset) { }
 
 		/// <summary>
 		/// Set to <c>true</c> if the action must be canceled.

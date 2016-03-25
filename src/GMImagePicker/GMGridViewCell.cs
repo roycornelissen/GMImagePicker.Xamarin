@@ -16,7 +16,7 @@ using Foundation;
 
 namespace GMImagePicker
 {
-	public class GMGridViewCell: UICollectionViewCell
+	internal class GMGridViewCell: UICollectionViewCell
 	{
 		public PHAsset Asset { get; private set; }
 

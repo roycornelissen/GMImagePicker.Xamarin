@@ -18,7 +18,7 @@ using CoreFoundation;
 
 namespace GMImagePicker
 {
-	public class GMAlbumsViewController: UITableViewController, IPHPhotoLibraryChangeObserver
+	internal class GMAlbumsViewController: UITableViewController, IPHPhotoLibraryChangeObserver
 	{
 		// Measuring iOS8 Photos APP at @2x (iPhone5s):
 		//   The rows are 180px/90pts

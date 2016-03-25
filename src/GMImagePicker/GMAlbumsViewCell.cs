@@ -9,14 +9,13 @@
 
 using System;
 using UIKit;
-using Photos;
 using CoreAnimation;
 using Foundation;
 using CoreGraphics;
 
 namespace GMImagePicker
 {
-	public class GMAlbumsViewCell : UITableViewCell
+    internal class GMAlbumsViewCell : UITableViewCell
 	{
 		//The imageViews
 		public UIImageView ImageView1 { get; private set; }

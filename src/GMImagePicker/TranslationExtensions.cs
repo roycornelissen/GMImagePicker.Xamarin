@@ -7,12 +7,11 @@
 //  https://github.com/guillermomuntaner/GMImagePicker
 //
 
-using System;
 using Foundation;
 
 namespace GMImagePicker
 {
-	[Register ("DummyClass")]
+    [Register ("DummyClass")]
 	internal class DummyClass: NSObject
 	{
 	}

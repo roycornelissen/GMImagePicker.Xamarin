@@ -585,7 +585,7 @@ namespace GMImagePicker
 			_navigationController.DidMoveToParentViewController (this);
 		}
 
-		public void NotifyAssetSelected(PHAsset asset)
+		internal void NotifyAssetSelected(PHAsset asset)
 		{
 			var e = AssetSelected;
 			if (e != null) {
@@ -593,7 +593,7 @@ namespace GMImagePicker
 			}
 		}
 
-		public void NotifyAssetDeselected(PHAsset asset)
+        internal void NotifyAssetDeselected(PHAsset asset)
 		{
 			var e = AssetDeselected;
 			if (e != null) {
@@ -601,7 +601,7 @@ namespace GMImagePicker
 			}
 		}
 
-		public void NotifyAssetHighlighted(PHAsset asset)
+        internal void NotifyAssetHighlighted(PHAsset asset)
 		{
 			var e = AssetHighlighted;
 			if (e != null) {
@@ -609,7 +609,7 @@ namespace GMImagePicker
 			}
 		}
 
-		public void NotifyAssetUnhighlighted(PHAsset asset)
+        internal void NotifyAssetUnhighlighted(PHAsset asset)
 		{
 			var e = AssetUnhighlighted;
 			if (e != null) {
@@ -617,27 +617,27 @@ namespace GMImagePicker
 			}
 		}
 
-		public bool VerifyShouldEnableAsset(PHAsset asset) 
+        internal bool VerifyShouldEnableAsset(PHAsset asset) 
 		{
 			return VerifyCancellableAssetEventHandler (asset, ShouldEnableAsset);
 		}
 
-		public bool VerifyShouldShowAsset(PHAsset asset)
+        internal bool VerifyShouldShowAsset(PHAsset asset)
 		{
 			return VerifyCancellableAssetEventHandler (asset, ShouldShowAsset);
 		}
 
-		public bool VerifyShouldHighlightAsset(PHAsset asset)
+        internal bool VerifyShouldHighlightAsset(PHAsset asset)
 		{
 			return VerifyCancellableAssetEventHandler (asset, ShouldHighlightAsset);
 		}
 
-		public bool VerifyShouldDeselectAsset(PHAsset asset)
+        internal bool VerifyShouldDeselectAsset(PHAsset asset)
 		{
 			return VerifyCancellableAssetEventHandler (asset, ShouldDeselectAsset);
 		}
 
-		public bool VerifyShouldSelectAsset(PHAsset asset) 
+        internal bool VerifyShouldSelectAsset(PHAsset asset) 
 		{
 			return VerifyCancellableAssetEventHandler (asset, ShouldSelectAsset);
 		}
@@ -726,7 +726,7 @@ namespace GMImagePicker
 			return new UIBarButtonItem (UIBarButtonSystemItem.Camera, CameraButtonPressed);
 		}
 
-		public UIBarButtonItem[] GetToolbarItems ()
+        internal UIBarButtonItem[] GetToolbarItems ()
 		{
 			var title = CreateTitleButtonItem ();
 			var space = CreateSpaceButtonItem ();

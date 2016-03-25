@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+   <metadata minClientVersion="2.8.1">
+       <id>GMImagePicker.Xamarin</id>
+       <version>0.0.3</version>
+       <title>GMImagePicker for Xamarin.iOS</title>
+       <authors>Roy Cornelissen</authors>
+       <owners>Roy Cornelissen</owners>
+       <licenseUrl>https://raw.githubusercontent.com/roycornelissen/GMImagePicker.Xamarin/master/LICENSE</licenseUrl>
+       <projectUrl>https://github.com/roycornelissen/GMImagePicker.Xamarin</projectUrl>
+       <iconUrl>https://raw.githubusercontent.com/roycornelissen/GMImagePicker.Xamarin/master/GMImagePickerIcon.png</iconUrl>
+       <requireLicenseAcceptance>false</requireLicenseAcceptance>
+       <description>
+         Xamarin.iOS port of the original GMImagePicker component by Guillermo Muntaner Perelló
+       </description>
+       <summary>Select multiple images and/or videos from the iOS gallery and camera. Uses iOS PhotoKit API's for optimal efficiency.</summary>
+       <tags>photos, images, image picker, ios, GMImagePicker, xamarin, plugin, xamarin.ios</tags>
+       <dependencies>
+       </dependencies>
+    <releaseNotes>
+[0.0.3]
+-Cleaned up the public API as to not cause confusion about the API entry and extension points.
+[0.0.2]
+-First version, feature parity with the original GMImagePicker version 0.0.2
+     </releaseNotes>
+   </metadata>
+   <files>
+     <!--Xamarin.iOS Unified-->
+     <file src="GMImagePicker\bin\Release\GMImagePicker.Xamarin.dll" target="lib\Xamarin.iOS10\GMImagePicker.Xamarin.dll" />
+     <file src="GMImagePicker\bin\Release\GMImagePicker.Xamarin.xml" target="lib\Xamarin.iOS10\GMImagePicker.Xamarin.xml" />
+     <file src="GMImagePicker\bin\Release\GMImagePicker.Xamarin.pdb" target="lib\Xamarin.iOS10\GMImagePicker.Xamarin.pdb" />        
+   </files>
+</package>

@@ -73,6 +73,14 @@ namespace GMPhotoPicker.Xamarin
 			picker.FinishedPickingAssets += Picker_FinishedPickingAssets;
 			picker.Canceled += Picker_Canceled;
 
+            // Other events to implement in order to influence selection behavior:
+            // Set EventArgs::Cancel flag to true in order to prevent the action from happening
+            picker.ShouldDeselectAsset += (s, e) => { /* allow deselection of (mandatory) assets */ };
+            picker.ShouldEnableAsset += (s, e) => { /* determine if a specific asset should be enabled */ };
+            picker.ShouldHighlightAsset += (s, e) => { /* determine if a specific asset should be highlighted */ };
+            picker.ShouldShowAsset += (s, e) => { /* determine if a specific asset should be displayed */ };
+            picker.ShouldSelectAsset += (s, e) => { /* determine if a specific asset can be selected */ };
+
 			var popPC = picker.PopoverPresentationController;
 			popPC.PermittedArrowDirections = UIPopoverArrowDirection.Any;
 			popPC.SourceView = gmImagePickerButton;
@@ -90,7 +98,7 @@ namespace GMPhotoPicker.Xamarin
 			Console.WriteLine ("User canceled picking image.");
 		}
 
-		async void Picker_FinishedPickingAssets (object sender, GMImagePicker.MultiAssetEventArgs args)
+		async void Picker_FinishedPickingAssets (object sender, MultiAssetEventArgs args)
 		{
 			PHImageManager imageManager = new PHImageManager();
 

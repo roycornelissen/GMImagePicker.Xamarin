@@ -18,7 +18,7 @@ using CoreFoundation;
 
 namespace GMImagePicker
 {
-	public class GMGridViewController: UICollectionViewController, IPHPhotoLibraryChangeObserver
+	internal class GMGridViewController: UICollectionViewController, IPHPhotoLibraryChangeObserver
 	{
 		private GMImagePickerController _picker;
 		private static CGSize AssetGridThumbnailSize;
