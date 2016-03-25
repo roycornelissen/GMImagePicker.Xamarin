@@ -38,9 +38,8 @@ Clone or download solution and use GMImagePicker.Xamarin csproj in your solution
 ###### Nuget 
 Get GMImagePicker.Xamarin package from Nuget and add it to your iOS application project.
 
-
-#### Initialize the picker, set the delegate and present it.
-```` c#
+#### Initialize the picker, set the delegate and present it
+```` csharp
 var picker = new GMImagePickerController ();
 picker.FinishedPickingAssets += (sender, args) => { 
     Console.WriteLine ("User finished picking assets. {0} items selected.", args.Assets.Length); 
@@ -49,13 +48,13 @@ await PresentViewControllerAsync (picker, true);
 ````
 
 You can also implement optional an optional event handler for the `Canceled` event
-```` c#
+```` csharp
 picker.Canceled += (sender, args) { Console.WriteLine ("user canceled picking assets"); };
 ````
 
 #### Customization
 Before presenting the picker, you can customize some of its properties
-```` c#
+```` csharp
 ...
 //Display or not the selection info Toolbar:
 picker.DisplaySelectionInfoToolbar = true;
@@ -114,7 +113,7 @@ Also works as Popover on the iPad! (with customizable size)
 ![Screenshot](ipad.jpg "Screenshot")
 
 This code works in both iPhone & iPad
-```` c#
+```` csharp
 ...
 var picker = new GMImagePickerController ();
 
