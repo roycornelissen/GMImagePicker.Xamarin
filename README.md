@@ -38,6 +38,9 @@ Clone or download solution and use GMImagePicker.Xamarin csproj in your solution
 
 ###### Nuget 
 Get GMImagePicker.Xamarin package from Nuget and add it to your iOS application project.
+````
+Install-Package GMImagePicker.Xamarin
+````
 
 #### Initialize the picker, hook up events and present it
 ```` csharp
@@ -161,5 +164,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
 
