@@ -57,13 +57,14 @@ namespace GMPhotoPicker.Xamarin
 				//NavigationBarTextColor = UIColor.White,
 				//NavigationBarTintColor = UIColor.Red,
 				//PickerFontName = "Verdana",
-				//PickefrBoldFontName = "Verdana-Bold",
-				// PickerFontNormalSize = 14.0f,
+				//PickerBoldFontName = "Verdana-Bold",
+				//PickerFontNormalSize = 14.0f,
 				//PickerFontHeaderSize = 17.0f,
 				//PickerStatusBarStyle = UIStatusBarStyle.LightContent,
 				//UseCustomFontForNavigationBar = true,
 			};
 
+			// You can limit which galleries are available to browse through
 			picker.CustomSmartCollections = new [] { 
 				PHAssetCollectionSubtype.SmartAlbumUserLibrary, 
 				PHAssetCollectionSubtype.AlbumRegular 
@@ -81,11 +82,15 @@ namespace GMPhotoPicker.Xamarin
             picker.ShouldShowAsset += (s, e) => { /* determine if a specific asset should be displayed */ };
             picker.ShouldSelectAsset += (s, e) => { /* determine if a specific asset can be selected */ };
 
+			picker.AssetSelected += (s, e) => { /* keep track of individual asset selection */ };
+			picker.AssetDeselected += (s, e) => { /* keep track of individual asset de-selection */ };
+
+			// GMImagePicker can be treated as a PopOver as well:
 			var popPC = picker.PopoverPresentationController;
 			popPC.PermittedArrowDirections = UIPopoverArrowDirection.Any;
 			popPC.SourceView = gmImagePickerButton;
 			popPC.SourceRect = gmImagePickerButton.Bounds;
-//			popPC.BackgroundColor = UIColor.Black;
+			//popPC.BackgroundColor = UIColor.Black;
 
 			await PresentViewControllerAsync(picker, true);
 		}
