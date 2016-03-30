@@ -28,6 +28,8 @@ namespace GMPhotoPicker.Xamarin
 			// Release any cached data, images, etc that aren't in use.
 		}
 
+		private PHAsset[] _preselectedAssets;
+
 		async partial void ShowGMImagePicker (NSObject sender)
 		{
 			var picker = new GMImagePickerController {
@@ -70,6 +72,14 @@ namespace GMPhotoPicker.Xamarin
 				PHAssetCollectionSubtype.AlbumRegular 
 			};
 
+			if (_preselectedAssets != null)
+			{
+				foreach (var asset in _preselectedAssets)
+				{
+					picker.SelectedAssets.Add(asset);
+				}
+			}
+
 			// Event handling
 			picker.FinishedPickingAssets += Picker_FinishedPickingAssets;
 			picker.Canceled += Picker_Canceled;
@@ -109,6 +119,8 @@ namespace GMPhotoPicker.Xamarin
 
 			Console.WriteLine ("User finished picking assets. {0} items selected.", args.Assets.Length);
 
+			_preselectedAssets = args.Assets;
+
 			// For demo purposes: just show all chosen pictures in order every second
 			foreach (var asset in args.Assets) {
 				imagePreview.Image = null;
@@ -140,7 +152,7 @@ namespace GMPhotoPicker.Xamarin
 			popPC.PermittedArrowDirections = UIPopoverArrowDirection.Any;
 			popPC.SourceView = uiImagePickerButton;
 			popPC.SourceRect = uiImagePickerButton.Bounds;
-
+			
 			ShowViewController (picker, this);
 		}
 

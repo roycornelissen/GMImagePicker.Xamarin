@@ -38,7 +38,7 @@ namespace GMImagePicker
 
 		#region Grid customizations 
 
-		public IEnumerable<PHAsset> SelectedAssets
+		public IList<PHAsset> SelectedAssets
 		{
 			get { return _selectedAssets; }
 		}
