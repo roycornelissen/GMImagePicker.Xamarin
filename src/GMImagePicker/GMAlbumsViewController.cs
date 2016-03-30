@@ -376,7 +376,7 @@ namespace GMImagePicker
 					}
 				} else {
 					cell.SetVideoLayout (false);
-					var emptyFolder = UIImage.FromBundle ("GMEmptyFolder");
+					var emptyFolder = UIImage.FromFile ("GMEmptyFolder");
 					cell.ImageView3.Image = emptyFolder;
 					cell.ImageView2.Image = emptyFolder;
 					cell.ImageView1.Image = emptyFolder;

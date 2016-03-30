@@ -108,7 +108,7 @@ namespace GMImagePicker
 			_videoIcon = new UIImageView {
 				ContentMode = UIViewContentMode.ScaleAspectFill,
 				Frame = new CGRect(3, GMAlbumsViewController.AlbumThumbnailSize1.Height - 4 - 8, 15, 8),
-				Image = UIImage.FromBundle("GMVideoIcon"), // todo: check current bundle
+				Image = UIImage.FromFile("GMVideoIcon"),
 				ClipsToBounds = true,
 				TranslatesAutoresizingMaskIntoConstraints = true,
 				AutoresizingMask = UIViewAutoresizing.FlexibleRightMargin,

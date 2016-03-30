@@ -98,7 +98,7 @@ namespace GMImagePicker
 
 			_videoIcon = new UIImageView (new CGRect(x_offset, Bounds.Size.Height - TitleHeight, Bounds.Size.Width - (2 * x_offset), TitleHeight)) {
 				ContentMode = UIViewContentMode.Left,
-				Image = UIImage.FromBundle("GMVideoIcon"),
+				Image = UIImage.FromFile("GMVideoIcon"),
 				TranslatesAutoresizingMaskIntoConstraints = false,
 				AutoresizingMask = UIViewAutoresizing.FlexibleTopMargin | UIViewAutoresizing.FlexibleWidth,
 				Hidden = true
@@ -136,7 +136,7 @@ namespace GMImagePicker
 				UserInteractionEnabled = false
 			};
 			_selectedButton.SetImage (null, UIControlState.Normal);
-			_selectedButton.SetImage (UIImage.FromBundle ("GMSelected"), UIControlState.Selected);
+			_selectedButton.SetImage (UIImage.FromFile ("GMSelected"), UIControlState.Selected);
 			AddSubview (_selectedButton);
 
 			// Note: the views above are created in case this is toggled per cell, on the fly, etc.!
