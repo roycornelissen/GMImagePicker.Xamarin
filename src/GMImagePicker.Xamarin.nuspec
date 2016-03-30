@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
    <metadata minClientVersion="2.8.1">
        <id>GMImagePicker.Xamarin</id>
-       <version>0.0.3</version>
+       <version>0.0.4</version>
        <title>GMImagePicker for Xamarin.iOS</title>
        <authors>Roy Cornelissen</authors>
        <owners>Roy Cornelissen</owners>
@@ -18,6 +18,8 @@
        <dependencies>
        </dependencies>
     <releaseNotes>
+[0.0.4]
+-Fixed loading of resource images in GMImagePicker DLL.
 [0.0.3]
 -Cleaned up the public API as to not cause confusion about the API entry and extension points.
 [0.0.2]
