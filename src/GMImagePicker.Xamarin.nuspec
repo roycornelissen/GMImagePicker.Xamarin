@@ -18,6 +18,8 @@
        <dependencies>
        </dependencies>
     <releaseNotes>
+[0.0.6]
+-Added error messages and graceful handling of situations when the user has denied access to images and/or camera.
 [0.0.5]
 -Asset preselection now works as expected.
 [0.0.4]

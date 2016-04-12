@@ -15,6 +15,9 @@ using System.Collections.Generic;
 using MobileCoreServices;
 using System.Linq;
 using Foundation;
+using AssetsLibrary;
+using System.Threading.Tasks;
+using AVFoundation;
 
 namespace GMImagePicker
 {
@@ -106,6 +109,26 @@ namespace GMImagePicker
 		/// </summary>
 		/// <value>The custom navigation bar prompt.</value>
 		public string CustomNavigationBarPrompt { get; set; }
+
+		/// <summary>
+		/// If set, it displays a UIAlert with this title when the user has denied access to photos.
+		/// </summary>
+		public string CustomPhotosAccessDeniedErrorTitle { get; set; }
+
+		/// <summary>
+		/// If set, it displays a this error message when the user has denied access to photos.
+		/// </summary>
+		public string CustomPhotosAccessDeniedErrorMessage { get; set; }
+
+		/// <summary>
+		/// If set, it displays a UIAlert with this title when the user has denied access to the camera.
+		/// </summary>
+		public string CustomCameraAccessDeniedErrorTitle { get; set; }
+
+		/// <summary>
+		/// If set, it displays a UIAlert with this title when the user has denied access to the camera.
+		/// </summary>
+		public string CustomCameraAccessDeniedErrorMessage { get; set; }
 
 		/// <summary>
 		/// Determines whether or not a toolbar with info about user selection is shown.
@@ -342,8 +365,13 @@ namespace GMImagePicker
 			}
 		}
 
-		private void CameraButtonPressed(object sender, EventArgs e)
+		private async void CameraButtonPressed(object sender, EventArgs e)
 		{
+			if (! await EnsureHasCameraAccess ()) 
+			{
+				return;
+			}
+
 			if (!UIImagePickerController.IsSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)) {
 				var alert = UIAlertController.Create ("No Camera!",
 					            "Sorry, this device does not have a camera.",
@@ -564,6 +592,50 @@ namespace GMImagePicker
 			_navigationController.NavigationBar.TitleTextAttributes = attributes;
 
 			UpdateToolbar ();
+		}
+
+		/// <summary>
+		/// Checks if access to the Camera is granted, and if not (Denied), shows an error message.
+		/// </summary>
+		public async Task<bool> EnsureHasCameraAccess()
+		{
+			var status = AVCaptureDevice.GetAuthorizationStatus (AVMediaType.Video);
+
+			if (status == AVAuthorizationStatus.Denied) {
+				var alert = UIAlertController.Create (CustomCameraAccessDeniedErrorTitle ?? "picker.camera-access-denied.title".Translate (),
+					            CustomCameraAccessDeniedErrorMessage ?? "picker.camera-access-denied.message".Translate (),
+					            UIAlertControllerStyle.Alert);
+
+				alert.AddAction (UIAlertAction.Create ("OK", UIAlertActionStyle.Default, null));
+
+				await PresentViewControllerAsync (alert, true);
+				return false;
+			} else if (status == AVAuthorizationStatus.NotDetermined) {
+				return await AVCaptureDevice.RequestAccessForMediaTypeAsync (AVMediaType.Video) && 
+					await EnsureHasPhotosPermission ();
+			}
+
+			return await EnsureHasPhotosPermission ();
+		}
+
+		/// <summary>
+		/// Checks if access to Photos is granted, and if not (Denied), shows an error message.
+		/// </summary>
+		public async Task<bool> EnsureHasPhotosPermission()
+		{
+			var status = ALAssetsLibrary.AuthorizationStatus;
+
+			if (status == ALAuthorizationStatus.Denied) {
+				var alert = UIAlertController.Create (CustomPhotosAccessDeniedErrorTitle ?? "picker.photo-access-denied.title".Translate (),
+					            CustomPhotosAccessDeniedErrorMessage ?? "picker.photo-access-denied.message".Translate (),
+					            UIAlertControllerStyle.Alert);
+
+				alert.AddAction (UIAlertAction.Create ("OK", UIAlertActionStyle.Default, null));
+				await PresentViewControllerAsync (alert, true);
+				return false;
+			}
+
+			return true;
 		}
 
 		private void SetupNavigationController()

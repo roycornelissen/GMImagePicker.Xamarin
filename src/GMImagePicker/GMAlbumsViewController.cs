@@ -15,6 +15,7 @@ using Foundation;
 using System.Linq;
 using System.Collections.Generic;
 using CoreFoundation;
+using AssetsLibrary;
 
 namespace GMImagePicker
 {
@@ -384,8 +385,16 @@ namespace GMImagePicker
 				return cell;
 			}
 				
-			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
+			public override async void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
+				// Remove selection so it looks better on slide in
+				tableView.DeselectRow (indexPath, true);
+
+				if (!await _parent._picker.EnsureHasPhotosPermission ()) 
+				{
+					return;
+				}
+					
 				var cell = tableView.CellAt (indexPath);
 
 				// Init the GMGridViewController
@@ -395,9 +404,6 @@ namespace GMImagePicker
 				gridViewController.Title = cell.TextLabel.Text;
 				// Use the prefetched assets!
 				gridViewController.AssetsFetchResults = _parent._collectionsFetchResultsAssets [indexPath.Section] [indexPath.Row];
-
-				// Remove selection so it looks better on slide in
-				tableView.DeselectRow (indexPath, true);
 
 				// Push GMGridViewController
 				_parent.NavigationController.PushViewController (gridViewController, true);
