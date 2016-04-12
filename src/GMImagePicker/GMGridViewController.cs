@@ -180,6 +180,14 @@ namespace GMImagePicker
 			base.ViewWillAppear (animated);
 			SetupButtons ();
 			SetupToolbar ();
+
+            if (_picker.GridSortOrder == SortOrder.Ascending)
+            {
+                // Scroll to bottom (newest images are at the bottom)
+                CollectionView.SetNeedsLayout();
+                CollectionView.LayoutIfNeeded();
+                CollectionView.SetContentOffset(new CGPoint(0, CollectionView.CollectionViewLayout.CollectionViewContentSize.Height), false);
+            }
 		}
 
 		public override void ViewDidAppear (bool animated)

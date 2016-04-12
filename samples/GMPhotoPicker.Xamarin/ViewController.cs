@@ -1,5 +1,4 @@
 ﻿using System;
-
 using UIKit;
 using Foundation;
 using Photos;
@@ -47,24 +46,25 @@ namespace GMPhotoPicker.Xamarin
 				ModalPresentationStyle = UIModalPresentationStyle.Popover,
 				MediaTypes = new [] { PHAssetMediaType.Image },
 
-				// Other customizations to play with:
-				//ConfirmSingleSelection = true,
-				//ConfirmSingleSelectionPrompt = "Do you want to select the image you have chosen?",
-				//PickerBackgroundColor = UIColor.Black,
-				//PickerTextColor = UIColor.White,
-				//ToolbarBarTintColor = UIColor.DarkGray,
-				//ToolbarTextColor = UIColor.White,
-				//ToolbarTintColor = UIColor.Red,
-				//NavigationBarBackgroundColor = UIColor.Black,
-				//NavigationBarTextColor = UIColor.White,
-				//NavigationBarTintColor = UIColor.Red,
-				//PickerFontName = "Verdana",
-				//PickerBoldFontName = "Verdana-Bold",
-				//PickerFontNormalSize = 14.0f,
-				//PickerFontHeaderSize = 17.0f,
-				//PickerStatusBarStyle = UIStatusBarStyle.LightContent,
-				//UseCustomFontForNavigationBar = true,
-			};
+                // Other customizations to play with:
+                //GridSortOrder = SortOrder.Descending,
+                //ConfirmSingleSelection = true,
+                //ConfirmSingleSelectionPrompt = "Do you want to select the image you have chosen?",
+                //PickerBackgroundColor = UIColor.Black,
+                //PickerTextColor = UIColor.White,
+                //ToolbarBarTintColor = UIColor.DarkGray,
+                //ToolbarTextColor = UIColor.White,
+                //ToolbarTintColor = UIColor.Red,
+                //NavigationBarBackgroundColor = UIColor.Black,
+                //NavigationBarTextColor = UIColor.White,
+                //NavigationBarTintColor = UIColor.Red,
+                //PickerFontName = "Verdana",
+                //PickerBoldFontName = "Verdana-Bold",
+                //PickerFontNormalSize = 14.0f,
+                //PickerFontHeaderSize = 17.0f,
+                //PickerStatusBarStyle = UIStatusBarStyle.LightContent,
+                //UseCustomFontForNavigationBar = true,
+            };
 
 			// You can limit which galleries are available to browse through
 			picker.CustomSmartCollections = new [] { 

@@ -20,6 +20,7 @@
     <releaseNotes>
 [0.0.6]
 -Added error messages and graceful handling of situations when the user has denied access to images and/or camera.
+-Changed default sort order of photo grid to Creation Date Ascending to resemble native Photos app (this is customizable).
 [0.0.5]
 -Asset preselection now works as expected.
 [0.0.4]

@@ -21,6 +21,22 @@ using AVFoundation;
 
 namespace GMImagePicker
 {
+    /// <summary>
+    /// Enum to specify the sort order of the images in the gallery.
+    /// Images will be sorted by creation date. The default behavior is Ascending.
+    /// </summary>
+    public enum SortOrder
+    {
+        /// <summary>
+        /// Sort images in ascending order, i.e. the oldest images first.
+        /// </summary>
+        Ascending,
+        /// <summary>
+        /// Sort images in descending order, i.e. the newest images first.
+        /// </summary>
+        Descending
+    }
+
 	public class GMImagePickerController: UIViewController
 	{
 		//This is the default image picker size!
@@ -262,8 +278,17 @@ namespace GMImagePicker
 		/// </summary>
 		public bool UseCustomFontForNavigationBar { get; set; }
 
+        /// <summary>
+        /// Gets or sets the sort order for the image grid.
+        /// Default is Ascending, i.e. the oldest images first.
+        /// </summary>
+        public SortOrder GridSortOrder { get; set; }
+
 		#endregion
 
+        /// <summary>
+        /// Adds one asset to the selection and updates the UI.
+        /// </summary>
 		public void SelectAsset (PHAsset asset)
 		{
 			_selectedAssets.Add (asset);

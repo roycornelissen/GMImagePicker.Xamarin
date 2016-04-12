@@ -92,6 +92,9 @@ picker.AutoSelectCameraImages = true;
 //Select the media types you want to show and filter out the rest
 picker.MediaTypes = new [] { PHAssetMediaType.Image };
 
+//Switch the sort order of the photos grid
+picker.GridSortOrder = SortOrder.Descending; // (=newest on top); SortOrder.Ascending (oldest on top) is the default
+
 //UI color & text customizations
 picker.PickerBackgroundColor = UIColor.Black;
 picker.PickerTextColor = UIColor.White;

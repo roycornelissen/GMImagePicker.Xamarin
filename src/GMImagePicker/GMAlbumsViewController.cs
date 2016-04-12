@@ -193,8 +193,8 @@ namespace GMImagePicker
 			_collectionsFetchResultsTitles = null;
 
 			//Fetch PHAssetCollections:
-			var topLevelUserCollections = (PHFetchResult) _collectionsFetchResults [0];
-			var smartAlbums = (PHFetchResult) _collectionsFetchResults [1];
+			var topLevelUserCollections = _collectionsFetchResults[0];
+			var smartAlbums = _collectionsFetchResults[1];
 
 			// All album: Sorted by descending creation date.
 			var allFetchResults = new List<PHFetchResult>();
@@ -202,7 +202,7 @@ namespace GMImagePicker
 
 			var options = new PHFetchOptions {
 				Predicate = NSPredicate.FromFormat("mediaType in %@", ToNSArray(_picker.MediaTypes)),
-				SortDescriptors = new [] { new NSSortDescriptor("creationDate", false) },
+				SortDescriptors = new [] { new NSSortDescriptor("creationDate", _picker.GridSortOrder == SortOrder.Ascending) },
 			};
 			var assetsFetchResult = PHAsset.FetchAssets (options);
 			allFetchResults.Add (assetsFetchResult);
@@ -215,8 +215,9 @@ namespace GMImagePicker
 			foreach (PHCollection collection in topLevelUserCollections) {
 				if (collection is PHAssetCollection) {
 					var collectionOptions = new PHFetchOptions {
-						Predicate = NSPredicate.FromFormat("mediaType in %@", ToNSArray(_picker.MediaTypes))
-					};
+						Predicate = NSPredicate.FromFormat("mediaType in %@", ToNSArray(_picker.MediaTypes)),
+                        SortDescriptors = new[] { new NSSortDescriptor("creationDate", _picker.GridSortOrder == SortOrder.Ascending) },
+                    };
 					var assetCollection = (PHAssetCollection)collection;
 
 					//Albums collections are always PHAssetCollectionType=1 & PHAssetCollectionSubtype=2
@@ -238,7 +239,7 @@ namespace GMImagePicker
 					if (_picker.CustomSmartCollections != null && _picker.CustomSmartCollections.Contains (assetCollection.AssetCollectionSubtype)) {
 						var smartFetchOptions = new PHFetchOptions {
 							Predicate = NSPredicate.FromFormat("mediaType in %@", ToNSArray(_picker.MediaTypes)),
-							SortDescriptors = new [] { new NSSortDescriptor ("creationDate", false) },
+							SortDescriptors = new [] { new NSSortDescriptor ("creationDate", _picker.GridSortOrder == SortOrder.Ascending) },
 						};
 
 						var smartAssetsFetchResult = PHAsset.FetchKeyAssets (assetCollection, smartFetchOptions);
@@ -334,13 +335,15 @@ namespace GMImagePicker
 					cell.DetailTextLabel.TextColor = _parent._picker.PickerTextColor;
 				}
 
+                var numberOfAssets = assetsFetchResult.Count;
+
 				// Set the 3 images (if exists):
-				if (assetsFetchResult.Any ()) {
+				if (numberOfAssets > 0) {
 					var scale = UIScreen.MainScreen.Scale;
 
 					// Compute the thumbnail pixel size:
-					var tableCellThumbnailSize1 = new CGSize (GMAlbumsViewController.AlbumThumbnailSize1.Width * scale, GMAlbumsViewController.AlbumThumbnailSize1.Height * scale);
-					var asset = (PHAsset)assetsFetchResult [0];
+					var tableCellThumbnailSize1 = new CGSize (AlbumThumbnailSize1.Width * scale, AlbumThumbnailSize1.Height * scale);
+					var asset = (PHAsset)assetsFetchResult[_parent._picker.GridSortOrder == SortOrder.Ascending ? numberOfAssets - 1 : 0];
 					cell.SetVideoLayout (asset.MediaType == PHAssetMediaType.Video);
 					_parent._imageManager.RequestImageForAsset (asset, tableCellThumbnailSize1, PHImageContentMode.AspectFill, null, (image, info) => {
 						if (cell.Tag == currentTag) {
@@ -350,10 +353,10 @@ namespace GMImagePicker
 
 					// Second & third images:
 					// TODO: Only preload the 3pixels height visible frame!
-					if (assetsFetchResult.Count > 1) {
+					if (numberOfAssets > 1) {
 						// Compute the thumbnail pixel size:
-						var tableCellThumbnailSize2 = new CGSize (GMAlbumsViewController.AlbumThumbnailSize2.Width * scale, GMAlbumsViewController.AlbumThumbnailSize2.Height * 2);
-						asset = (PHAsset)assetsFetchResult [1];
+						var tableCellThumbnailSize2 = new CGSize (AlbumThumbnailSize2.Width * scale, AlbumThumbnailSize2.Height * 2);
+						asset = (PHAsset)assetsFetchResult [_parent._picker.GridSortOrder == SortOrder.Ascending ? numberOfAssets - 2 : 1];
 						_parent._imageManager.RequestImageForAsset (asset, tableCellThumbnailSize2, PHImageContentMode.AspectFill, null, (image, info) => {
 							if (cell.Tag == currentTag) {
 								cell.ImageView2.Image = image;
@@ -363,10 +366,10 @@ namespace GMImagePicker
 						cell.ImageView2.Image = null;
 					}
 
-					if (assetsFetchResult.Count > 2) {
+					if (numberOfAssets > 2) {
 						// Compute the thumbnail pixel size:
-						var tableCellThumbnailSize3 = new CGSize (GMAlbumsViewController.AlbumThumbnailSize3.Width * scale, GMAlbumsViewController.AlbumThumbnailSize3.Height * 2);
-						asset = (PHAsset)assetsFetchResult [2];
+						var tableCellThumbnailSize3 = new CGSize (AlbumThumbnailSize3.Width * scale, AlbumThumbnailSize3.Height * 2);
+						asset = (PHAsset)assetsFetchResult [_parent._picker.GridSortOrder == SortOrder.Ascending ? numberOfAssets - 3 : 2];
 						_parent._imageManager.RequestImageForAsset (asset, tableCellThumbnailSize3, PHImageContentMode.AspectFill, null, (image, info) => {
 							if (cell.Tag == currentTag) {
 								cell.ImageView3.Image = image;
