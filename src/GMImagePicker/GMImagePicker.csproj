@@ -35,7 +35,9 @@
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BundleResource Include="zh-Hans.lproj\GMImagePicker.strings" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GMAlbumsViewCell.cs" />
@@ -63,5 +65,8 @@
     <BundleResource Include="it.lproj\GMImagePicker.strings" />
     <BundleResource Include="pt.lproj\GMImagePicker.strings" />
     <BundleResource Include="nl.lproj\GMImagePicker.strings" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="ru.lproj\GMImagePicker.strings" />
   </ItemGroup>
 </Project>
