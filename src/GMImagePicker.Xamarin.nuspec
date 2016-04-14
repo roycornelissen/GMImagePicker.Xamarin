@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
    <metadata minClientVersion="2.8.1">
        <id>GMImagePicker.Xamarin</id>
-       <version>0.0.6</version>
+       <version>0.0.7</version>
        <title>GMImagePicker for Xamarin.iOS</title>
        <authors>Roy Cornelissen</authors>
        <owners>Roy Cornelissen</owners>
@@ -18,6 +18,8 @@
        <dependencies>
        </dependencies>
     <releaseNotes>
+[0.0.7]
+-User is taken directly to Settings app to enable camera / photos access.
 [0.0.6]
 -Added error messages and graceful handling of situations when the user has denied access to images and/or camera.
 -Changed default sort order of photo grid to Creation Date Ascending to resemble native Photos app (this is customizable).
@@ -33,8 +35,7 @@
    </metadata>
    <files>
      <!--Xamarin.iOS Unified-->
-     <file src="GMImagePicker\bin\Release\GMImagePicker.Xamarin.dll" target="lib\Xamarin.iOS10\GMImagePicker.Xamarin.dll" />
-     <file src="GMImagePicker\bin\Release\GMImagePicker.Xamarin.xml" target="lib\Xamarin.iOS10\GMImagePicker.Xamarin.xml" />
-     <file src="GMImagePicker\bin\Release\GMImagePicker.Xamarin.pdb" target="lib\Xamarin.iOS10\GMImagePicker.Xamarin.pdb" />        
+     <file src="GMImagePicker/bin/Release/GMImagePicker.Xamarin.dll" target="lib\Xamarin.iOS10\GMImagePicker.Xamarin.dll" />
+     <file src="GMImagePicker/bin/Release/GMImagePicker.Xamarin.xml" target="lib\Xamarin.iOS10\GMImagePicker.Xamarin.xml" />
    </files>
 </package>

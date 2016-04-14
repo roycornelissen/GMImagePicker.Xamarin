@@ -631,7 +631,8 @@ namespace GMImagePicker
 					            CustomCameraAccessDeniedErrorMessage ?? "picker.camera-access-denied.message".Translate (),
 					            UIAlertControllerStyle.Alert);
 
-				alert.AddAction (UIAlertAction.Create ("OK", UIAlertActionStyle.Default, null));
+				alert.AddAction (UIAlertAction.Create ("picker.navigation.cancel-button".Translate("Cancel"), UIAlertActionStyle.Cancel, null));
+				alert.AddAction (UIAlertAction.Create ("picker.navigation.settings-button".Translate("Settings"), UIAlertActionStyle.Default, (action) => UIApplication.SharedApplication.OpenUrl(NSUrl.FromString(UIApplication.OpenSettingsUrlString))));
 
 				await PresentViewControllerAsync (alert, true);
 				return false;
@@ -655,7 +656,9 @@ namespace GMImagePicker
 					            CustomPhotosAccessDeniedErrorMessage ?? "picker.photo-access-denied.message".Translate (),
 					            UIAlertControllerStyle.Alert);
 
-				alert.AddAction (UIAlertAction.Create ("OK", UIAlertActionStyle.Default, null));
+				alert.AddAction (UIAlertAction.Create ("picker.navigation.cancel-button".Translate("Cancel"), UIAlertActionStyle.Cancel, null));
+				alert.AddAction (UIAlertAction.Create ("picker.navigation.settings-button".Translate("Settings"), UIAlertActionStyle.Default, (action) => UIApplication.SharedApplication.OpenUrl(NSUrl.FromString(UIApplication.OpenSettingsUrlString))));
+
 				await PresentViewControllerAsync (alert, true);
 				return false;
 			}
