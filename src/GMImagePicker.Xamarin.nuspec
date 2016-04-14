@@ -37,5 +37,6 @@
      <!--Xamarin.iOS Unified-->
      <file src="GMImagePicker/bin/Release/GMImagePicker.Xamarin.dll" target="lib\Xamarin.iOS10\GMImagePicker.Xamarin.dll" />
      <file src="GMImagePicker/bin/Release/GMImagePicker.Xamarin.xml" target="lib\Xamarin.iOS10\GMImagePicker.Xamarin.xml" />
+     <file src="GMImagePicker/bin/Release/GMImagePicker.Xamarin.pdb" target="lib\Xamarin.iOS10\GMImagePicker.Xamarin.pdb" />        
    </files>
 </package>
