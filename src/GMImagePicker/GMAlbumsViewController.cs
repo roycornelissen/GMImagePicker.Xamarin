@@ -71,12 +71,28 @@ namespace GMImagePicker
 					if (updatedCollectionsFetchResults != null) {
 						_collectionsFetchResults = updatedCollectionsFetchResults;
 					}
-
-					// However, we want to update if photos are added, so the counts of items & thumbnails are updated too.
-					// Maybe some checks could be done here , but for now is OKey.
-					UpdateFetchResults();
-					TableView.ReloadData();
 				}
+
+				// Search for new photos and select them if camera is turned on
+				if (_picker.AutoSelectCameraImages && _picker.ShowCameraButton) {
+					foreach (var collection in _collectionsFetchResultsAssets) {
+						foreach (var fetchResult in collection) {
+							var changeDetails = changeInstance.GetFetchResultChangeDetails (fetchResult);
+
+							if (changeDetails != null && changeDetails.InsertedObjects != null) {
+								foreach (var asset in changeDetails.InsertedObjects.OfType<PHAsset>()) {
+									_picker.SelectAsset (asset);
+								}
+							}
+						}
+					}
+				}
+
+				// However, we want to update if photos are added, so the counts of items & thumbnails are updated too.
+				// Maybe some checks could be done here , but for now is OKey.
+				UpdateFetchResults();
+			
+				TableView.ReloadData();
 			});			
 		}
 			
@@ -181,7 +197,7 @@ namespace GMImagePicker
 		public void SelectAllAlbumsCell()
 		{
 			var path = NSIndexPath.Create(0, 0);
-			TableView.SelectRow (path, true, UITableViewScrollPosition.None);
+			TableView.Source.RowSelected (TableView, path);
 		}
 
 		private void UpdateFetchResults()

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
    <metadata minClientVersion="2.8.1">
        <id>GMImagePicker.Xamarin</id>
-       <version>0.0.7</version>
+       <version>0.0.8</version>
        <title>GMImagePicker for Xamarin.iOS</title>
        <authors>Roy Cornelissen</authors>
        <owners>Roy Cornelissen</owners>
@@ -18,6 +18,9 @@
        <dependencies>
        </dependencies>
     <releaseNotes>
+[0.0.8]
+-Fixed issue [#1]: Toolbar gets hidden due to wrong evaluation of selection
+-Fixed issue [#2]: Auto selection behaviour after creating a new picture with the camera was incorrect
 [0.0.7]
 -User is taken directly to Settings app to enable camera / photos access.
 [0.0.6]

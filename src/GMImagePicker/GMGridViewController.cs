@@ -365,7 +365,19 @@ namespace GMImagePicker
 							if (changedIndexes != null && changedIndexes.Count > 0) {
 								collectionView.ReloadItems(GetIndexesWithSection(changedIndexes, 0));
 							}
-						}, null);
+						}, (x) => {
+							if (_picker.GridSortOrder == SortOrder.Ascending)
+							{
+								var item = collectionView.NumberOfItemsInSection(0) - 1;
+								var path = NSIndexPath.FromItemSection(item, 0);
+								collectionView.ScrollToItem(path, UICollectionViewScrollPosition.Bottom, true);
+							}
+							else
+							{
+								var path = NSIndexPath.FromItemSection(0, 0);
+								collectionView.ScrollToItem(path, UICollectionViewScrollPosition.Top, true);
+							}
+						});
 					}
 					ResetCachedAssets();
 				}

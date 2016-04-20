@@ -45,7 +45,7 @@ namespace GMImagePicker
 		//However, the iPad is 1024x768 so it can allow popups up to 768!
 		public static readonly CGSize PopoverContentSize = new CGSize(480, 720);
 
-		private UINavigationController _navigationController;
+		internal UINavigationController _navigationController;
 		private GMAlbumsViewController _albumsViewController;
 
 		/// <summary>
@@ -291,26 +291,28 @@ namespace GMImagePicker
         /// </summary>
 		public void SelectAsset (PHAsset asset)
 		{
-			_selectedAssets.Add (asset);
-			UpdateDoneButton ();
+			if (!_selectedAssets.Exists(a => a.LocalIdentifier == asset.LocalIdentifier)) {
+				_selectedAssets.Add (asset);
+				UpdateDoneButton ();
 
-			if (!AllowsMultipleSelection) {
-				if (ConfirmSingleSelection) {
-					var message = ConfirmSingleSelectionPrompt ?? "picker.confirm.message".Translate (defaultValue: "Do you want to select the image you tapped on?");
+				if (!AllowsMultipleSelection) {
+					if (ConfirmSingleSelection) {
+						var message = ConfirmSingleSelectionPrompt ?? "picker.confirm.message".Translate (defaultValue: "Do you want to select the image you tapped on?");
 
-					var alert = UIAlertController.Create ("picker.confirm.title".Translate (defaultValue: "Are you sure?"), message, UIAlertControllerStyle.Alert);
-					alert.AddAction (UIAlertAction.Create ("picker.action.no".Translate (defaultValue: "No"), UIAlertActionStyle.Cancel, null));
-					alert.AddAction (UIAlertAction.Create ("picker.action.yes".Translate (defaultValue: "Yes"), UIAlertActionStyle.Default, action => {
+						var alert = UIAlertController.Create ("picker.confirm.title".Translate (defaultValue: "Are you sure?"), message, UIAlertControllerStyle.Alert);
+						alert.AddAction (UIAlertAction.Create ("picker.action.no".Translate (defaultValue: "No"), UIAlertActionStyle.Cancel, null));
+						alert.AddAction (UIAlertAction.Create ("picker.action.yes".Translate (defaultValue: "Yes"), UIAlertActionStyle.Default, action => {
+							FinishPickingAssets (this, EventArgs.Empty);
+						}));
+
+						PresentViewController (alert, true, null);
+					} else {
 						FinishPickingAssets (this, EventArgs.Empty);
-					}));
-
-					PresentViewController (alert, true, null);
-				} else {
-					FinishPickingAssets (this, EventArgs.Empty);
+					}
 				}
-			}
-			else if (DisplaySelectionInfoToolbar || ShowCameraButton) {
-				UpdateToolbar ();
+				else if (DisplaySelectionInfoToolbar || ShowCameraButton) {
+					UpdateToolbar ();
+				}
 			}
 		}
 			
@@ -384,7 +386,7 @@ namespace GMImagePicker
 						vc.ToolbarItems [index].SetTitleTextAttributes (ToolbarTitleTextAttributes, UIControlState.Disabled);
 						vc.ToolbarItems [index].Title = ToolbarTitle;
 					}
-					var toolbarHidden = _selectedAssets.Any () && !ShowCameraButton;
+					var toolbarHidden = !ShowCameraButton && !_selectedAssets.Any ();
 					vc.NavigationController.SetToolbarHidden (toolbarHidden, true);
 				}
 			}
