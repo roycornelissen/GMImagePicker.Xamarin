@@ -678,12 +678,12 @@ namespace GMImagePicker
 
 			_navigationController.NavigationBar.Translucent = true;
 
-            _navigationController.View.Frame = View.Frame;
-            _navigationController.WillMoveToParentViewController (this);
-            View.AddSubview (_navigationController.View);
-            AddChildViewController (_navigationController);
-            _navigationController.DidMoveToParentViewController (this);
-        }
+			_navigationController.View.Frame = View.Frame;
+			_navigationController.WillMoveToParentViewController (this);
+			View.AddSubview (_navigationController.View);
+			AddChildViewController (_navigationController);
+			_navigationController.DidMoveToParentViewController (this);
+		}
 
 		internal void NotifyAssetSelected(PHAsset asset)
 		{
