@@ -43,7 +43,7 @@ namespace GMImagePicker
 			Initialize ();
 		}
 
-		[Export("initWithFrame:frame")]
+		[Export("initWithFrame:")]
 		public GMGridViewCell (CGRect frame) : base(frame)
 		{
 			Initialize ();
