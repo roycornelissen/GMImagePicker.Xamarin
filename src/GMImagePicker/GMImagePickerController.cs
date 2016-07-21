@@ -220,7 +220,7 @@ namespace GMImagePicker
 		public UIColor PickerTextColor { get; set; }
 
 		/// <summary>
-		/// The color for the background tint of the toolbar
+		/// The color for the background tint of the toolbar. Defaults to null.
 		/// </summary>
 		public UIColor ToolbarBarTintColor { get; set; }
 
@@ -235,7 +235,12 @@ namespace GMImagePicker
 		public UIColor ToolbarTintColor { get; set; }
 
 		/// <summary>
-		/// The background of the navigation bar. Defaults to UIColor.White
+		/// The background color of the toolbar. Defaults to null.
+		/// </summary>
+		public UIColor ToolbarBackgroundColor { get; set; }
+
+		/// <summary>
+		/// The background of the navigation bar. Defaults to null.
 		/// </summary>
 		public UIColor NavigationBarBackgroundColor { get; set; }
 
@@ -250,6 +255,11 @@ namespace GMImagePicker
 		public UIColor NavigationBarTintColor { get; set; }
 
 		/// <summary>
+		/// The color for the background tint of the navigation bar. Defaults to null.
+		/// </summary>
+		public UIColor NavigationBarBarTintColor { get; set; }
+
+		/// <summary>
 		/// The font to use everywhere. Defaults to system font. It is advised if you set this to check, and possibly 
 		/// set, appropriately the custom font sizes. For font information, check http://www.iosfonts.com/
 		/// </summary>
@@ -262,8 +272,14 @@ namespace GMImagePicker
 		/// </summary>
 		public string PickerBoldFontName { get; set; }
 
+		/// <summary>
+		/// Font size of regular text in the picker.
+		/// </summary>
 		public float PickerFontNormalSize { get; set ; }
 
+		/// <summary>
+		/// Font size of the header text in the picker.
+		/// </summary>
 		public float PickerFontHeaderSize { get; set; }
 
 		/// <summary>
@@ -438,7 +454,7 @@ namespace GMImagePicker
 				_parent = parent;
 			}
 
-			public override async void FinishedPickingMedia (UIImagePickerController picker, Foundation.NSDictionary info)
+			public override async void FinishedPickingMedia (UIImagePickerController picker, NSDictionary info)
 			{
 				await picker.PresentingViewController.DismissViewControllerAsync (true);
 
@@ -580,11 +596,9 @@ namespace GMImagePicker
 			PickerFontNormalSize = 14.0f;
 			PickerFontHeaderSize = 17.0f;
 
-			NavigationBarBackgroundColor = UIColor.White;
 			NavigationBarTextColor = UIColor.DarkTextColor;
 			ToolbarBarTintColor = UIColor.DarkTextColor;
 
-			ToolbarBarTintColor = UIColor.White;
 			ToolbarTextColor = UIColor.DarkTextColor;
 			ToolbarTintColor = UIColor.DarkTextColor;
 
@@ -601,11 +615,12 @@ namespace GMImagePicker
 			View.BackgroundColor = PickerBackgroundColor;
 
 			_navigationController.Toolbar.Translucent = true;
+			_navigationController.Toolbar.BackgroundColor = ToolbarBackgroundColor;
 			_navigationController.Toolbar.BarTintColor = ToolbarBarTintColor;
 			_navigationController.Toolbar.TintColor = ToolbarTintColor;
-			_navigationController.Toolbar.Subviews [0].Alpha = 0.75f; // URGH - I know!
 
 			_navigationController.NavigationBar.BackgroundColor = NavigationBarBackgroundColor;
+			_navigationController.NavigationBar.BarTintColor = NavigationBarBarTintColor;
 			_navigationController.NavigationBar.TintColor = NavigationBarTintColor;
 
 			UIStringAttributes attributes;

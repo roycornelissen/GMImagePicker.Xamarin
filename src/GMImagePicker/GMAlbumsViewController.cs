@@ -15,7 +15,6 @@ using Foundation;
 using System.Linq;
 using System.Collections.Generic;
 using CoreFoundation;
-using AssetsLibrary;
 
 namespace GMImagePicker
 {
@@ -95,51 +94,56 @@ namespace GMImagePicker
 				TableView.ReloadData();
 			});			
 		}
-			
-		public override void ViewDidLoad ()
-		{
-			base.ViewDidLoad ();
 
-			_picker = (GMImagePickerController) NavigationController.ParentViewController;
+		public override void ViewDidLoad()
+		{
+			base.ViewDidLoad();
+
+			_picker = (GMImagePickerController)NavigationController.ParentViewController;
 			View.BackgroundColor = _picker.PickerBackgroundColor;
 
 			// Navigation bar customization
-			if (!string.IsNullOrWhiteSpace (_picker.CustomNavigationBarPrompt)) {
+			if (!string.IsNullOrWhiteSpace(_picker.CustomNavigationBarPrompt))
+			{
 				NavigationItem.Prompt = _picker.CustomNavigationBarPrompt;
 			}
 
-			_imageManager = new PHCachingImageManager ();
+			_imageManager = new PHCachingImageManager();
 
 			// Table view aspect
 			TableView.RowHeight = AlbumRowHeight;
 			TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
-			TableView.Source = new GMAlbumsViewTableViewSource (this);
+			TableView.Source = new GMAlbumsViewTableViewSource(this);
 
 			// Buttons
-			var barButtonItemAttributes = new UITextAttributes {
+			var barButtonItemAttributes = new UITextAttributes
+			{
 				Font = UIFont.FromName(_picker.PickerFontName, _picker.PickerFontHeaderSize)
 			};
-					
+
 			var cancelTitle = _picker.CustomCancelButtonTitle ?? "picker.navigation.cancel-button".Translate(defaultValue: "Cancel");
-			NavigationItem.LeftBarButtonItem = new UIBarButtonItem (cancelTitle,
+			NavigationItem.LeftBarButtonItem = new UIBarButtonItem(cancelTitle,
 				UIBarButtonItemStyle.Plain,
 				Dismiss);
 
-			if (_picker.UseCustomFontForNavigationBar) {
+			if (_picker.UseCustomFontForNavigationBar)
+			{
 				NavigationItem.LeftBarButtonItem.SetTitleTextAttributes(barButtonItemAttributes, UIControlState.Normal);
 				NavigationItem.LeftBarButtonItem.SetTitleTextAttributes(barButtonItemAttributes, UIControlState.Highlighted);
 			}
 
-			if (_picker.AllowsMultipleSelection) {
+			if (_picker.AllowsMultipleSelection)
+			{
 				var doneTitle = _picker.CustomDoneButtonTitle ?? "picker.navigation.done-button".Translate(defaultValue: "Done");
-				NavigationItem.RightBarButtonItem = new UIBarButtonItem (doneTitle,
+				NavigationItem.RightBarButtonItem = new UIBarButtonItem(doneTitle,
 					UIBarButtonItemStyle.Done,
 					FinishPickingAssets);
-				if (_picker.UseCustomFontForNavigationBar) {
+				if (_picker.UseCustomFontForNavigationBar)
+				{
 					NavigationItem.RightBarButtonItem.SetTitleTextAttributes(barButtonItemAttributes, UIControlState.Normal);
 					NavigationItem.RightBarButtonItem.SetTitleTextAttributes(barButtonItemAttributes, UIControlState.Highlighted);
 				}
-				NavigationItem.RightBarButtonItem.Enabled = _picker.AutoDisableDoneButton ? _picker.SelectedAssets.Any () : true;
+				NavigationItem.RightBarButtonItem.Enabled = _picker.AutoDisableDoneButton ? _picker.SelectedAssets.Any() : true;
 			}
 
 			// Bottom toolbar
@@ -149,17 +153,18 @@ namespace GMImagePicker
 			Title = _picker.Title ?? "picker.navigation.title".Translate(defaultValue: "Navigation bar default title");
 
 			// Fetch PHAssetCollections
-			var topLevelUserCollections = PHCollectionList.FetchTopLevelUserCollections(null);
-			var smartAlbums = PHAssetCollection.FetchAssetCollections (PHAssetCollectionType.SmartAlbum, PHAssetCollectionSubtype.AlbumRegular, null);
+			var topLevelUserCollections = PHCollection.FetchTopLevelUserCollections(null);
+			var smartAlbums = PHAssetCollection.FetchAssetCollections(PHAssetCollectionType.SmartAlbum, PHAssetCollectionSubtype.AlbumRegular, null);
 			_collectionsFetchResults = new List<PHFetchResult> { topLevelUserCollections, smartAlbums };
-			_collectionsLocalizedTitles = new List<string> { "picker.table.user-albums-header".Translate (defaultValue: "Albums"), "picker.table.smart-albums-header".Translate("Smart Albums") };
+			_collectionsLocalizedTitles = new List<string> { "picker.table.user-albums-header".Translate(defaultValue: "Albums"), "picker.table.smart-albums-header".Translate("Smart Albums") };
 
-			UpdateFetchResults ();
+			UpdateFetchResults();
 
 			// Register for changes
 			PHPhotoLibrary.SharedPhotoLibrary.RegisterChangeObserver(this);
 
-			if (UIDevice.CurrentDevice.CheckSystemVersion (7, 0)) {
+			if (UIDevice.CurrentDevice.CheckSystemVersion(7, 0))
+			{
 				EdgesForExtendedLayout = UIRectEdge.None;
 			}
 		}
@@ -283,7 +288,7 @@ namespace GMImagePicker
 		{
 			var mediaTypes = new NSMutableArray ((nuint) _picker.MediaTypes.Length);
 			for (int i = 0; i < _picker.MediaTypes.Length; i++) {
-				mediaTypes.Add (NSObject.FromObject(_picker.MediaTypes [i]));
+				mediaTypes.Add (FromObject(_picker.MediaTypes [i]));
 			}
 
 			return mediaTypes;
@@ -341,7 +346,7 @@ namespace GMImagePicker
 				cell.TextLabel.TextColor = _parent._picker.PickerTextColor;
 
 				// Retrieve the pre-fetched assets for this album:
-				var assetsFetchResult = (PHFetchResult) _parent._collectionsFetchResultsAssets[indexPath.Section][indexPath.Row];
+				var assetsFetchResult = _parent._collectionsFetchResultsAssets[indexPath.Section][indexPath.Row];
 
 				// Display the number of assets
 				if (_parent._picker.DisplayAlbumsNumberOfAssets) {
@@ -432,7 +437,7 @@ namespace GMImagePicker
 			{
 				var header = (UITableViewHeaderFooterView)headerView;
 				header.ContentView.BackgroundColor = UIColor.Clear;
-				header.BackgroundView.BackgroundColor = UIColor.Clear;
+				header.BackgroundView.BackgroundColor = _parent._picker.PickerBackgroundColor;
 
 				// Default is a bold font, but keep this styled as a normal font
 				header.TextLabel.Font = UIFont.FromName(_parent._picker.PickerFontName, _parent._picker.PickerFontNormalSize);

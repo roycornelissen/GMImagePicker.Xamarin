@@ -35,7 +35,7 @@ namespace GMImagePicker
 		public GMGridViewController (GMImagePickerController picker) : base(CollectionViewFlowLayoutForOrientation(UIApplication.SharedApplication.StatusBarOrientation, picker))
 		{
 			//Custom init. The picker contains custom information to create the FlowLayout
-			this._picker = picker;
+			_picker = picker;
 
 			//Compute the thumbnail pixel size:
 			var scale = UIScreen.MainScreen.Scale;
@@ -77,7 +77,7 @@ namespace GMImagePicker
 					var cellTotalUsableWidth = screenWidth - (picker.ColsInPortrait - 1) * picker.MinimumInteritemSpacing;
 					var itemSize = new CGSize (cellTotalUsableWidth / picker.ColsInPortrait, cellTotalUsableWidth / picker.ColsInPortrait);
 					var cellTotalUsedWidth = (double)itemSize.Width * picker.ColsInPortrait;
-					var spaceTotalWidth = (double)screenWidth - cellTotalUsedWidth;
+					var spaceTotalWidth = screenWidth - cellTotalUsedWidth;
 					var spaceWidth = spaceTotalWidth / (picker.ColsInPortrait - 1);
 
 					_portraitLayout = new UICollectionViewFlowLayout {
@@ -92,7 +92,7 @@ namespace GMImagePicker
 					var cellTotalUsableWidth = screenHeight - (picker.ColsInLandscape - 1) * picker.MinimumInteritemSpacing;
 					var itemSize = new CGSize (cellTotalUsableWidth / picker.ColsInLandscape, cellTotalUsableWidth / picker.ColsInLandscape);
 					var cellTotalUsedWidth = (double)itemSize.Width * picker.ColsInLandscape;
-					var spaceTotalWidth = (double)screenHeight - cellTotalUsedWidth;
+					var spaceTotalWidth = screenHeight - cellTotalUsedWidth;
 					var spaceWidth = spaceTotalWidth / (picker.ColsInLandscape - 1);
 					_landscapeLayout = new UICollectionViewFlowLayout {
 						MinimumInteritemSpacing = picker.MinimumInteritemSpacing,
@@ -311,7 +311,7 @@ namespace GMImagePicker
 		{
 			var indexPaths = new List<NSIndexPath> ();
 
-			var allLayoutAttributes = this.Layout.LayoutAttributesForElementsInRect (rect);
+			var allLayoutAttributes = Layout.LayoutAttributesForElementsInRect (rect);
 			foreach (var layoutAttributes in allLayoutAttributes) {
 				var indexPath = layoutAttributes.IndexPath;
 				indexPaths.Add (indexPath);
@@ -470,7 +470,7 @@ namespace GMImagePicker
 				return 1;
 			}
 
-			public override UICollectionViewCell GetCell (UICollectionView collectionView, Foundation.NSIndexPath indexPath)
+			public override UICollectionViewCell GetCell (UICollectionView collectionView, NSIndexPath indexPath)
 			{
 				var cell = (GMGridViewCell) _parent.CollectionView.DequeueReusableCell (GMGridViewCellIdentifier, indexPath);
 
@@ -525,31 +525,31 @@ namespace GMImagePicker
 				_parent._picker.NotifyAssetSelected (asset);
 			}
 
-			public override bool ShouldDeselectItem (UICollectionView collectionView, Foundation.NSIndexPath indexPath)
+			public override bool ShouldDeselectItem (UICollectionView collectionView, NSIndexPath indexPath)
 			{
 				var asset = (PHAsset)_parent.AssetsFetchResults [indexPath.Item];
 				return _parent._picker.VerifyShouldDeselectAsset (asset);
 			}
 
-			public override bool ShouldHighlightItem (UICollectionView collectionView, Foundation.NSIndexPath indexPath)
+			public override bool ShouldHighlightItem (UICollectionView collectionView, NSIndexPath indexPath)
 			{
 				var asset = (PHAsset)_parent.AssetsFetchResults [indexPath.Item];
 				return _parent._picker.VerifyShouldHighlightAsset (asset);
 			}
 
-			public override void ItemHighlighted (UICollectionView collectionView, Foundation.NSIndexPath indexPath)
+			public override void ItemHighlighted (UICollectionView collectionView, NSIndexPath indexPath)
 			{
 				var asset = (PHAsset)_parent.AssetsFetchResults [indexPath.Item];
 				_parent._picker.NotifyAssetHighlighted (asset);
 			}
 
-			public override void ItemUnhighlighted (UICollectionView collectionView, Foundation.NSIndexPath indexPath)
+			public override void ItemUnhighlighted (UICollectionView collectionView, NSIndexPath indexPath)
 			{
 				var asset = (PHAsset)_parent.AssetsFetchResults [indexPath.Item];
 				_parent._picker.NotifyAssetUnhighlighted (asset);
 			}
 
-			public override bool ShouldSelectItem (UICollectionView collectionView, Foundation.NSIndexPath indexPath)
+			public override bool ShouldSelectItem (UICollectionView collectionView, NSIndexPath indexPath)
 			{
 				var asset = (PHAsset)_parent.AssetsFetchResults [indexPath.Item];
 
@@ -562,7 +562,7 @@ namespace GMImagePicker
 				}
 			}
 
-			public override void ItemDeselected (UICollectionView collectionView, Foundation.NSIndexPath indexPath)
+			public override void ItemDeselected (UICollectionView collectionView, NSIndexPath indexPath)
 			{
 				var asset = (PHAsset)_parent.AssetsFetchResults [indexPath.Item];
 
