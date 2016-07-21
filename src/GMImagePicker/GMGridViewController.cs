@@ -15,7 +15,6 @@ using System.Linq;
 using System.Collections.Generic;
 using Foundation;
 using CoreFoundation;
-using ObjCRuntime;
 
 namespace GMImagePicker
 {
@@ -170,32 +169,40 @@ namespace GMImagePicker
 
 			// Register for changes
 			PHPhotoLibrary.SharedPhotoLibrary.RegisterChangeObserver (this);
+		}
 
-			if (this.RespondsToSelector(new Selector("setEdgesForExtendedLayout:")))
+		public override void ViewWillAppear(bool animated)
+		{
+			base.ViewWillAppear(animated);
+			SetupButtons();
+			SetupToolbar();
+
+			if (_picker.GridSortOrder == SortOrder.Ascending)
 			{
-				EdgesForExtendedLayout = UIRectEdge.None;
+				// Scroll to bottom (newest images are at the bottom)
+				CollectionView.SetNeedsLayout();
+				CollectionView.LayoutIfNeeded();
+
+				CollectionView.SetContentOffset(new CGPoint(0, CollectionView.CollectionViewLayout.CollectionViewContentSize.Height), false);
+
+				var item = CollectionView.NumberOfItemsInSection(0) - 1;
+				_newestItemPath = NSIndexPath.FromItemSection(item, 0);
 			}
 		}
 
-		public override void ViewWillAppear (bool animated)
-		{
-			base.ViewWillAppear (animated);
-			SetupButtons ();
-			SetupToolbar ();
-
-            if (_picker.GridSortOrder == SortOrder.Ascending)
-            {
-                // Scroll to bottom (newest images are at the bottom)
-                CollectionView.SetNeedsLayout();
-                CollectionView.LayoutIfNeeded();
-                CollectionView.SetContentOffset(new CGPoint(0, CollectionView.CollectionViewLayout.CollectionViewContentSize.Height), false);
-            }
-		}
+		NSIndexPath _newestItemPath;
 
 		public override void ViewDidAppear (bool animated)
 		{
 			base.ViewDidAppear (animated);
-			UpdateCachedAssets ();
+
+			if (_picker.GridSortOrder == SortOrder.Ascending)
+			{
+				// Scroll to bottom (newest images are at the bottom)
+				CollectionView.ScrollToItem(_newestItemPath, UICollectionViewScrollPosition.Bottom, false);
+			}
+
+			UpdateCachedAssets();
 		}
 
 		public override void ViewWillDisappear (bool animated)

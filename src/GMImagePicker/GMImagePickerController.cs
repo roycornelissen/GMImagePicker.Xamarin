@@ -298,7 +298,7 @@ namespace GMImagePicker
         /// Gets or sets the sort order for the image grid.
         /// Default is Ascending, i.e. the oldest images first.
         /// </summary>
-        public SortOrder GridSortOrder { get; set; }
+		public SortOrder GridSortOrder { get; set; }
 
 		#endregion
 
@@ -545,6 +545,11 @@ namespace GMImagePicker
 		/// </summary>
 		public event SingleAssetEventHandler AssetUnhighlighted;
 
+		/// <summary>
+		/// Sets the tint color for the camera button image. defaults to UIColor.DarkTextColor.
+		/// </summary>
+		public UIColor CameraButtonTintColor { get; set; }
+
 		#endregion
 
 		public GMImagePickerController(IntPtr handle): base (handle)
@@ -595,6 +600,7 @@ namespace GMImagePicker
 			PickerBoldFontName = UIFont.BoldSystemFontOfSize(17.0f).Name;
 			PickerFontNormalSize = 14.0f;
 			PickerFontHeaderSize = 17.0f;
+			CameraButtonTintColor = UIColor.DarkTextColor;
 
 			NavigationBarTextColor = UIColor.DarkTextColor;
 			NavigationBarTintColor = UIColor.DarkTextColor;
@@ -615,13 +621,14 @@ namespace GMImagePicker
 			View.BackgroundColor = PickerBackgroundColor;
 
 			_navigationController.Toolbar.Translucent = true;
-			_navigationController.Toolbar.BackgroundColor = ToolbarBackgroundColor;
+
 			_navigationController.Toolbar.BarTintColor = ToolbarBarTintColor;
 			_navigationController.Toolbar.TintColor = ToolbarTintColor;
+			_navigationController.Toolbar.BackgroundColor = ToolbarBackgroundColor;
 
-			_navigationController.NavigationBar.BackgroundColor = NavigationBarBackgroundColor;
-			_navigationController.NavigationBar.BarTintColor = NavigationBarBarTintColor;
 			_navigationController.NavigationBar.TintColor = NavigationBarTintColor;
+			_navigationController.NavigationBar.BarTintColor = NavigationBarBarTintColor;
+			_navigationController.NavigationBar.BackgroundColor = NavigationBarBackgroundColor;
 
 			UIStringAttributes attributes;
 			if (UseCustomFontForNavigationBar) {
@@ -838,9 +845,10 @@ namespace GMImagePicker
 
 		private UIBarButtonItem CreateCameraButtonItem ()
 		{
-			var item = new UIBarButtonItem (UIBarButtonSystemItem.Camera, CameraButtonPressed);
-			item.TintColor = this.ToolbarTintColor;
-			return item;
+			return new UIBarButtonItem(UIBarButtonSystemItem.Camera, CameraButtonPressed)
+			{
+				TintColor = CameraButtonTintColor
+			};
 		}
 
         internal UIBarButtonItem[] GetToolbarItems ()

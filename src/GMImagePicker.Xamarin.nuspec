@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
    <metadata minClientVersion="2.8.1">
        <id>GMImagePicker.Xamarin</id>
-       <version>0.0.9</version>
+       <version>0.0.10</version>
        <title>GMImagePicker for Xamarin.iOS</title>
        <authors>Roy Cornelissen</authors>
        <owners>Roy Cornelissen</owners>
@@ -18,6 +18,11 @@
        <dependencies>
        </dependencies>
     <releaseNotes>
+[0.0.10]
+-Fixed issue [#5]: Navigation bar does not show images behind it blurred (translucent)
+-Camera button image now takes tintcolor set via GMImagePicker.CameraButtonTintColor property
+-Fixed tint and background colors for navigationbar and toolbar
+-Merged PR [#8] No longer setting the navigation bar background and shadow image
 [0.0.9]
 -Fixed issue [#7]: Invalid registrar for GMGridViewCell.ctor(CGRect frame)
 [0.0.8]

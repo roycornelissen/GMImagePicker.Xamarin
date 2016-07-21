@@ -15,7 +15,6 @@ using Foundation;
 using System.Linq;
 using System.Collections.Generic;
 using CoreFoundation;
-using ObjCRuntime;
 
 namespace GMImagePicker
 {
@@ -163,11 +162,6 @@ namespace GMImagePicker
 
 			// Register for changes
 			PHPhotoLibrary.SharedPhotoLibrary.RegisterChangeObserver(this);
-
-			if (this.RespondsToSelector(new Selector("setEdgesForExtendedLayout:")))
-			{
-				EdgesForExtendedLayout = UIRectEdge.None;
-			}
 		}
 
 		private void FinishPickingAssets (object sender, EventArgs args)
