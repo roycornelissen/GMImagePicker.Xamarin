@@ -597,7 +597,7 @@ namespace GMImagePicker
 			PickerFontHeaderSize = 17.0f;
 
 			NavigationBarTextColor = UIColor.DarkTextColor;
-			ToolbarBarTintColor = UIColor.DarkTextColor;
+			NavigationBarTintColor = UIColor.DarkTextColor;
 
 			ToolbarTextColor = UIColor.DarkTextColor;
 			ToolbarTintColor = UIColor.DarkTextColor;
@@ -838,7 +838,9 @@ namespace GMImagePicker
 
 		private UIBarButtonItem CreateCameraButtonItem ()
 		{
-			return new UIBarButtonItem (UIBarButtonSystemItem.Camera, CameraButtonPressed);
+			var item = new UIBarButtonItem (UIBarButtonSystemItem.Camera, CameraButtonPressed);
+			item.TintColor = this.ToolbarTintColor;
+			return item;
 		}
 
         internal UIBarButtonItem[] GetToolbarItems ()
