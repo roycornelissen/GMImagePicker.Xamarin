@@ -677,8 +677,6 @@ namespace GMImagePicker
 			_navigationController.Delegate = new GMNavigationControllerDelegate ();
 
 			_navigationController.NavigationBar.Translucent = true;
-			_navigationController.NavigationBar.SetBackgroundImage (new UIImage (), UIBarMetrics.Default);
-			_navigationController.NavigationBar.ShadowImage = new UIImage ();
 
 			_navigationController.View.Frame = View.Frame;
 			_navigationController.WillMoveToParentViewController (this);
