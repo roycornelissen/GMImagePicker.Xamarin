@@ -15,6 +15,7 @@ using Foundation;
 using System.Linq;
 using System.Collections.Generic;
 using CoreFoundation;
+using ObjCRuntime;
 
 namespace GMImagePicker
 {
@@ -163,7 +164,7 @@ namespace GMImagePicker
 			// Register for changes
 			PHPhotoLibrary.SharedPhotoLibrary.RegisterChangeObserver(this);
 
-			if (UIDevice.CurrentDevice.CheckSystemVersion(7, 0))
+			if (this.RespondsToSelector(new Selector("setEdgesForExtendedLayout:")))
 			{
 				EdgesForExtendedLayout = UIRectEdge.None;
 			}
