@@ -379,7 +379,7 @@ namespace GMImagePicker
 			var nav = ChildViewControllers [0] as UINavigationController;
 			if (nav != null) {
 				foreach (var vc in nav.ViewControllers) {
-					vc.NavigationItem.RightBarButtonItem.Enabled = AutoDisableDoneButton ? _selectedAssets.Any () : true;
+					vc.NavigationItem.RightBarButtonItem.Enabled = !AutoDisableDoneButton || _selectedAssets.Any ();
 				}
 			}
 		}

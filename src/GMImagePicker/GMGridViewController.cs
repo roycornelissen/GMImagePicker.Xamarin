@@ -119,7 +119,7 @@ namespace GMImagePicker
 					UIBarButtonItemStyle.Done,
 					FinishPickingAssets);
 
-				NavigationItem.RightBarButtonItem.Enabled = (_picker.AutoDisableDoneButton ? _picker.SelectedAssets.Any () : true);
+				NavigationItem.RightBarButtonItem.Enabled = !_picker.AutoDisableDoneButton || _picker.SelectedAssets.Any ();
 			} else {
 				var cancelTitle = _picker.CustomCancelButtonTitle ?? "picker.navigation.cancel-button".Translate (defaultValue: "Cancel");
 				NavigationItem.RightBarButtonItem = new UIBarButtonItem (cancelTitle, 
@@ -300,7 +300,7 @@ namespace GMImagePicker
 			}
 		}
 
-		private PHAsset[] GetAssetsAtIndexPaths(IEnumerable<NSIndexPath> indexPaths)
+		private PHAsset[] GetAssetsAtIndexPaths(ICollection<NSIndexPath> indexPaths)
 		{
 			if (!indexPaths.Any()) {
 				return null;
@@ -452,7 +452,7 @@ namespace GMImagePicker
 					null,
 					(image, info) => {
 						// Only update the thumbnail if the cell tag hasn't changed. Otherwise, the cell has been re-used.
-						if (cell.Tag == currentTag) {
+						if (cell.Tag == currentTag && typedCell.ImageView != null && image != null) {
 							typedCell.ImageView.Image = image;
 						}
 					});
@@ -496,10 +496,8 @@ namespace GMImagePicker
 						null,
 						(image, info) => {
 							// Only update the thumbnail if the cell tag hasn't changed. Otherwise, the cell has been re-used.
-							if (cell.Tag == currentTag) {
-								if (cell.ImageView != null) {
-									cell.ImageView.Image = image;
-								}
+							if (cell.Tag == currentTag && cell.ImageView != null && image != null) {
+								cell.ImageView.Image = image;
 							}
 						});
 				}
