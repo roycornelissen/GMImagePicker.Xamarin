@@ -362,7 +362,7 @@ namespace GMImagePicker
 					var asset = (PHAsset)assetsFetchResult[_parent._picker.GridSortOrder == SortOrder.Ascending ? numberOfAssets - 1 : 0];
 					cell.SetVideoLayout (asset.MediaType == PHAssetMediaType.Video);
 					_parent._imageManager.RequestImageForAsset (asset, tableCellThumbnailSize1, PHImageContentMode.AspectFill, null, (image, info) => {
-						if (cell.Tag == currentTag) {
+						if (cell.Tag == currentTag && cell.ImageView1 != null && image != null) {
 							cell.ImageView1.Image = image;
 						}
 					});
@@ -374,7 +374,7 @@ namespace GMImagePicker
 						var tableCellThumbnailSize2 = new CGSize (AlbumThumbnailSize2.Width * scale, AlbumThumbnailSize2.Height * 2);
 						asset = (PHAsset)assetsFetchResult [_parent._picker.GridSortOrder == SortOrder.Ascending ? numberOfAssets - 2 : 1];
 						_parent._imageManager.RequestImageForAsset (asset, tableCellThumbnailSize2, PHImageContentMode.AspectFill, null, (image, info) => {
-							if (cell.Tag == currentTag) {
+							if (cell.Tag == currentTag && cell.ImageView2 != null && image != null) {
 								cell.ImageView2.Image = image;
 							}
 						});
@@ -387,7 +387,7 @@ namespace GMImagePicker
 						var tableCellThumbnailSize3 = new CGSize (AlbumThumbnailSize3.Width * scale, AlbumThumbnailSize3.Height * 2);
 						asset = (PHAsset)assetsFetchResult [_parent._picker.GridSortOrder == SortOrder.Ascending ? numberOfAssets - 3 : 2];
 						_parent._imageManager.RequestImageForAsset (asset, tableCellThumbnailSize3, PHImageContentMode.AspectFill, null, (image, info) => {
-							if (cell.Tag == currentTag) {
+							if (cell.Tag == currentTag && cell.ImageView3 != null && image != null) {
 								cell.ImageView3.Image = image;
 							}
 						});
