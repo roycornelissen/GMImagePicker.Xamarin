@@ -143,7 +143,7 @@ namespace GMImagePicker
 					NavigationItem.RightBarButtonItem.SetTitleTextAttributes(barButtonItemAttributes, UIControlState.Normal);
 					NavigationItem.RightBarButtonItem.SetTitleTextAttributes(barButtonItemAttributes, UIControlState.Highlighted);
 				}
-				NavigationItem.RightBarButtonItem.Enabled = _picker.AutoDisableDoneButton ? _picker.SelectedAssets.Any() : true;
+				NavigationItem.RightBarButtonItem.Enabled = !_picker.AutoDisableDoneButton || _picker.SelectedAssets.Any();
 			}
 
 			// Bottom toolbar
@@ -228,44 +228,38 @@ namespace GMImagePicker
 			var userFetchResults = new List<PHFetchResult>();
 			var userFetchResultLabels = new List<string> ();
 
-			foreach (PHCollection collection in topLevelUserCollections) {
-				if (collection is PHAssetCollection) {
-					var collectionOptions = new PHFetchOptions {
-						Predicate = NSPredicate.FromFormat("mediaType in %@", ToNSArray(_picker.MediaTypes)),
-                        SortDescriptors = new[] { new NSSortDescriptor("creationDate", _picker.GridSortOrder == SortOrder.Ascending) },
-                    };
-					var assetCollection = (PHAssetCollection)collection;
+			foreach (var assetCollection in topLevelUserCollections.OfType<PHAssetCollection>()) {
+				var collectionOptions = new PHFetchOptions {
+					Predicate = NSPredicate.FromFormat("mediaType in %@", ToNSArray(_picker.MediaTypes)),
+                    SortDescriptors = new[] { new NSSortDescriptor("creationDate", _picker.GridSortOrder == SortOrder.Ascending) },
+                };
 
-					//Albums collections are always PHAssetCollectionType=1 & PHAssetCollectionSubtype=2
-					var collectionAssetsFetchResult = PHAsset.FetchKeyAssets(assetCollection, collectionOptions);
-					userFetchResults.Add (collectionAssetsFetchResult);
-					userFetchResultLabels.Add (collection.LocalizedTitle);
-				}
+				//Albums collections are always PHAssetCollectionType=1 & PHAssetCollectionSubtype=2
+				var collectionAssetsFetchResult = PHAsset.FetchKeyAssets(assetCollection, collectionOptions);
+				userFetchResults.Add (collectionAssetsFetchResult);
+				userFetchResultLabels.Add (assetCollection.LocalizedTitle);
 			}
 
 			//Smart albums: Sorted by descending creation date.
 			var smartFetchResults = new List<PHFetchResult>();
 			var smartFetchResultLabels = new List<string> ();
 
-			foreach (PHCollection collection in smartAlbums) {
-				if (collection is PHAssetCollection) {
-					var assetCollection = (PHAssetCollection)collection;
+			foreach (var assetCollection in smartAlbums.OfType<PHAssetCollection>()) {
+				//Smart collections are PHAssetCollectionType=2;
+				if (_picker.CustomSmartCollections != null && _picker.CustomSmartCollections.Contains (assetCollection.AssetCollectionSubtype)) {
+					var smartFetchOptions = new PHFetchOptions {
+						Predicate = NSPredicate.FromFormat("mediaType in %@", ToNSArray(_picker.MediaTypes)),
+						SortDescriptors = new [] { new NSSortDescriptor ("creationDate", _picker.GridSortOrder == SortOrder.Ascending) },
+					};
 
-					//Smart collections are PHAssetCollectionType=2;
-					if (_picker.CustomSmartCollections != null && _picker.CustomSmartCollections.Contains (assetCollection.AssetCollectionSubtype)) {
-						var smartFetchOptions = new PHFetchOptions {
-							Predicate = NSPredicate.FromFormat("mediaType in %@", ToNSArray(_picker.MediaTypes)),
-							SortDescriptors = new [] { new NSSortDescriptor ("creationDate", _picker.GridSortOrder == SortOrder.Ascending) },
-						};
-
-						var smartAssetsFetchResult = PHAsset.FetchKeyAssets (assetCollection, smartFetchOptions);
-						if (smartAssetsFetchResult.Any ()) {
-							smartFetchResults.Add (smartAssetsFetchResult);
-							smartFetchResultLabels.Add (collection.LocalizedTitle);
-						}
+					var smartAssetsFetchResult = PHAsset.FetchKeyAssets (assetCollection, smartFetchOptions);
+					if (smartAssetsFetchResult.Any ()) {
+						smartFetchResults.Add (smartAssetsFetchResult);
+						smartFetchResultLabels.Add (assetCollection.LocalizedTitle);
 					}
 				}
 			}
+			
 
 			_collectionsFetchResultsAssets = new PHFetchResult[][] {
 				allFetchResults.ToArray (),
@@ -282,11 +276,12 @@ namespace GMImagePicker
 		private NSArray ToNSArray(PHAssetMediaType[] managed)
 		{
 			var mediaTypes = new NSMutableArray ((nuint) _picker.MediaTypes.Length);
-			for (int i = 0; i < _picker.MediaTypes.Length; i++) {
-				mediaTypes.Add (FromObject(_picker.MediaTypes [i]));
+			foreach (var mediaType in _picker.MediaTypes)
+			{
+			    mediaTypes.Add (FromObject(mediaType));
 			}
 
-			return mediaTypes;
+		    return mediaTypes;
 		}
 
 		#region Rotation
