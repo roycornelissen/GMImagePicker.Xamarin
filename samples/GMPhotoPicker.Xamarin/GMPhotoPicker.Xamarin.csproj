@@ -77,13 +77,14 @@
     </IpaPackageName>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Calabash, Version=20.1.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xamarin.TestCloud.Agent.0.20.1\lib\Xamarin.iOS10\Calabash.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
-    <Reference Include="Calabash">
-      <HintPath>..\packages\Xamarin.TestCloud.Agent.0.19.2\lib\Xamarin.iOS10\Calabash.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\Contents.json">
