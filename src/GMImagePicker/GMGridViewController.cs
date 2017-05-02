@@ -106,7 +106,7 @@ namespace GMImagePicker
 
 		private void SetupViews ()
 		{
-			CollectionView.Source = new GMGridViewCollectionViewSource (this);
+            CollectionView.Source = new GMGridViewCollectionViewSource (this);
 			CollectionView.BackgroundColor = UIColor.Clear;
 			View.BackgroundColor = _picker.PickerBackgroundColor;
 		}
@@ -196,7 +196,7 @@ namespace GMImagePicker
 		{
 			base.ViewDidAppear (animated);
 
-			if (_picker.GridSortOrder == SortOrder.Ascending)
+            if (_newestItemPath.Section >= 0 && _newestItemPath.Row >= 0 && _newestItemPath.Item >= 0 && _picker.GridSortOrder == SortOrder.Ascending)
 			{
 				// Scroll to bottom (newest images are at the bottom)
 				CollectionView.ScrollToItem(_newestItemPath, UICollectionViewScrollPosition.Bottom, false);
@@ -378,8 +378,11 @@ namespace GMImagePicker
 							if (_picker.GridSortOrder == SortOrder.Ascending)
 							{
 								var item = collectionView.NumberOfItemsInSection(0) - 1;
-								var path = NSIndexPath.FromItemSection(item, 0);
-								collectionView.ScrollToItem(path, UICollectionViewScrollPosition.Bottom, true);
+							    if (item >= 0)
+							    {
+							        var path = NSIndexPath.FromItemSection(item, 0);
+							        collectionView.ScrollToItem(path, UICollectionViewScrollPosition.Bottom, true);
+							    }
 							}
 							else
 							{

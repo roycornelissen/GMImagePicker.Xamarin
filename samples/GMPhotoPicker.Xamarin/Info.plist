@@ -45,5 +45,7 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Resources/Images.xcassets/AppIcons.appiconset</string>
+    <key>NSCameraUsageDescription</key>
+    <string>De app heeft toegang benodigd tot de camera om foto's te nemen.</string>
 </dict>
 </plist>
