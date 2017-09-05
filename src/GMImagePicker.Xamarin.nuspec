@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
    <metadata minClientVersion="2.8.1">
        <id>GMImagePicker.Xamarin</id>
-       <version>1.0.0</version>
+       <version>1.0.1</version>
        <title>GMImagePicker for Xamarin.iOS</title>
        <authors>Roy Cornelissen</authors>
        <owners>Roy Cornelissen</owners>
@@ -18,6 +18,8 @@
        <dependencies>
        </dependencies>
     <releaseNotes>
+[1.0.1]
+-Fixes #10: Crash when a library is empty (Thanks to Rolf van Kuijen for the PR)
 [1.0.0]
 -Bumped version to 1.0.0
 -Fix for older devices that were unable to render highest quality images (Thanks to Rolf van Kuijen for the PR)
