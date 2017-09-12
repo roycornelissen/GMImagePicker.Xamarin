@@ -34,9 +34,9 @@ namespace GMImagePicker
 
 		public bool IsEnabled { get; set; }
 
-		private static UIFont TitleFont = UIFont.SystemFontOfSize(12f);
-		private static float TitleHeight = 20.0f;
-		private static UIColor TitleColor = UIColor.White;
+		private static readonly UIFont TitleFont = UIFont.SystemFontOfSize(12f);
+		private static readonly float TitleHeight = 20.0f;
+		private static readonly UIColor TitleColor = UIColor.White;
 
 		public GMGridViewCell (IntPtr handle): base (handle)
 		{
