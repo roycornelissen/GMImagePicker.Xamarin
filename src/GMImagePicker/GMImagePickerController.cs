@@ -354,10 +354,7 @@ namespace GMImagePicker
 			// Explicitly unregister observers because we cannot predict when the GC cleans up
 			Unregister ();
 
-			var e = Canceled;
-			if (e != null) {
-				e (this, EventArgs.Empty);
-			}
+			Canceled?.Invoke(this, EventArgs.Empty);
 
 			PresentingViewController.DismissViewController (true, null);
 		}
@@ -367,10 +364,7 @@ namespace GMImagePicker
 			// Explicitly unregister observers because we cannot predict when the GC cleans up
 			Unregister ();
 
-			var e = FinishedPickingAssets;
-			if (e != null) {
-				e (this, new MultiAssetEventArgs (_selectedAssets.ToArray ()));
-			}
+			FinishedPickingAssets?.Invoke(this, new MultiAssetEventArgs(_selectedAssets.ToArray()));
 
 			PresentingViewController.DismissViewController (true, null);
 		}
