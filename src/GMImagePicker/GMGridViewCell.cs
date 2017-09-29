@@ -48,15 +48,7 @@ namespace GMImagePicker
 		{
 			Initialize ();
 		}
-			
-		public override void AwakeFromNib ()
-		{
-			base.AwakeFromNib ();
-
-			ContentView.AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth;
-			ContentView.TranslatesAutoresizingMaskIntoConstraints = true;
-		}
-			
+						
 		public void Initialize () 
 		{
 			if (ImageView != null) {
@@ -74,16 +66,12 @@ namespace GMImagePicker
 				Frame = new CGRect(0, 0, cellSize, cellSize),
 				ContentMode = UIViewContentMode.ScaleAspectFill,
 				ClipsToBounds = true,
-				TranslatesAutoresizingMaskIntoConstraints = false,
-				AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth
 			};
 			AddSubview (ImageView);
 
 			// The video gradient, label & icon
 			var x_offset = 4.0f;
 			_gradientView = new UIView (new CGRect (0, Bounds.Size.Height - TitleHeight, Bounds.Size.Width, TitleHeight)) {
-				AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleTopMargin,
-				TranslatesAutoresizingMaskIntoConstraints = false,
 				Hidden = true
 			};
 
@@ -98,8 +86,6 @@ namespace GMImagePicker
 			_videoIcon = new UIImageView (new CGRect(x_offset, Bounds.Size.Height - TitleHeight, Bounds.Size.Width - (2 * x_offset), TitleHeight)) {
 				ContentMode = UIViewContentMode.Left,
 				Image = UIImage.FromFile("GMVideoIcon"),
-				TranslatesAutoresizingMaskIntoConstraints = false,
-				AutoresizingMask = UIViewAutoresizing.FlexibleTopMargin | UIViewAutoresizing.FlexibleWidth,
 				Hidden = true
 			};
 			AddSubview (_videoIcon);
@@ -110,16 +96,12 @@ namespace GMImagePicker
 				TextAlignment = UITextAlignment.Right,
 				Frame = new CGRect(x_offset, Bounds.Size.Height - TitleHeight, Bounds.Size.Width - (2 * x_offset), TitleHeight),
 				ContentMode = UIViewContentMode.Right,
-				TranslatesAutoresizingMaskIntoConstraints = false,
-				AutoresizingMask = UIViewAutoresizing.FlexibleTopMargin | UIViewAutoresizing.FlexibleWidth,
 				Hidden = true
 			};
 			AddSubview (_videoDuration);
 
 			// Selection overlay & icon
 			_coverView = new UIView (Bounds) {
-				TranslatesAutoresizingMaskIntoConstraints = false,
-				AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth,
 				BackgroundColor = UIColor.FromRGBA(0.24f, 0.47f, 0.85f, 0.6f),
 				Hidden = true
 			};
@@ -129,8 +111,6 @@ namespace GMImagePicker
 				Frame = new CGRect(2 * Bounds.Size.Width / 3, 0 * Bounds.Size.Width / 3, Bounds.Size.Width / 3, Bounds.Size.Width / 3),
 				ContentMode = UIViewContentMode.TopRight,
 				AdjustsImageWhenHighlighted = false,
-				TranslatesAutoresizingMaskIntoConstraints = false,
-				AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleWidth,
 				Hidden = false,
 				UserInteractionEnabled = false
 			};
