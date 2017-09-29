@@ -21,6 +21,8 @@ namespace GMImagePicker
 		public UIImageView ImageView1 { get; private set; }
 		public UIImageView ImageView2 { get; private set; }
 		public UIImageView ImageView3 { get; private set; }
+		public new UILabel TextLabel { get; private set; }
+		public new UILabel DetailTextLabel { get; private set; }
 
 		//Video additional information
 		private UIImageView _videoIcon;
@@ -43,8 +45,11 @@ namespace GMImagePicker
 		{
 			Opaque = false;
 			BackgroundColor = UIColor.Clear;
-			TextLabel.BackgroundColor = BackgroundColor;
-			DetailTextLabel.BackgroundColor = BackgroundColor;
+
+			TextLabel = new UILabel { BackgroundColor = BackgroundColor };
+			DetailTextLabel = new UILabel { BackgroundColor = BackgroundColor };
+			ContentView.AddSubviews(TextLabel, DetailTextLabel);
+
 			Accessory = UITableViewCellAccessory.DisclosureIndicator;
 
 			// Border width of 1 pixel:
