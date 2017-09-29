@@ -44,6 +44,7 @@ namespace GMPhotoPicker.Xamarin
 				AllowsMultipleSelection = true,
 				ShowCameraButton = true,
 				AutoSelectCameraImages = true,
+				AllowsEditingCameraImages = true,
 				ModalPresentationStyle = UIModalPresentationStyle.Popover,
 				MediaTypes = new[] { PHAssetMediaType.Image },
 

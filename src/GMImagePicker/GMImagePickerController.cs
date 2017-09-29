@@ -210,6 +210,11 @@ namespace GMImagePicker
 		public bool AutoSelectCameraImages { get; set; }
 
 		/// <summary>
+		/// If set, allows the user to edit camera images before selecting them.
+		/// </summary>
+		public bool AllowsEditingCameraImages { get; set; }
+
+		/// <summary>
 		/// The color for all backgrounds; behind the table and cells. Defaults to UIColor.White
 		/// </summary>
 		public UIColor PickerBackgroundColor { get; set; }
@@ -433,7 +438,7 @@ namespace GMImagePicker
 			var picker = new UIImagePickerController () {
 				SourceType = UIImagePickerControllerSourceType.Camera,
 				MediaTypes = new string [] { UTType.Image },
-				AllowsEditing = false,
+                AllowsEditing = AllowsEditingCameraImages,
 				Delegate = new GMImagePickerDelegate (this),
 				ModalPresentationStyle = UIModalPresentationStyle.Popover
 			};
@@ -460,7 +465,7 @@ namespace GMImagePicker
 
 				var mediaType = (NSString) info[UIImagePickerController.MediaType];
 				if (mediaType == UTType.Image) {
-					var image = (UIImage) info[UIImagePickerController.OriginalImage];
+					var image = (UIImage) (info[UIImagePickerController.EditedImage] ?? info[UIImagePickerController.OriginalImage]);
 					image.SaveToPhotosAlbum((img, error) => {
 						if (error != null) {
 							var alert = UIAlertController.Create("Image Not Saved",
