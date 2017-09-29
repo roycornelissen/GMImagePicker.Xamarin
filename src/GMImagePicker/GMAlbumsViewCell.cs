@@ -23,9 +23,9 @@ namespace GMImagePicker
 		public UIImageView ImageView3 { get; private set; }
 
 		//Video additional information
-		private UIImageView _videoIcon;
-		private UIView _gradientView;
-		private CAGradientLayer _gradient;
+		private readonly UIImageView _videoIcon;
+		private readonly UIView _gradientView;
+		private readonly CAGradientLayer _gradient;
 
 		public override void AwakeFromNib ()
 		{

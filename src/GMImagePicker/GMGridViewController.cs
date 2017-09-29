@@ -20,7 +20,7 @@ namespace GMImagePicker
 {
 	internal class GMGridViewController: UICollectionViewController, IPHPhotoLibraryChangeObserver
 	{
-		private GMImagePickerController _picker;
+		private readonly GMImagePickerController _picker;
 		private static CGSize AssetGridThumbnailSize;
 		private static UICollectionViewFlowLayout _portraitLayout;
 		private static UICollectionViewFlowLayout _landscapeLayout;
@@ -451,9 +451,9 @@ namespace GMImagePicker
 				var currentTag = cell.Tag;
 				_imageManager.RequestImageForAsset (typedCell.Asset,
 					AssetGridThumbnailSize,
-					PHImageContentMode.AspectFill,
-					null,
-					(image, info) => {
+				    PHImageContentMode.AspectFill,
+				    new PHImageRequestOptions { DeliveryMode = PHImageRequestOptionsDeliveryMode.Opportunistic, ResizeMode = PHImageRequestOptionsResizeMode.Fast },
+                    (image, info) => {
 						// Only update the thumbnail if the cell tag hasn't changed. Otherwise, the cell has been re-used.
 						if (cell.Tag == currentTag && typedCell.ImageView != null && image != null) {
 							typedCell.ImageView.Image = image;
@@ -496,7 +496,7 @@ namespace GMImagePicker
 					_parent._imageManager.RequestImageForAsset (asset,
 						AssetGridThumbnailSize,
 						PHImageContentMode.AspectFill,
-						null,
+						new PHImageRequestOptions { DeliveryMode = PHImageRequestOptionsDeliveryMode.Opportunistic, ResizeMode = PHImageRequestOptionsResizeMode.Fast },
 						(image, info) => {
 							// Only update the thumbnail if the cell tag hasn't changed. Otherwise, the cell has been re-used.
 							if (cell.Tag == currentTag && cell.ImageView != null && image != null) {
