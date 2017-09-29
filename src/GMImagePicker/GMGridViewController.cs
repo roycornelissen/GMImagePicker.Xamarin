@@ -59,13 +59,20 @@ namespace GMImagePicker
 				screenWidth = picker.View.Bounds.Width;
 				screenHeight = picker.View.Bounds.Height;
 			} else {
+				var insets = UIEdgeInsets.Zero;
+				if (picker.View.RespondsToSelector(new ObjCRuntime.Selector("safeAreaInsets"))) {
+					insets = picker.View.SafeAreaInsets;
+				}
+				var horizontalInsets = insets.Right + insets.Left;
+				var verticalInsets = insets.Bottom + insets.Top;
+
 				if (UIApplication.SharedApplication.StatusBarOrientation == UIInterfaceOrientation.LandscapeLeft ||
 					UIApplication.SharedApplication.StatusBarOrientation == UIInterfaceOrientation.LandscapeRight) {
-					screenHeight = picker.View.Bounds.Width;
-					screenWidth = picker.View.Bounds.Height;
+					screenHeight = picker.View.Bounds.Width - horizontalInsets;
+					screenWidth = picker.View.Bounds.Height - verticalInsets;
 				} else {
-					screenWidth = picker.View.Bounds.Width;
-					screenHeight = picker.View.Bounds.Height;
+					screenWidth = picker.View.Bounds.Width - horizontalInsets;
+					screenHeight = picker.View.Bounds.Height - verticalInsets;
 				}
 			}
 
@@ -85,6 +92,10 @@ namespace GMImagePicker
 						ItemSize = itemSize,
 						MinimumLineSpacing = (nfloat) spaceWidth
 					};
+
+					if (_portraitLayout.RespondsToSelector(new ObjCRuntime.Selector("sectionInsetReference"))) {
+						_portraitLayout.SectionInsetReference = UICollectionViewFlowLayoutSectionInsetReference.SafeArea;
+					}
 				}
 				return _portraitLayout;
 			} else {
@@ -99,6 +110,10 @@ namespace GMImagePicker
 						ItemSize = itemSize,
 						MinimumLineSpacing = (nfloat) spaceWidth
 					};
+
+					if (_landscapeLayout.RespondsToSelector(new ObjCRuntime.Selector("sectionInsetReference"))) {
+						_landscapeLayout.SectionInsetReference = UICollectionViewFlowLayoutSectionInsetReference.SafeArea;
+					}
 				}
 				return _landscapeLayout;
 			}
