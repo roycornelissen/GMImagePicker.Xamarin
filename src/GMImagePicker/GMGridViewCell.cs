@@ -147,6 +147,10 @@ namespace GMImagePicker
 		{
 			base.LayoutSubviews ();
 			_gradient.Frame = _gradientView.Bounds;
+
+			var cellSize = ContentView.Bounds.Size.Width;
+			ImageView.Frame = new CGRect(0, 0, cellSize, cellSize);
+			ImageView.LayoutIfNeeded();
 		}
 
 		public void Bind (PHAsset asset)
