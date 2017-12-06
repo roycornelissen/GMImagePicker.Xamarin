@@ -235,7 +235,7 @@ namespace GMImagePicker
                 };
 
 				//Albums collections are always PHAssetCollectionType=1 & PHAssetCollectionSubtype=2
-				var collectionAssetsFetchResult = PHAsset.FetchKeyAssets(assetCollection, collectionOptions);
+				var collectionAssetsFetchResult = PHAsset.FetchAssets(assetCollection, collectionOptions);
 				userFetchResults.Add (collectionAssetsFetchResult);
 				userFetchResultLabels.Add (assetCollection.LocalizedTitle);
 			}
@@ -252,7 +252,7 @@ namespace GMImagePicker
 						SortDescriptors = new [] { new NSSortDescriptor ("creationDate", _picker.GridSortOrder == SortOrder.Ascending) },
 					};
 
-					var smartAssetsFetchResult = PHAsset.FetchKeyAssets (assetCollection, smartFetchOptions);
+					var smartAssetsFetchResult = PHAsset.FetchAssets (assetCollection, smartFetchOptions);
 					if (smartAssetsFetchResult.Any ()) {
 						smartFetchResults.Add (smartAssetsFetchResult);
 						smartFetchResultLabels.Add (assetCollection.LocalizedTitle);
