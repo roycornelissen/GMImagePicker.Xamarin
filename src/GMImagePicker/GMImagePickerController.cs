@@ -869,8 +869,7 @@ namespace GMImagePicker
 			items.Add (title);
 			items.Add (space);
 
-			if (AdditionalToolbarItems != null)
-				items.AddRange(AdditionalToolbarItems);
+			items.AddRange(AdditionalToolbarItems);
 
 			return items.ToArray ();
 		}
