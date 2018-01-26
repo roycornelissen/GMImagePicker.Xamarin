@@ -385,7 +385,7 @@ namespace GMImagePicker
 
 		private void UpdateToolbar()
 		{
-			if (!AllowsMultipleSelection && !ShowCameraButton) {
+			if (!AllowsMultipleSelection && !ShowCameraButton && AdditionalToolbarItems.Length == 0) {
 				return;
 			}
 
@@ -401,7 +401,7 @@ namespace GMImagePicker
 						vc.ToolbarItems [index].SetTitleTextAttributes (ToolbarTitleTextAttributes, UIControlState.Disabled);
 						vc.ToolbarItems [index].Title = ToolbarTitle;
 					}
-					var toolbarHidden = !ShowCameraButton && !_selectedAssets.Any ();
+					var toolbarHidden = !ShowCameraButton && !_selectedAssets.Any () && AdditionalToolbarItems.Length == 0;
 					vc.NavigationController.SetToolbarHidden (toolbarHidden, true);
 				}
 			}
@@ -549,6 +549,11 @@ namespace GMImagePicker
 		/// </summary>
 		public UIColor CameraButtonTintColor { get; set; }
 
+		/// <summary>
+		/// Sets additional toolbar items that are shown to the right of the toolbar's title.
+		/// </summary>
+		public UIBarButtonItem[] AdditionalToolbarItems { get; set; }
+
 		#endregion
 
 		public GMImagePickerController(IntPtr handle): base (handle)
@@ -566,6 +571,7 @@ namespace GMImagePicker
 			AllowsMultipleSelection = true;
 			ConfirmSingleSelection = false;
 			ShowCameraButton = false;
+			AdditionalToolbarItems = new UIBarButtonItem[0];
 
 			// Grid configuration:
 			ColsInPortrait = 3;
@@ -862,6 +868,9 @@ namespace GMImagePicker
 			items.Add (space);
 			items.Add (title);
 			items.Add (space);
+
+			if (AdditionalToolbarItems != null)
+				items.AddRange(AdditionalToolbarItems);
 
 			return items.ToArray ();
 		}
