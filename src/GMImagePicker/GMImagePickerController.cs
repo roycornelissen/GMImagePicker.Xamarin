@@ -416,11 +416,10 @@ namespace GMImagePicker
 
             if (!UIImagePickerController.IsSourceTypeAvailable(UIImagePickerControllerSourceType.Camera))
             {
-                //todo: localize!
-                var alert = UIAlertController.Create("No Camera!",
-                                "Sorry, this device does not have a camera.",
+                var alert = UIAlertController.Create("picker.camera.not-available.title".Translate(defaultValue: "No Camera!"),
+                    "picker.camera.not-available.message".Translate(defaultValue: "Sorry, this device does not have a camera."),
                                 UIAlertControllerStyle.Alert);
-                alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+                alert.AddAction(UIAlertAction.Create("picker.action.ok".Translate(defaultValue:"OK"), UIAlertActionStyle.Default, null));
 
                 PresentViewController(alert, true, null);
                 return;
@@ -487,11 +486,11 @@ namespace GMImagePicker
 					var image = (UIImage) (info[UIImagePickerController.EditedImage] ?? info[UIImagePickerController.OriginalImage]);
 					image.SaveToPhotosAlbum((img, error) => {
 						if (error != null) {
-							var alert = UIAlertController.Create("Image Not Saved",
-								"Sorry, unable to save the new image!",
+							var alert = UIAlertController.Create("picker.camera.image-not-saved.title".Translate(defaultValue: "Image Not Saved"),
+                                "picker.camera.image-not-saved.message".Translate(defaultValue: "Sorry, unable to save the new image!"),
 								UIAlertControllerStyle.Alert);
 
-							alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+							alert.AddAction(UIAlertAction.Create("picker.action.ok".Translate(defaultValue: "OK"), UIAlertActionStyle.Default, null));
 							_parent.PresentViewController(alert, true, null);
 						}
 
@@ -504,18 +503,17 @@ namespace GMImagePicker
                     ALAssetsLibrary lib = new ALAssetsLibrary();
 				    lib.WriteVideoToSavedPhotosAlbum(videoPathUrl, (url, error) => {                    
 				        if (error != null)
-				        {
-                            //todo: localize
-				            var alert = UIAlertController.Create("Video Not Saved",
-				                "Sorry, unable to save the new video!",
+				        {                            
+				            var alert = UIAlertController.Create("picker.camera.video-not-saved.title".Translate(defaultValue: "Video Not Saved"),
+                                "picker.camera.video-not-saved.message".Translate(defaultValue: "Sorry, unable to save the new video!"),
 				                UIAlertControllerStyle.Alert);
 
-				            alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+				            alert.AddAction(UIAlertAction.Create("picker.action.ok".Translate(defaultValue: "OK"), UIAlertActionStyle.Default, null));
 				            _parent.PresentViewController(alert, true, null);
-				        }
+                        }
 
-				        // Note: The image view will auto refresh as the photo's are being observed in the other VCs
-				    });
+                        // Note: The image view will auto refresh as the photo's are being observed in the other VCs
+                    });
 				}
             }
 
