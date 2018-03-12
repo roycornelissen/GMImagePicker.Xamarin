@@ -211,7 +211,7 @@ namespace GMImagePicker
 		{
 			base.ViewDidAppear (animated);
 
-			if (_newestItemPath.Section >= 0 && _newestItemPath.Row >= 0 && _newestItemPath.Item >= 0 && _picker.GridSortOrder == SortOrder.Ascending)
+			if (_newestItemPath != null && _newestItemPath.Section >= 0 && _newestItemPath.Row >= 0 && _newestItemPath.Item >= 0 && _picker.GridSortOrder == SortOrder.Ascending)
 			{
 				// Scroll to bottom (newest images are at the bottom)
 				CollectionView.ScrollToItem(_newestItemPath, UICollectionViewScrollPosition.Bottom, false);
