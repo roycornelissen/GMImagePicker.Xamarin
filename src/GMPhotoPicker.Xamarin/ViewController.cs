@@ -49,6 +49,7 @@ namespace GMPhotoPicker.Xamarin
 				MediaTypes = new[] { PHAssetMediaType.Image },
 
 				// Other customizations to play with:
+				//AdditionalToolbarItems = new UIBarButtonItem[] { new UIBarButtonItem(UIBarButtonSystemItem.Bookmarks), new UIBarButtonItem("Custom", UIBarButtonItemStyle.Bordered, (s, e) => { Console.WriteLine("test"); })},
 				//GridSortOrder = SortOrder.Descending,
 				//ConfirmSingleSelection = true,
 				//ConfirmSingleSelectionPrompt = "Do you want to select the image you have chosen?",

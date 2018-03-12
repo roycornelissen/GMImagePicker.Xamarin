@@ -28,7 +28,7 @@ This port is published with kind permission from Guillermo Muntaner.
 12. It can be used as Popover on iPad, with customizable size.
 13. Fast & small memory footprint powered by PHCachingImageManager.
 14. Full adoption of new iOS8 **PhotoKit**. Returns and array of PHAssets.
-
+15. Ability to add additional toolbar items to the toolbar
 
 ## Usage
 
@@ -111,9 +111,16 @@ picker.PickerFontNormalSize = 14.0f;
 picker.PickerFontHeaderSize = 17.0f;
 picker.PickerStatusBarStyle = UIStatusBarStyle.LightContent;
 picker.UseCustomFontForNavigationBar = true;
-...
-````
 
+//Custom or additional toolbar items
+
+picker.AdditionalToolbarItems = new UIBarButtonItem[]
+{ 
+    new UIBarButtonItem(UIBarButtonSystemItem.Bookmarks),
+    new UIBarButtonItem("Custom", UIBarButtonItemStyle.Bordered, (s, e) => { Console.WriteLine("test"); })
+};
+
+````
 
 ## Use it as popover on iPad
 Also works as Popover on the iPad! (with customizable size)

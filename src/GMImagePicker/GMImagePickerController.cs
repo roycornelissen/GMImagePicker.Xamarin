@@ -910,6 +910,10 @@ namespace GMImagePicker
 			items.Add (title);
 			items.Add (space);
 
+			if (AdditionalToolbarItems == null)
+			{
+				throw new InvalidOperationException("null is an invalid value for AdditionalToolbarItems");
+			}
 			items.AddRange(AdditionalToolbarItems);
 
 			return items.ToArray ();
