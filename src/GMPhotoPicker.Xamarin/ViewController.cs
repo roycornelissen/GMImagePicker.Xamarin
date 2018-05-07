@@ -131,6 +131,13 @@ namespace GMPhotoPicker.Xamarin
 			foreach (var asset in args.Assets) {
 				imagePreview.Image = null;
 
+				// Get information about the asset, e.g. file patch
+				asset.RequestContentEditingInput(new PHContentEditingInputRequestOptions(), 
+					(input, _) => 
+					{ 
+						Console.WriteLine(input.FullSizeImageUrl); 
+					});
+
 				imageManager.RequestImageForAsset (asset, 
 					new CGSize(asset.PixelWidth, asset.PixelHeight), 
 					PHImageContentMode.Default, 
