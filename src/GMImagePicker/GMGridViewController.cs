@@ -298,17 +298,25 @@ namespace GMImagePicker
 				var assetsToStartCaching = GetAssetsAtIndexPaths (addedIndexPaths);
 				var assetsToStopCaching = GetAssetsAtIndexPaths (removedIndexPaths);
 
+				var options = new PHImageRequestOptions
+				{
+					Synchronous = false,
+					NetworkAccessAllowed = true,
+					DeliveryMode = PHImageRequestOptionsDeliveryMode.Opportunistic,
+					ResizeMode = PHImageRequestOptionsResizeMode.Fast
+				};
+
 				if (assetsToStartCaching != null) {
 					_imageManager.StartCaching (assetsToStartCaching, 
 						AssetGridThumbnailSize,
 						PHImageContentMode.AspectFill,
-						null);
+						options);
 				}
 				if (assetsToStopCaching != null) {
 					_imageManager.StopCaching (assetsToStopCaching,
 						AssetGridThumbnailSize,
 						PHImageContentMode.AspectFill,
-						null);
+						options);
 				}
 
 				_previousPreheatRect = preheatRect;
@@ -460,6 +468,14 @@ namespace GMImagePicker
 
 			ResetCachedAssets ();
 
+			var options = new PHImageRequestOptions
+			{
+				Synchronous = false,
+				NetworkAccessAllowed = true,
+				DeliveryMode = PHImageRequestOptionsDeliveryMode.Opportunistic,
+				ResizeMode = PHImageRequestOptionsResizeMode.Fast
+			};
+
 			//This is optional. Reload visible thumbnails:
 			foreach (var cell in CollectionView.VisibleCells) {
 				var typedCell = (GMGridViewCell)cell;
@@ -467,7 +483,7 @@ namespace GMImagePicker
 				_imageManager.RequestImageForAsset (typedCell.Asset,
 					AssetGridThumbnailSize,
 				    PHImageContentMode.AspectFill,
-				    new PHImageRequestOptions { DeliveryMode = PHImageRequestOptionsDeliveryMode.Opportunistic, ResizeMode = PHImageRequestOptionsResizeMode.Fast },
+                    options,
                     (image, info) => {
 						// Only update the thumbnail if the cell tag hasn't changed. Otherwise, the cell has been re-used.
 						if (cell.Tag == currentTag && typedCell.ImageView != null && image != null) {

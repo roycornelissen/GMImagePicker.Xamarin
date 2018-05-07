@@ -352,6 +352,14 @@ namespace GMImagePicker
 				if (numberOfAssets > 0) {
 					var scale = UIScreen.MainScreen.Scale;
 
+					var options = new PHImageRequestOptions
+					{
+						Synchronous = false,
+						NetworkAccessAllowed = true,
+						DeliveryMode = PHImageRequestOptionsDeliveryMode.Opportunistic,
+						ResizeMode = PHImageRequestOptionsResizeMode.Fast
+					};          
+
 					// Compute the thumbnail pixel size:
 					var tableCellThumbnailSize1 = new CGSize (AlbumThumbnailSize1.Width * scale, AlbumThumbnailSize1.Height * scale);
 					var asset = (PHAsset)assetsFetchResult[_parent._picker.GridSortOrder == SortOrder.Ascending ? numberOfAssets - 1 : 0];
@@ -359,7 +367,7 @@ namespace GMImagePicker
                     _parent._imageManager.RequestImageForAsset (asset,
                         tableCellThumbnailSize1,
 					    PHImageContentMode.AspectFill,
-					    new PHImageRequestOptions { DeliveryMode = PHImageRequestOptionsDeliveryMode.Opportunistic, ResizeMode = PHImageRequestOptionsResizeMode.Fast },
+	                    options,
                         (image, info) => {
 						if (cell.Tag == currentTag && cell.ImageView1 != null && image != null) {
 							cell.ImageView1.Image = image;
@@ -375,7 +383,7 @@ namespace GMImagePicker
 						_parent._imageManager.RequestImageForAsset (asset, 
                             tableCellThumbnailSize2,
 						    PHImageContentMode.AspectFill,
-						    new PHImageRequestOptions { DeliveryMode = PHImageRequestOptionsDeliveryMode.Opportunistic, ResizeMode = PHImageRequestOptionsResizeMode.Fast },
+                            options,
                             (image, info) => {
 							if (cell.Tag == currentTag && cell.ImageView2 != null && image != null) {
 								cell.ImageView2.Image = image;
@@ -392,7 +400,7 @@ namespace GMImagePicker
 						_parent._imageManager.RequestImageForAsset (asset, 
                             tableCellThumbnailSize3,
 						    PHImageContentMode.AspectFill,
-						    new PHImageRequestOptions { DeliveryMode = PHImageRequestOptionsDeliveryMode.Opportunistic, ResizeMode = PHImageRequestOptionsResizeMode.Fast },
+                            options,
                             (image, info) => {
 							if (cell.Tag == currentTag && cell.ImageView3 != null && image != null) {
 								cell.ImageView3.Image = image;
