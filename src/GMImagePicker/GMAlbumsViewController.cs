@@ -435,7 +435,7 @@ namespace GMImagePicker
 				var gridViewController = new GMGridViewController (_parent._picker);
 
 				// Set the title
-				gridViewController.Title = cell.TextLabel.Text;
+				gridViewController.Title = _parent._collectionsFetchResultsTitles[indexPath.Section][indexPath.Row];
 				// Use the prefetched assets!
 				gridViewController.AssetsFetchResults = _parent._collectionsFetchResultsAssets [indexPath.Section] [indexPath.Row];
 
