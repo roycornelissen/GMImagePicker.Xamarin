@@ -8,7 +8,7 @@
     <RootNamespace>GMPhotoPicker.Xamarin.UITests</RootNamespace>
     <AssemblyName>GMPhotoPicker.Xamarin.UITests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <ReleaseVersion>2.0.0</ReleaseVersion>
+    <ReleaseVersion>2.2.2</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

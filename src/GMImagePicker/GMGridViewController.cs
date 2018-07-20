@@ -15,11 +15,15 @@ using System.Linq;
 using System.Collections.Generic;
 using Foundation;
 using CoreFoundation;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace GMImagePicker
 {
 	internal class GMGridViewController: UICollectionViewController, IPHPhotoLibraryChangeObserver
 	{
+		private const string GMGridViewCellIdentifier = "GMGridViewCellIdentifier";
+
 		private readonly GMImagePickerController _picker;
 		private static CGSize AssetGridThumbnailSize;
 		private static UICollectionViewFlowLayout _portraitLayout;
@@ -31,11 +35,13 @@ namespace GMImagePicker
 		public GMGridViewController (IntPtr handle): base(handle)
 		{
 		}
-			
+
 		public GMGridViewController (GMImagePickerController picker) : base(CollectionViewFlowLayoutForOrientation(UIApplication.SharedApplication.StatusBarOrientation, picker))
 		{
 			//Custom init. The picker contains custom information to create the FlowLayout
 			_picker = picker;
+			_picker.FinishedPickingAssets += OnCleanup;
+			_picker.Canceled += OnCleanup;
 
 			//Compute the thumbnail pixel size:
 			var scale = UIScreen.MainScreen.Scale;
@@ -44,9 +50,23 @@ namespace GMImagePicker
 			AssetGridThumbnailSize = new CGSize (layout.ItemSize.Width * scale, layout.ItemSize.Height * scale);
 
 			CollectionView.AllowsMultipleSelection = _picker.AllowsMultipleSelection;
-			CollectionView.RegisterClassForCell (typeof(GMGridViewCell), GMGridViewCollectionViewSource.GMGridViewCellIdentifier);
+			CollectionView.RegisterClassForCell (typeof(GMGridViewCell), GMGridViewCellIdentifier);
 
 			PreferredContentSize = GMImagePickerController.PopoverContentSize;
+		}
+
+		void OnCleanup(object sender, EventArgs e)
+		{
+			Unregister();
+		}
+
+		public override void ViewDidDisappear(bool animated)
+		{
+			if (animated)
+			{
+				Unregister();
+			}
+			base.ViewDidDisappear(animated);
 		}
 
 		private static UICollectionViewFlowLayout CollectionViewFlowLayoutForOrientation (UIInterfaceOrientation orientation, GMImagePickerController picker)
@@ -121,7 +141,6 @@ namespace GMImagePicker
 
 		private void SetupViews ()
 		{
-			CollectionView.Source = new GMGridViewCollectionViewSource (this);
 			CollectionView.BackgroundColor = UIColor.Clear;
 			View.BackgroundColor = _picker.PickerBackgroundColor;
 		}
@@ -155,7 +174,7 @@ namespace GMImagePicker
 			ToolbarItems = _picker.GetToolbarItems();
 		}
 
-		private void FinishPickingAssets(object sender, EventArgs args)
+		private void FinishPickingAssets (object sender, EventArgs args)
 		{
 			// Explicitly unregister observer because we cannot predict when the GC cleans up
 			Unregister ();
@@ -218,15 +237,6 @@ namespace GMImagePicker
 			}
 
 			UpdateCachedAssets();
-		}
-
-		public override void ViewWillDisappear (bool animated)
-		{
-			if (!NavigationController.ViewControllers.Contains (this)) {
-				// Explicitly unregister observer because we cannot predict when the GC cleans up
-				Unregister ();
-			}
-			base.ViewWillDisappear (animated);
 		}
 
 		#region Asset Caching
@@ -358,13 +368,15 @@ namespace GMImagePicker
 
 		public void PhotoLibraryDidChange (PHChange changeInstance)
 		{
+			Debug.WriteLine($"{this.GetType().Name}: PhotoLibraryDidChange");
+
 			// Call might come on any background queue. Re-dispatch to the main queue to handle it.
 			DispatchQueue.MainQueue.DispatchAsync (() => {
 				// check if there are changes to the assets (insertions, deletions, updates)
 				var collectionChanges = changeInstance.GetFetchResultChangeDetails(AssetsFetchResults);
 				if (collectionChanges != null) {
 					var collectionView = CollectionView;
-					if (collectionView == null)
+					if (CollectionView == null)
 					{
 						return;
 					}
@@ -377,25 +389,23 @@ namespace GMImagePicker
 						collectionView.ReloadData();
 					} else {
 						// if we have incremental diffs, tell the collection view to animate insertions and deletions
-						collectionView.PerformBatchUpdates(() => {
+						collectionView.PerformBatchUpdates(() =>
+						{
 							var removedIndexes = collectionChanges.RemovedIndexes;
-							if (removedIndexes != null && removedIndexes.Count > 0) {
+							if (removedIndexes != null && removedIndexes.Count > 0)
+							{
 								collectionView.DeleteItems(GetIndexesWithSection(removedIndexes, 0));
 							}
 
-							var insertedIndexes = collectionChanges.InsertedIndexes;
-							if (insertedIndexes != null && insertedIndexes.Count > 0) {
-								collectionView.InsertItems(GetIndexesWithSection(insertedIndexes, 0));
-								if (_picker.ShowCameraButton && _picker.AutoSelectCameraImages) {
-									foreach (var path in GetIndexesWithSection(insertedIndexes, 0)) {
-										collectionView.Source.ItemSelected(collectionView, path);
-									}
-								}
-							}
+							if (collectionChanges.InsertedIndexes != null && collectionChanges.InsertedIndexes.Count > 0)
+							{
+								collectionView.InsertItems(GetIndexesWithSection(collectionChanges.InsertedIndexes, 0));
 
-							var changedIndexes = collectionChanges.ChangedIndexes;
-							if (changedIndexes != null && changedIndexes.Count > 0) {
-								collectionView.ReloadItems(GetIndexesWithSection(changedIndexes, 0));
+								var changedIndexes = collectionChanges.ChangedIndexes;
+								if (changedIndexes != null && changedIndexes.Count > 0)
+								{
+									collectionView.ReloadItems(GetIndexesWithSection(changedIndexes, 0));
+								}
 							}
 						}, (x) => {
 							if (_picker.GridSortOrder == SortOrder.Ascending)
@@ -413,6 +423,17 @@ namespace GMImagePicker
 								collectionView.ScrollToItem(path, UICollectionViewScrollPosition.Top, true);
 							}
 						});
+
+						if (collectionChanges.InsertedIndexes != null && collectionChanges.InsertedIndexes.Count > 0)
+						{
+							if (_picker.ShowCameraButton && _picker.AutoSelectCameraImages)
+							{
+								foreach (var path in GetIndexesWithSection(collectionChanges.InsertedIndexes, 0))
+								{
+									ItemSelected(collectionView, path);
+								}
+							}
+						}
 					}
 					ResetCachedAssets();
 				}
@@ -434,8 +455,11 @@ namespace GMImagePicker
 			base.Dispose (disposing);
 		}
 
-		private void Unregister()
+		private void Unregister([CallerMemberName] string calledBy = "")
 		{
+			_picker.FinishedPickingAssets -= OnCleanup;
+			_picker.Canceled -= OnCleanup;
+			Debug.WriteLine($"{GetType().Name}: Unregister called by {calledBy}");
 			ResetCachedAssets ();
 			PHPhotoLibrary.SharedPhotoLibrary.UnregisterChangeObserver (this);
 		}
@@ -494,125 +518,117 @@ namespace GMImagePicker
 			CollectionView.SetCollectionViewLayout (layout, true);
 		}
 
-		#endregion
-
-		#region Collection View Data Source
-
-		private class GMGridViewCollectionViewSource : UICollectionViewSource
+		public override nint NumberOfSections(UICollectionView collectionView)
 		{
-			public const string GMGridViewCellIdentifier = "GMGridViewCellIdentifier";
-			private readonly GMGridViewController _parent;
+			return 1;
+		}
 
-			public GMGridViewCollectionViewSource(GMGridViewController parent)
+		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
+		{
+			var cell = (GMGridViewCell)CollectionView.DequeueReusableCell(GMGridViewCellIdentifier, indexPath);
+
+			var asset = (PHAsset)AssetsFetchResults[indexPath.Item];
+
+			if (cell != null)
 			{
-				_parent = parent;
-			}
+				// Increment the cell's tag
+				var currentTag = cell.Tag + 1;
+				cell.Tag = currentTag;
 
-			public override nint NumberOfSections (UICollectionView collectionView)
-			{
-				return 1;
-			}
-
-			public override UICollectionViewCell GetCell (UICollectionView collectionView, NSIndexPath indexPath)
-			{
-				var cell = (GMGridViewCell) _parent.CollectionView.DequeueReusableCell (GMGridViewCellIdentifier, indexPath);
-
-				var asset = (PHAsset) _parent.AssetsFetchResults [indexPath.Item];
-
-				if (cell != null) {
-					// Increment the cell's tag
-					var currentTag = cell.Tag + 1;
-					cell.Tag = currentTag;
-
-					_parent._imageManager.RequestImageForAsset (asset,
-						AssetGridThumbnailSize,
-						PHImageContentMode.AspectFill,
-						new PHImageRequestOptions { DeliveryMode = PHImageRequestOptionsDeliveryMode.Opportunistic, ResizeMode = PHImageRequestOptionsResizeMode.Fast },
-						(image, info) => {
+				_imageManager.RequestImageForAsset(asset,
+					AssetGridThumbnailSize,
+					PHImageContentMode.AspectFill,
+					new PHImageRequestOptions { DeliveryMode = PHImageRequestOptionsDeliveryMode.Opportunistic, ResizeMode = PHImageRequestOptionsResizeMode.Fast },
+					(image, info) => {
 							// Only update the thumbnail if the cell tag hasn't changed. Otherwise, the cell has been re-used.
-							if (cell.Tag == currentTag && cell.ImageView != null && image != null) {
-								cell.ImageView.Image = image;
-							}
-						});
-				}
-
-				cell.Bind (asset);
-				cell.ShouldShowSelection = _parent._picker.AllowsMultipleSelection;
-
-				// Optional protocol to determine if some kind of assets can't be selected (long videos, etc...)
-				cell.IsEnabled = _parent._picker.VerifyShouldEnableAsset(asset);
-
-				if (_parent._picker.SelectedAssets.Contains (asset)) {
-					cell.Selected = true;
-					_parent.CollectionView.SelectItem (indexPath, false, UICollectionViewScrollPosition.None);
-				} else {
-					cell.Selected = false;
-				}
-
-				return cell;
+							if (cell.Tag == currentTag && cell.ImageView != null && image != null)
+						{
+							cell.ImageView.Image = image;
+						}
+					});
 			}
 
-			public override nint GetItemsCount (UICollectionView collectionView, nint section)
+			cell.Bind(asset);
+			cell.ShouldShowSelection = _picker.AllowsMultipleSelection;
+
+			// Optional protocol to determine if some kind of assets can't be selected (long videos, etc...)
+			cell.IsEnabled = _picker.VerifyShouldEnableAsset(asset);
+
+			if (_picker.SelectedAssets.Contains(asset))
 			{
-				var count = _parent.AssetsFetchResults.Count;
-				return count;
+				cell.Selected = true;
+				CollectionView.SelectItem(indexPath, false, UICollectionViewScrollPosition.None);
+			}
+			else
+			{
+				cell.Selected = false;
 			}
 
-			public override void ItemSelected (UICollectionView collectionView, NSIndexPath indexPath)
-			{
-				var asset = (PHAsset)_parent.AssetsFetchResults [indexPath.Item];
+			return cell;
+		}
 
-				_parent._picker.SelectAsset (asset);
-				_parent._picker.NotifyAssetSelected (asset);
+		public override nint GetItemsCount(UICollectionView collectionView, nint section)
+		{
+			var count = AssetsFetchResults.Count;
+			return count;
+		}
+
+		public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
+		{
+			var asset = (PHAsset)AssetsFetchResults[indexPath.Item];
+			_picker.SelectAsset(asset);
+			_picker.NotifyAssetSelected(asset);
+		}
+
+		public override bool ShouldDeselectItem(UICollectionView collectionView, NSIndexPath indexPath)
+		{
+			var asset = (PHAsset)AssetsFetchResults[indexPath.Item];
+			return _picker.VerifyShouldDeselectAsset(asset);
+		}
+
+		public override bool ShouldHighlightItem(UICollectionView collectionView, NSIndexPath indexPath)
+		{
+			var asset = (PHAsset)AssetsFetchResults[indexPath.Item];
+			return _picker.VerifyShouldHighlightAsset(asset);
+		}
+
+		public override void ItemHighlighted(UICollectionView collectionView, NSIndexPath indexPath)
+		{
+			var asset = (PHAsset)AssetsFetchResults[indexPath.Item];
+			_picker.NotifyAssetHighlighted(asset);
+		}
+
+		public override void ItemUnhighlighted(UICollectionView collectionView, NSIndexPath indexPath)
+		{
+			var asset = (PHAsset)AssetsFetchResults[indexPath.Item];
+			_picker.NotifyAssetUnhighlighted(asset);
+		}
+
+		public override bool ShouldSelectItem(UICollectionView collectionView, NSIndexPath indexPath)
+		{
+			var asset = (PHAsset)AssetsFetchResults[indexPath.Item];
+
+			var cell = (GMGridViewCell)collectionView.CellForItem(indexPath);
+
+			if (!cell.IsEnabled)
+			{
+				return false;
 			}
-
-			public override bool ShouldDeselectItem (UICollectionView collectionView, NSIndexPath indexPath)
+			else
 			{
-				var asset = (PHAsset)_parent.AssetsFetchResults [indexPath.Item];
-				return _parent._picker.VerifyShouldDeselectAsset (asset);
-			}
-
-			public override bool ShouldHighlightItem (UICollectionView collectionView, NSIndexPath indexPath)
-			{
-				var asset = (PHAsset)_parent.AssetsFetchResults [indexPath.Item];
-				return _parent._picker.VerifyShouldHighlightAsset (asset);
-			}
-
-			public override void ItemHighlighted (UICollectionView collectionView, NSIndexPath indexPath)
-			{
-				var asset = (PHAsset)_parent.AssetsFetchResults [indexPath.Item];
-				_parent._picker.NotifyAssetHighlighted (asset);
-			}
-
-			public override void ItemUnhighlighted (UICollectionView collectionView, NSIndexPath indexPath)
-			{
-				var asset = (PHAsset)_parent.AssetsFetchResults [indexPath.Item];
-				_parent._picker.NotifyAssetUnhighlighted (asset);
-			}
-
-			public override bool ShouldSelectItem (UICollectionView collectionView, NSIndexPath indexPath)
-			{
-				var asset = (PHAsset)_parent.AssetsFetchResults [indexPath.Item];
-
-				var cell = (GMGridViewCell)collectionView.CellForItem (indexPath);
-
-				if (!cell.IsEnabled) {
-					return false;
-				} else {
-					return _parent._picker.VerifyShouldSelectAsset (asset);
-				}
-			}
-
-			public override void ItemDeselected (UICollectionView collectionView, NSIndexPath indexPath)
-			{
-				var asset = (PHAsset)_parent.AssetsFetchResults [indexPath.Item];
-
-				_parent._picker.DeselectAsset (asset);
-				_parent._picker.NotifyAssetDeselected (asset);
+				return _picker.VerifyShouldSelectAsset(asset);
 			}
 		}
 
-		#endregion
+		public override void ItemDeselected(UICollectionView collectionView, NSIndexPath indexPath)
+		{
+			var asset = (PHAsset)AssetsFetchResults[indexPath.Item];
+
+			_picker.DeselectAsset(asset);
+			_picker.NotifyAssetDeselected(asset);
+		}
 	}
+
+	#endregion
 }
 

@@ -18,6 +18,7 @@ using Foundation;
 using AssetsLibrary;
 using System.Threading.Tasks;
 using AVFoundation;
+using System.Diagnostics;
 
 namespace GMImagePicker
 {
@@ -356,7 +357,7 @@ namespace GMImagePicker
 
 			Canceled?.Invoke(this, EventArgs.Empty);
 
-			PresentingViewController.DismissViewController (true, null);
+			PresentingViewController?.DismissViewController (true, null);
 		}
 
 		public void FinishPickingAssets (object sender, EventArgs args)
@@ -366,7 +367,7 @@ namespace GMImagePicker
 
 			FinishedPickingAssets?.Invoke(this, new MultiAssetEventArgs(_selectedAssets.ToArray()));
 
-			PresentingViewController.DismissViewController (true, null);
+			PresentingViewController?.DismissViewController (true, null);
 		}
 
 		private void UpdateDoneButton()
@@ -479,7 +480,7 @@ namespace GMImagePicker
 
 			public override async void FinishedPickingMedia (UIImagePickerController picker, NSDictionary info)
 			{
-				await picker.PresentingViewController.DismissViewControllerAsync (true);
+				await picker.PresentingViewController?.DismissViewControllerAsync (true);
 
 				var mediaType = (NSString) info[UIImagePickerController.MediaType];
 				if (mediaType == UTType.Image) {
@@ -519,7 +520,7 @@ namespace GMImagePicker
 
 			public override void Canceled (UIImagePickerController picker)
 			{
-				picker.PresentingViewController.DismissViewController (true, null);
+				picker.PresentingViewController?.DismissViewController (true, null);
 			}
 		}
 
@@ -755,34 +756,22 @@ namespace GMImagePicker
 
 		internal void NotifyAssetSelected(PHAsset asset)
 		{
-			var e = AssetSelected;
-			if (e != null) {
-				e (this, new SingleAssetEventArgs (asset));
-			}
+			AssetSelected?.Invoke(this, new SingleAssetEventArgs(asset));
 		}
 
         internal void NotifyAssetDeselected(PHAsset asset)
 		{
-			var e = AssetDeselected;
-			if (e != null) {
-				e (this, new SingleAssetEventArgs (asset));
-			}
+			AssetDeselected?.Invoke(this, new SingleAssetEventArgs(asset));
 		}
 
         internal void NotifyAssetHighlighted(PHAsset asset)
 		{
-			var e = AssetHighlighted;
-			if (e != null) {
-				e (this, new SingleAssetEventArgs (asset));
-			}
+			AssetHighlighted?.Invoke(this, new SingleAssetEventArgs(asset));
 		}
 
         internal void NotifyAssetUnhighlighted(PHAsset asset)
 		{
-			var e = AssetUnhighlighted;
-			if (e != null) {
-				e (this, new SingleAssetEventArgs (asset));
-			}
+			AssetUnhighlighted?.Invoke(this, new SingleAssetEventArgs(asset));
 		}
 
         internal bool VerifyShouldEnableAsset(PHAsset asset) 
@@ -921,6 +910,7 @@ namespace GMImagePicker
 
 		private void Unregister ()
 		{
+			Debug.WriteLine($"{GetType().Name}: Unregister");
 			if (_albumsViewController != null) {
 				_albumsViewController.Dispose ();
 				_albumsViewController = null;

@@ -11,16 +11,19 @@
     <RootNamespace>GMImagePicker</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>GMImagePicker.Xamarin</AssemblyName>
-    <ReleaseVersion>2.0.0</ReleaseVersion>
     <PackOnBuild>true</PackOnBuild>
     <PackageId>GMImagePicker.Xamarin</PackageId>
-    <PackageVersion>2.2.0</PackageVersion>
+    <PackageVersion>2.2.2</PackageVersion>
     <Authors>Roy Cornelissen</Authors>
     <PackageIconUrl>https://raw.githubusercontent.com/roycornelissen/GMImagePicker.Xamarin/master/GMImagePickerIcon.png</PackageIconUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/roycornelissen/GMImagePicker.Xamarin/master/LICENSE</PackageLicenseUrl>
     <Owners>Roy Cornelissen</Owners>
     <PackageProjectUrl>https://github.com/roycornelissen/GMImagePicker.Xamarin</PackageProjectUrl>
-    <PackageReleaseNotes>[2.2.0]
+    <PackageReleaseNotes>[2.2.2]
+- Fixed crash #31 that would occur when taking a screenshot after having selected an image. Thanks Alex for the repo.
+[2.2.1]
+- Fixed crash that could happen in certain scroll position while pressing camera button. Thanks Ivan for the PR!
+[2.2.0]
 - Fixed #25: Photos in iCloud collections were not displayed
 [2.1.0]
 - Fixed #22: Added support for recording new videos with camera button (Thanks to Karim El Jed for the PR)
@@ -67,6 +70,7 @@
     <PackageTags>photos, images, image picker, ios, GMImagePicker, xamarin, plugin, xamarin.ios</PackageTags>
     <Title>GMImagePicker for Xamarin.iOS</Title>
     <Description>Xamarin.iOS port of the original GMImagePicker component by Guillermo Muntaner Perelló</Description>
+    <ReleaseVersion>2.2.2</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

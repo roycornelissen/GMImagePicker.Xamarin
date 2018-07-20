@@ -15,11 +15,14 @@ using Foundation;
 using System.Linq;
 using System.Collections.Generic;
 using CoreFoundation;
+using System.Diagnostics;
 
 namespace GMImagePicker
 {
 	internal class GMAlbumsViewController: UITableViewController, IPHPhotoLibraryChangeObserver
 	{
+		private const string CellReuseIdentifier = "AlbumCell";
+
 		// Measuring iOS8 Photos APP at @2x (iPhone5s):
 		//   The rows are 180px/90pts
 		//   Left image border is 21px/10.5pts
@@ -46,13 +49,14 @@ namespace GMImagePicker
 		private const string AllPhotosReuseIdentifier = "AllPhotosCell";
 		private const string CollectionCellReuseIdentifier = "CollectionCell";
 
-		public GMAlbumsViewController (): base(UITableViewStyle.Plain)
+		public GMAlbumsViewController() : base(UITableViewStyle.Plain)
 		{
 			PreferredContentSize = GMImagePickerController.PopoverContentSize;
 		}
-			
+
 		public void PhotoLibraryDidChange (PHChange changeInstance)
 		{
+			Debug.WriteLine($"{this.GetType().Name}: PhotoLibraryDidChange");
 			// Call might come on any background queue. Re-dispatch to the main queue to handle it.
 			DispatchQueue.MainQueue.DispatchAsync (() => {
 				List<PHFetchResult> updatedCollectionsFetchResults = null;
@@ -113,7 +117,6 @@ namespace GMImagePicker
 			// Table view aspect
 			TableView.RowHeight = AlbumRowHeight;
 			TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
-			TableView.Source = new GMAlbumsViewTableViewSource(this);
 
 			// Buttons
 			var barButtonItemAttributes = new UITextAttributes
@@ -186,6 +189,7 @@ namespace GMImagePicker
 
 		private void Unregister() 
 		{
+			Debug.WriteLine($"{GetType().Name}: Unregister");
 			PHPhotoLibrary.SharedPhotoLibrary.UnregisterChangeObserver (this);
 		}
 
@@ -197,7 +201,7 @@ namespace GMImagePicker
 		public void SelectAllAlbumsCell()
 		{
 			var path = NSIndexPath.Create(0, 0);
-			TableView.Source.RowSelected (TableView, path);
+			RowSelected(TableView, path);
 		}
 
 		private void UpdateFetchResults()
@@ -294,180 +298,183 @@ namespace GMImagePicker
 		{
 			return UIInterfaceOrientationMask.AllButUpsideDown;
 		}
-		#endregion
 
-		#region TableViewSource
-
-		private class GMAlbumsViewTableViewSource : UITableViewSource
+		public override nint NumberOfSections(UITableView tableView)
 		{
-			private const string CellReuseIdentifier = "Cell";
-			private readonly GMAlbumsViewController _parent;
+			return _collectionsFetchResultsAssets.Length;
+		}
 
-			public GMAlbumsViewTableViewSource(GMAlbumsViewController parent) {
-				_parent = parent;
+		public override nint RowsInSection(UITableView tableView, nint section)
+		{
+			var fetchResult = _collectionsFetchResultsAssets[(int)section];
+			return fetchResult.Length;
+		}
+
+		public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
+		{
+			var cell = (GMAlbumsViewCell)tableView.DequeueReusableCell(CellReuseIdentifier);
+			if (cell == null)
+			{
+				cell = new GMAlbumsViewCell(UITableViewCellStyle.Subtitle, CellReuseIdentifier);
+				cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
 			}
 
-			public override nint NumberOfSections (UITableView tableView)
+			// Increment the cell's tag
+			var currentTag = cell.Tag + 1;
+			cell.Tag = currentTag;
+
+			// Set the label
+			cell.TextLabel.Font = UIFont.FromName(_picker.PickerFontName, _picker.PickerFontHeaderSize);
+			cell.TextLabel.Text = _collectionsFetchResultsTitles[indexPath.Section][indexPath.Row];
+			cell.TextLabel.TextColor = _picker.PickerTextColor;
+
+			// Retrieve the pre-fetched assets for this album:
+			var assetsFetchResult = _collectionsFetchResultsAssets[indexPath.Section][indexPath.Row];
+
+			// Display the number of assets
+			if (_picker.DisplayAlbumsNumberOfAssets)
 			{
-				return _parent._collectionsFetchResultsAssets.Length;
+				cell.DetailTextLabel.Font = UIFont.FromName(_picker.PickerFontName, _picker.PickerFontNormalSize);
+				// Just use the number of assets. Album app does this:
+				cell.DetailTextLabel.Text = string.Format("{0:0}", assetsFetchResult.Count);
+				cell.DetailTextLabel.TextColor = _picker.PickerTextColor;
 			}
 
-			public override nint RowsInSection (UITableView tableview, nint section)
+			var numberOfAssets = assetsFetchResult.Count;
+
+			// Set the 3 images (if exists):
+			if (numberOfAssets > 0)
 			{
-				var fetchResult = _parent._collectionsFetchResultsAssets [(int) section];
-				return fetchResult.Length;
-			}
+				var scale = UIScreen.MainScreen.Scale;
 
-			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
-			{
-				var cell = (GMAlbumsViewCell)tableView.DequeueReusableCell (CellReuseIdentifier);
-				if (cell == null) {
-					cell = new GMAlbumsViewCell (UITableViewCellStyle.Subtitle, CellReuseIdentifier);
-					cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
-				}
+				var options = new PHImageRequestOptions
+				{
+					Synchronous = false,
+					NetworkAccessAllowed = true,
+					DeliveryMode = PHImageRequestOptionsDeliveryMode.Opportunistic,
+					ResizeMode = PHImageRequestOptionsResizeMode.Fast
+				};
 
-				// Increment the cell's tag
-				var currentTag = cell.Tag + 1;
-				cell.Tag = currentTag;
-
-				// Set the label
-				cell.TextLabel.Font = UIFont.FromName (_parent._picker.PickerFontName, _parent._picker.PickerFontHeaderSize);
-				cell.TextLabel.Text = _parent._collectionsFetchResultsTitles [indexPath.Section][indexPath.Row];
-				cell.TextLabel.TextColor = _parent._picker.PickerTextColor;
-
-				// Retrieve the pre-fetched assets for this album:
-				var assetsFetchResult = _parent._collectionsFetchResultsAssets[indexPath.Section][indexPath.Row];
-
-				// Display the number of assets
-				if (_parent._picker.DisplayAlbumsNumberOfAssets) {
-					cell.DetailTextLabel.Font = UIFont.FromName (_parent._picker.PickerFontName, _parent._picker.PickerFontNormalSize);
-					// Just use the number of assets. Album app does this:
-					cell.DetailTextLabel.Text = string.Format("{0:0}", assetsFetchResult.Count);
-					cell.DetailTextLabel.TextColor = _parent._picker.PickerTextColor;
-				}
-
-                var numberOfAssets = assetsFetchResult.Count;
-
-				// Set the 3 images (if exists):
-				if (numberOfAssets > 0) {
-					var scale = UIScreen.MainScreen.Scale;
-
-					var options = new PHImageRequestOptions
-					{
-						Synchronous = false,
-						NetworkAccessAllowed = true,
-						DeliveryMode = PHImageRequestOptionsDeliveryMode.Opportunistic,
-						ResizeMode = PHImageRequestOptionsResizeMode.Fast
-					};          
-
-					// Compute the thumbnail pixel size:
-					var tableCellThumbnailSize1 = new CGSize (AlbumThumbnailSize1.Width * scale, AlbumThumbnailSize1.Height * scale);
-					var asset = (PHAsset)assetsFetchResult[_parent._picker.GridSortOrder == SortOrder.Ascending ? numberOfAssets - 1 : 0];
-					cell.SetVideoLayout (asset.MediaType == PHAssetMediaType.Video);
-                    _parent._imageManager.RequestImageForAsset (asset,
-                        tableCellThumbnailSize1,
-					    PHImageContentMode.AspectFill,
-	                    options,
-                        (image, info) => {
-						if (cell.Tag == currentTag && cell.ImageView1 != null && image != null) {
+				// Compute the thumbnail pixel size:
+				var tableCellThumbnailSize1 = new CGSize(AlbumThumbnailSize1.Width * scale, AlbumThumbnailSize1.Height * scale);
+				var asset = (PHAsset)assetsFetchResult[_picker.GridSortOrder == SortOrder.Ascending ? numberOfAssets - 1 : 0];
+				cell.SetVideoLayout(asset.MediaType == PHAssetMediaType.Video);
+				_imageManager.RequestImageForAsset(asset,
+					tableCellThumbnailSize1,
+					PHImageContentMode.AspectFill,
+					options,
+					(image, info) => {
+						if (cell.Tag == currentTag && cell.ImageView1 != null && image != null)
+						{
 							cell.ImageView1.Image = image;
 						}
 					});
 
-					// Second & third images:
-					// TODO: Only preload the 3pixels height visible frame!
-					if (numberOfAssets > 1) {
-						// Compute the thumbnail pixel size:
-						var tableCellThumbnailSize2 = new CGSize (AlbumThumbnailSize2.Width * scale, AlbumThumbnailSize2.Height * 2);
-						asset = (PHAsset)assetsFetchResult [_parent._picker.GridSortOrder == SortOrder.Ascending ? numberOfAssets - 2 : 1];
-						_parent._imageManager.RequestImageForAsset (asset, 
-                            tableCellThumbnailSize2,
-						    PHImageContentMode.AspectFill,
-                            options,
-                            (image, info) => {
-							if (cell.Tag == currentTag && cell.ImageView2 != null && image != null) {
+				// Second & third images:
+				// TODO: Only preload the 3pixels height visible frame!
+				if (numberOfAssets > 1)
+				{
+					// Compute the thumbnail pixel size:
+					var tableCellThumbnailSize2 = new CGSize(AlbumThumbnailSize2.Width * scale, AlbumThumbnailSize2.Height * 2);
+					asset = (PHAsset)assetsFetchResult[_picker.GridSortOrder == SortOrder.Ascending ? numberOfAssets - 2 : 1];
+					_imageManager.RequestImageForAsset(asset,
+						tableCellThumbnailSize2,
+						PHImageContentMode.AspectFill,
+						options,
+						(image, info) => {
+							if (cell.Tag == currentTag && cell.ImageView2 != null && image != null)
+							{
 								cell.ImageView2.Image = image;
 							}
 						});
-					} else {
-						cell.ImageView2.Image = null;
-					}
+				}
+				else
+				{
+					cell.ImageView2.Image = null;
+				}
 
-					if (numberOfAssets > 2) {
-						// Compute the thumbnail pixel size:
-						var tableCellThumbnailSize3 = new CGSize (AlbumThumbnailSize3.Width * scale, AlbumThumbnailSize3.Height * 2);
-						asset = (PHAsset)assetsFetchResult [_parent._picker.GridSortOrder == SortOrder.Ascending ? numberOfAssets - 3 : 2];
-						_parent._imageManager.RequestImageForAsset (asset, 
-                            tableCellThumbnailSize3,
-						    PHImageContentMode.AspectFill,
-                            options,
-                            (image, info) => {
-							if (cell.Tag == currentTag && cell.ImageView3 != null && image != null) {
+				if (numberOfAssets > 2)
+				{
+					// Compute the thumbnail pixel size:
+					var tableCellThumbnailSize3 = new CGSize(AlbumThumbnailSize3.Width * scale, AlbumThumbnailSize3.Height * 2);
+					asset = (PHAsset)assetsFetchResult[_picker.GridSortOrder == SortOrder.Ascending ? numberOfAssets - 3 : 2];
+					_imageManager.RequestImageForAsset(asset,
+						tableCellThumbnailSize3,
+						PHImageContentMode.AspectFill,
+						options,
+						(image, info) => {
+							if (cell.Tag == currentTag && cell.ImageView3 != null && image != null)
+							{
 								cell.ImageView3.Image = image;
 							}
 						});
-					} else {
-						cell.ImageView3.Image = null;
-					}
-				} else {
-					cell.SetVideoLayout (false);
-					var emptyFolder = UIImage.FromFile ("GMEmptyFolder");
-					cell.ImageView3.Image = emptyFolder;
-					cell.ImageView2.Image = emptyFolder;
-					cell.ImageView1.Image = emptyFolder;
 				}
-				return cell;
-			}
-				
-			public override async void RowSelected (UITableView tableView, NSIndexPath indexPath)
-			{
-				// Remove selection so it looks better on slide in
-				tableView.DeselectRow (indexPath, true);
-
-				if (!await _parent._picker.EnsureHasPhotosPermission ()) 
+				else
 				{
-					return;
+					cell.ImageView3.Image = null;
 				}
-					
-				var cell = tableView.CellAt (indexPath);
+			}
+			else
+			{
+				cell.SetVideoLayout(false);
+				var emptyFolder = UIImage.FromFile("GMEmptyFolder");
+				cell.ImageView3.Image = emptyFolder;
+				cell.ImageView2.Image = emptyFolder;
+				cell.ImageView1.Image = emptyFolder;
+			}
+			return cell;
+		}
 
-				// Init the GMGridViewController
-				var gridViewController = new GMGridViewController (_parent._picker);
+		public override async void RowSelected(UITableView tableView, NSIndexPath indexPath)
+		{
+			// Remove selection so it looks better on slide in
+			tableView.DeselectRow(indexPath, true);
 
-				// Set the title
-				gridViewController.Title = _parent._collectionsFetchResultsTitles[indexPath.Section][indexPath.Row];
-				// Use the prefetched assets!
-				gridViewController.AssetsFetchResults = _parent._collectionsFetchResultsAssets [indexPath.Section] [indexPath.Row];
-
-				// Push GMGridViewController
-				_parent.NavigationController.PushViewController (gridViewController, true);
+			if (!await _picker.EnsureHasPhotosPermission())
+			{
+				return;
 			}
 
-			public override void WillDisplayHeaderView (UITableView tableView, UIView headerView, nint section)
+			var cell = tableView.CellAt(indexPath);
+
+			// Init the GMGridViewController
+			var gridViewController = new GMGridViewController(_picker);
+
+			// Set the title
+			gridViewController.Title = _collectionsFetchResultsTitles[indexPath.Section][indexPath.Row];
+			// Use the prefetched assets!
+			gridViewController.AssetsFetchResults = _collectionsFetchResultsAssets[indexPath.Section][indexPath.Row];
+
+			// Push GMGridViewController
+			NavigationController.PushViewController(gridViewController, true);
+		}
+
+		public override void WillDisplayHeaderView(UITableView tableView, UIView headerView, nint section)
+		{
+			var header = (UITableViewHeaderFooterView)headerView;
+			header.ContentView.BackgroundColor = UIColor.Clear;
+			header.BackgroundView.BackgroundColor = _picker.PickerBackgroundColor;
+
+			// Default is a bold font, but keep this styled as a normal font
+			header.TextLabel.Font = UIFont.FromName(_picker.PickerFontName, _picker.PickerFontNormalSize);
+			header.TextLabel.TextColor = _picker.PickerTextColor;
+		}
+
+		public override string TitleForHeader(UITableView tableView, nint section)
+		{
+			//Tip: returning null hides the section header!
+
+			string title = null;
+			if (section > 0)
 			{
-				var header = (UITableViewHeaderFooterView)headerView;
-				header.ContentView.BackgroundColor = UIColor.Clear;
-				header.BackgroundView.BackgroundColor = _parent._picker.PickerBackgroundColor;
-
-				// Default is a bold font, but keep this styled as a normal font
-				header.TextLabel.Font = UIFont.FromName(_parent._picker.PickerFontName, _parent._picker.PickerFontNormalSize);
-				header.TextLabel.TextColor = _parent._picker.PickerTextColor;
-			}
-
-			public override string TitleForHeader (UITableView tableView, nint section)
-			{
-				//Tip: returning null hides the section header!
-
-				string title = null;
-				if (section > 0) {
-					// Only show title for non-empty sections:
-					var fetchResult = _parent._collectionsFetchResultsAssets[section];
-					if (fetchResult.Any ()) {
-						title = _parent._collectionsLocalizedTitles [(int) section - 1];
-					}
+				// Only show title for non-empty sections:
+				var fetchResult = _collectionsFetchResultsAssets[section];
+				if (fetchResult.Any())
+				{
+					title = _collectionsLocalizedTitles[(int)section - 1];
 				}
-				return title;
 			}
+			return title;
 		}
 		#endregion
 	}
