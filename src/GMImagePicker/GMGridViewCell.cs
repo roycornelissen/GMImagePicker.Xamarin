@@ -120,6 +120,8 @@ namespace GMImagePicker
 
 			// Note: the views above are created in case this is toggled per cell, on the fly, etc.!
 			ShouldShowSelection = true;
+			
+			ConfigureSelectButtonAccessibilityAttributes(_selectedButton, false);
 		}
 
 		// Required to resize the CAGradientLayer because it does not support auto resizing.
@@ -170,6 +172,13 @@ namespace GMImagePicker
 			var minutes = (duration / 60) % 60;
 			return string.Format ("{0:00}:{1:00}", minutes, seconds);
 		}
+		
+		#region Voiceover Accessibility Configuration
+		private static void ConfigureSelectButtonAccessibilityAttributes(UIButton selectButton, bool isSelected)
+		{
+			selectButton.AccessibilityElementsHidden = true;
+		}
+		#endregion
 	}
 }
 

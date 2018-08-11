@@ -563,7 +563,8 @@ namespace GMImagePicker
 			{
 				cell.Selected = false;
 			}
-
+			
+			ConfigureSelectCellAccessibilityAttributes(cell, cell.Selected);
 			return cell;
 		}
 
@@ -609,7 +610,8 @@ namespace GMImagePicker
 			var asset = (PHAsset)AssetsFetchResults[indexPath.Item];
 
 			var cell = (GMGridViewCell)collectionView.CellForItem(indexPath);
-
+			ConfigureSelectCellAccessibilityAttributes(cell, true);
+			
 			if (!cell.IsEnabled)
 			{
 				return false;
@@ -623,10 +625,28 @@ namespace GMImagePicker
 		public override void ItemDeselected(UICollectionView collectionView, NSIndexPath indexPath)
 		{
 			var asset = (PHAsset)AssetsFetchResults[indexPath.Item];
+			var cell = (GMGridViewCell)collectionView.CellForItem(indexPath);
 
 			_picker.DeselectAsset(asset);
 			_picker.NotifyAssetDeselected(asset);
+			ConfigureSelectCellAccessibilityAttributes(cell, false);
 		}
+		
+		#region Voiceover Accessibility Configuration
+		private static void ConfigureSelectCellAccessibilityAttributes(GMGridViewCell selectedCell, bool isSelected)
+		{
+			selectedCell.AccessibilityTraits = UIAccessibilityTrait.Button;
+			selectedCell.IsAccessibilityElement = true;
+			if (!isSelected)
+			{
+				selectedCell.AccessibilityHint = "Check to select the image";
+			}
+			else
+			{
+				selectedCell.AccessibilityHint = "Uncheck to deselect the image";
+			}
+		}
+		#endregion
 	}
 
 	#endregion
