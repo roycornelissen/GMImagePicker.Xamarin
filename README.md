@@ -1,6 +1,6 @@
 GMImagePicker.Xamarin
 =====================
-[![Build Status](https://www.bitrise.io/app/06bf5373d7948e25.svg?token=hvo0-OutqWYMxWNN9al50w&branch=master)](https://www.bitrise.io/app/06bf5373d7948e25)
+[![Build status](https://roycornelissen.visualstudio.com/GMImagePicker.Xamarin/_apis/build/status/2?branch=master)](https://roycornelissen.visualstudio.com/GMImagePicker.Xamarin/_apis/build/status/2?branch=master)]
 [![NuGet package](https://buildstats.info/nuget/GMImagePicker.Xamarin?includePreReleases=false)](https://www.nuget.org/packages/GMImagePicker.Xamarin/)
 
 An image & video picker supporting multiple selection and several customizations. Powered by the iOS 8 **Photo framework**.

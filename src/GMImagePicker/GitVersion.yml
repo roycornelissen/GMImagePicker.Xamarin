@@ -1,0 +1,7 @@
+mode: ContinuousDeployment
+continuous-delivery-fallback-tag: ''
+commit-message-incrementing: Enabled
+branches:
+  (pull|pull\-requests|pr)[/-]:
+    mode: ContinuousDeployment
+    tag: pr

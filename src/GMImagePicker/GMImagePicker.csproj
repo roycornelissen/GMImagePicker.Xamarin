@@ -19,7 +19,10 @@
     <PackageLicenseUrl>https://raw.githubusercontent.com/roycornelissen/GMImagePicker.Xamarin/master/LICENSE</PackageLicenseUrl>
     <Owners>Roy Cornelissen</Owners>
     <PackageProjectUrl>https://github.com/roycornelissen/GMImagePicker.Xamarin</PackageProjectUrl>
-    <PackageReleaseNotes>[2.2.2]
+    <PackageReleaseNotes>[2.2.3]
+- Minor fix: replaced use of deprecated API method call
+- Switched to VSTS for CI builds
+[2.2.2]
 - Fixed crash #31 that would occur when taking a screenshot after having selected an image. Thanks Alex for the repo.
 [2.2.1]
 - Fixed crash that could happen in certain scroll position while pressing camera button. Thanks Ivan for the PR!
