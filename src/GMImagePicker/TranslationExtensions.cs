@@ -22,7 +22,7 @@ namespace GMImagePicker
 		{
 			var bundleClass = new DummyClass ().Class;
 			var languageBundle = NSBundle.FromClass (bundleClass);
-			var translatedString = languageBundle.LocalizedString(translate, defaultValue, "GMImagePicker");
+			var translatedString = languageBundle.GetLocalizedString(translate, defaultValue, "GMImagePicker");
 			return translatedString;
 		}
 	}
