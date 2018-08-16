@@ -564,7 +564,12 @@ namespace GMImagePicker
 				cell.Selected = false;
 			}
 			
-			ConfigureSelectCellAccessibilityAttributes(cell, cell.Selected);
+            var resources = PHAssetResource.GetAssetResources(asset);
+            var name = resources != null && resources.Length > 0
+                ? resources[0].OriginalFilename
+                : string.Empty;
+            
+			ConfigureSelectCellAccessibilityAttributes(cell, cell.Selected , name);
 			return cell;
 		}
 
@@ -610,7 +615,7 @@ namespace GMImagePicker
 			var asset = (PHAsset)AssetsFetchResults[indexPath.Item];
 
 			var cell = (GMGridViewCell)collectionView.CellForItem(indexPath);
-			ConfigureSelectCellAccessibilityAttributes(cell, true);
+			ConfigureSelectCellAccessibilityAttributes(cell, true, null);
 			
 			if (!cell.IsEnabled)
 			{
@@ -629,26 +634,30 @@ namespace GMImagePicker
 
 			_picker.DeselectAsset(asset);
 			_picker.NotifyAssetDeselected(asset);
-			ConfigureSelectCellAccessibilityAttributes(cell, false);
+			ConfigureSelectCellAccessibilityAttributes(cell, false, null);
 		}
 		
 		#region Voiceover Accessibility Configuration
-		private static void ConfigureSelectCellAccessibilityAttributes(GMGridViewCell selectedCell, bool isSelected)
+		private static void ConfigureSelectCellAccessibilityAttributes(GMGridViewCell selectedCell, bool isSelected, string imageName)
 		{
 			selectedCell.AccessibilityTraits = UIAccessibilityTrait.Button;
 			selectedCell.IsAccessibilityElement = true;
+            if (imageName!=null)
+            {
+                selectedCell.AccessibilityLabel = imageName;
+            }
+
 			if (!isSelected)
 			{
-				selectedCell.AccessibilityHint = "Check to select the image";
+                selectedCell.AccessibilityHint = "picker.accessibility.check-to-select".Translate(defaultValue: "Check to select the image");
 			}
 			else
 			{
-				selectedCell.AccessibilityHint = "Uncheck to deselect the image";
+                selectedCell.AccessibilityHint = "picker.accessibility.uncheck-to-deselect".Translate(defaultValue: "Uncheck to deselect the image");;
 			}
 		}
 		#endregion
 	}
-
 	#endregion
 }
 

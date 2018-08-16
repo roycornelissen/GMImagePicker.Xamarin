@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ed2c2e97-73f3-4ffd-9666-f4dadcd0c3b3" name="Default" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="GMGridViewCell.cs" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/GMImagePicker/GMGridViewCell.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-68">
+              <caret line="28" column="42" lean-forward="true" selection-start-line="28" selection-start-column="42" selection-end-line="28" selection-end-column="42" />
+              <folding>
+                <marker date="1533945493000" expanded="true" signature="0:239" ph="/* GMAlbumsViewCell.cs ... */" />
+                <marker date="1533945493000" expanded="false" signature="247:340" ph="..." />
+                <marker date="1533945493000" expanded="true" signature="365:5120" ph="{...}" />
+                <marker date="1533945493000" expanded="true" signature="420:5118" ph="{...}" />
+                <marker date="1533945493000" expanded="true" signature="1131:1157" ph="{...}" />
+                <marker date="1533945493000" expanded="true" signature="1240:1266" ph="{...}" />
+                <marker date="1533945493000" expanded="true" signature="1302:3692" ph="{...}" />
+                <marker date="1533945493000" expanded="true" signature="1333:1351" ph="{...}" />
+                <marker date="1533945493000" expanded="true" signature="1499:1634" ph="{...}" />
+                <marker date="1533945493000" expanded="true" signature="1840:1864" ph="{...}" />
+                <marker date="1533945493000" expanded="true" signature="2009:2114" ph="{...}" />
+                <marker date="1533945493000" expanded="true" signature="2303:2414" ph="{...}" />
+                <marker date="1533945493000" expanded="true" signature="2477:2754" ph="{...}" />
+                <marker date="1533945493000" expanded="true" signature="2856:2947" ph="{...}" />
+                <marker date="1533945493000" expanded="true" signature="3034:3306" ph="{...}" />
+                <marker date="1533945493000" expanded="true" signature="3821:4039" ph="{...}" />
+                <marker date="1533945493000" expanded="true" signature="4075:4439" ph="{...}" />
+                <marker date="1533945493000" expanded="true" signature="4154:4326" ph="{...}" />
+                <marker date="1533945493000" expanded="true" signature="4473:4686" ph="{...}" />
+                <marker date="1533945493000" expanded="true" signature="4482:4514" ph="{...}" />
+                <marker date="1533945493000" expanded="true" signature="4522:4682" ph="{...}" />
+                <marker date="1533945493000" expanded="true" signature="4586:4606" ph="{...}" />
+                <marker date="1533945493000" expanded="true" signature="4744:4884" ph="{...}" />
+                <marker date="1533945493000" expanded="true" signature="4890:5115" ph="Voiceover Accessibility Configuration" />
+                <marker date="1533945493000" expanded="true" signature="5042:5102" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/GMImagePicker/GMGridViewCell.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/GMImagePicker/GMGridViewController.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/GMImagePicker/GMGridViewCell.cs" />
+        <option value="$PROJECT_DIR$/GMImagePicker/GMGridViewController.cs" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="81" />
+    <option name="y" value="24" />
+    <option name="width" value="1920" />
+    <option name="height" value="1097" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="SolutionExplorer" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scratches" />
+      <pane id="SolutionExplorer">
+        <subPane>
+          <expand>
+            <path>
+              <item name="" type="13324e5d:SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+              <item name="GMPhotoPicker.Xamarin (3 projects)" type="977d5f41:SolutionExplorerNodeRider" />
+            </path>
+            <path>
+              <item name="" type="13324e5d:SolutionExplorerViewPane$ProjectViewPaneTreeStructure$createRoot$1" />
+              <item name="GMPhotoPicker.Xamarin (3 projects)" type="977d5f41:SolutionExplorerNodeRider" />
+              <item name="GMImagePicker" type="977d5f41:SolutionExplorerNodeRider" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+        <option name="show-file-system" value="false" />
+        <option name="show-all-items" value="false" />
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Rider.ProjectViewActivator.IsNotFirstRun" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="iOS Default" type="XamarinIOSProject" factoryName="Xamarin.iOS">
+      <option name="PROJECT_PATH" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="DEFAULT_IPHONE_DEVICE" value="" />
+      <option name="DEFAULT_IPHONE_SIMULATOR" value="" />
+      <option name="DEPLOY_TARGET_BEHAVIOUR_NAME" value="Ask" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ed2c2e97-73f3-4ffd-9666-f4dadcd0c3b3" name="Default" comment="" />
+      <created>1533945403708</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1533945403708</updated>
+      <workItem from="1533945405176" duration="3336000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="3336000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="81" y="24" width="1920" height="1097" extended-state="0" />
+    <layout>
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Errors In Solution" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Unit Tests" />
+      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="NuGet" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24973376" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Build" />
+      <window_info anchor="bottom" id="Inspection Results" visible="true" />
+      <window_info anchor="right" id="Database" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/GMImagePicker/GMGridViewController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="975">
+          <caret line="627" column="77" selection-start-line="627" selection-start-column="77" selection-end-line="627" selection-end-column="77" />
+          <folding>
+            <marker date="1533945714000" expanded="true" signature="0:243" ph="/* GMGridViewController.cs ... */" />
+            <marker date="1533945714000" expanded="false" signature="251:463" ph="..." />
+            <marker date="1533945714000" expanded="true" signature="488:21776" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="586:21761" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="1056:1064" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="1237:1908" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="1954:1979" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="2035:2124" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="2056:2084" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="2277:5490" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="2455:2551" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="2679:2728" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="3042:3177" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="3607:4540" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="3646:4507" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="4144:4290" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="4389:4501" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="4582:5452" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="5087:5233" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="5333:5446" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="5520:5636" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="5668:6775" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="5713:6084" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="6392:6771" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="6449:6538" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="6807:6860" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="6928:7086" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="7142:7288" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="7327:7685" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="7441:7510" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="7739:8268" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="7869:8264" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="8354:8756" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="8562:8726" ph="{...}" />
+            <marker date="1533945714000" expanded="false" signature="8760:12551" ph="Asset Caching" />
+            <marker date="1533945714000" expanded="true" signature="8857:8938" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="9076:10034" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="9141:9960" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="9323:9456" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="9484:9617" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="9645:9786" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="9814:9955" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="10072:11810" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="10160:10178" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="10540:11806" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="10811:10898" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="10920:11003" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="11201:11392" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="11433:11579" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="11617:11760" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="11890:12153" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="11921:11944" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="12026:12119" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="12226:12537" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="12413:12499" ph="{...}" />
+            <marker date="1533945714000" expanded="false" signature="12555:16015" ph="Photo Library Changes" />
+            <marker date="1533945714000" expanded="true" signature="12647:15264" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="12861:15258" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="13071:15253" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="13147:13175" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="13361:13478" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="13632:14313" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="13765:13861" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="13963:14305" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="14197:14296" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="14322:14851" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="14380:14674" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="14480:14665" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="14686:14843" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="14954:15214" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="15033:15206" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="15132:15197" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="15346:15568" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="15454:15530" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="15620:15675" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="15743:16001" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="16078:16126" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="16185:16219" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="16348:17675" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="16431:16449" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="16801:16987" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="17093:17613" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="17359:17606" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="17548:17599" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="17749:17770" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="17874:19253" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="18064:18700" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="18448:18693" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="18633:18686" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="18994:19116" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="19124:19161" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="19338:19404" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="19497:19635" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="19734:19854" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="19954:20075" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="20171:20281" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="20379:20491" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="20588:20910" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="20809:20837" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="20845:20906" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="21005:21277" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="21283:21758" ph="Voiceover Accessibility Configuration" />
+            <marker date="1533945714000" expanded="true" signature="21439:21745" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="21577:21653" ph="{...}" />
+            <marker date="1533945714000" expanded="true" signature="21661:21741" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Logs/Rider2018.1/SolutionBuilder/JetBrainsLog.ReSharperBuild_2018_08_16_01_13_21_4479.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1574">
+          <caret line="338" column="13" selection-start-line="338" selection-start-column="13" selection-end-line="338" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GMImagePicker/GMGridViewCell.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-68">
+          <caret line="28" column="42" lean-forward="true" selection-start-line="28" selection-start-column="42" selection-end-line="28" selection-end-column="42" />
+          <folding>
+            <marker date="1533945493000" expanded="true" signature="0:239" ph="/* GMAlbumsViewCell.cs ... */" />
+            <marker date="1533945493000" expanded="false" signature="247:340" ph="..." />
+            <marker date="1533945493000" expanded="true" signature="365:5120" ph="{...}" />
+            <marker date="1533945493000" expanded="true" signature="420:5118" ph="{...}" />
+            <marker date="1533945493000" expanded="true" signature="1131:1157" ph="{...}" />
+            <marker date="1533945493000" expanded="true" signature="1240:1266" ph="{...}" />
+            <marker date="1533945493000" expanded="true" signature="1302:3692" ph="{...}" />
+            <marker date="1533945493000" expanded="true" signature="1333:1351" ph="{...}" />
+            <marker date="1533945493000" expanded="true" signature="1499:1634" ph="{...}" />
+            <marker date="1533945493000" expanded="true" signature="1840:1864" ph="{...}" />
+            <marker date="1533945493000" expanded="true" signature="2009:2114" ph="{...}" />
+            <marker date="1533945493000" expanded="true" signature="2303:2414" ph="{...}" />
+            <marker date="1533945493000" expanded="true" signature="2477:2754" ph="{...}" />
+            <marker date="1533945493000" expanded="true" signature="2856:2947" ph="{...}" />
+            <marker date="1533945493000" expanded="true" signature="3034:3306" ph="{...}" />
+            <marker date="1533945493000" expanded="true" signature="3821:4039" ph="{...}" />
+            <marker date="1533945493000" expanded="true" signature="4075:4439" ph="{...}" />
+            <marker date="1533945493000" expanded="true" signature="4154:4326" ph="{...}" />
+            <marker date="1533945493000" expanded="true" signature="4473:4686" ph="{...}" />
+            <marker date="1533945493000" expanded="true" signature="4482:4514" ph="{...}" />
+            <marker date="1533945493000" expanded="true" signature="4522:4682" ph="{...}" />
+            <marker date="1533945493000" expanded="true" signature="4586:4606" ph="{...}" />
+            <marker date="1533945493000" expanded="true" signature="4744:4884" ph="{...}" />
+            <marker date="1533945493000" expanded="true" signature="4890:5115" ph="Voiceover Accessibility Configuration" />
+            <marker date="1533945493000" expanded="true" signature="5042:5102" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
