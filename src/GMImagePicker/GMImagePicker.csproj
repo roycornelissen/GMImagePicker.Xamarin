@@ -13,13 +13,15 @@
     <AssemblyName>GMImagePicker.Xamarin</AssemblyName>
     <PackOnBuild>true</PackOnBuild>
     <PackageId>GMImagePicker.Xamarin</PackageId>
-    <PackageVersion>2.2.2</PackageVersion>
+    <PackageVersion>999.999.999</PackageVersion>
     <Authors>Roy Cornelissen</Authors>
     <PackageIconUrl>https://raw.githubusercontent.com/roycornelissen/GMImagePicker.Xamarin/master/GMImagePickerIcon.png</PackageIconUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/roycornelissen/GMImagePicker.Xamarin/master/LICENSE</PackageLicenseUrl>
     <Owners>Roy Cornelissen</Owners>
     <PackageProjectUrl>https://github.com/roycornelissen/GMImagePicker.Xamarin</PackageProjectUrl>
-    <PackageReleaseNotes>[2.2.3]
+    <PackageReleaseNotes>[2.3.0]
+- Fixed #33: Add voiceover hints for image selection/deselection in GMGridViewController. Thanks Seara Chen for the PR!
+[2.2.3]
 - Minor fix: replaced use of deprecated API method call
 - Switched to VSTS for CI builds
 [2.2.2]

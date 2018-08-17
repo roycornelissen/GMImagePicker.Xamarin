@@ -582,8 +582,11 @@ namespace GMImagePicker
 		public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
 		{
 			var asset = (PHAsset)AssetsFetchResults[indexPath.Item];
+			var cell = (GMGridViewCell)collectionView.CellForItem(indexPath);
+
 			_picker.SelectAsset(asset);
 			_picker.NotifyAssetSelected(asset);
+			ConfigureSelectCellAccessibilityAttributes(cell, true, null);
 		}
 
 		public override bool ShouldDeselectItem(UICollectionView collectionView, NSIndexPath indexPath)
@@ -613,10 +616,8 @@ namespace GMImagePicker
 		public override bool ShouldSelectItem(UICollectionView collectionView, NSIndexPath indexPath)
 		{
 			var asset = (PHAsset)AssetsFetchResults[indexPath.Item];
-
 			var cell = (GMGridViewCell)collectionView.CellForItem(indexPath);
-			ConfigureSelectCellAccessibilityAttributes(cell, true, null);
-			
+
 			if (!cell.IsEnabled)
 			{
 				return false;
