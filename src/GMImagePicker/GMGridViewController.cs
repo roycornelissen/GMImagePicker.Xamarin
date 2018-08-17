@@ -563,7 +563,13 @@ namespace GMImagePicker
 			{
 				cell.Selected = false;
 			}
-
+			
+            var resources = PHAssetResource.GetAssetResources(asset);
+            var name = resources != null && resources.Length > 0
+                ? resources[0].OriginalFilename
+                : string.Empty;
+            
+			ConfigureSelectCellAccessibilityAttributes(cell, cell.Selected , name);
 			return cell;
 		}
 
@@ -609,7 +615,8 @@ namespace GMImagePicker
 			var asset = (PHAsset)AssetsFetchResults[indexPath.Item];
 
 			var cell = (GMGridViewCell)collectionView.CellForItem(indexPath);
-
+			ConfigureSelectCellAccessibilityAttributes(cell, true, null);
+			
 			if (!cell.IsEnabled)
 			{
 				return false;
@@ -623,12 +630,34 @@ namespace GMImagePicker
 		public override void ItemDeselected(UICollectionView collectionView, NSIndexPath indexPath)
 		{
 			var asset = (PHAsset)AssetsFetchResults[indexPath.Item];
+			var cell = (GMGridViewCell)collectionView.CellForItem(indexPath);
 
 			_picker.DeselectAsset(asset);
 			_picker.NotifyAssetDeselected(asset);
+			ConfigureSelectCellAccessibilityAttributes(cell, false, null);
 		}
-	}
+		
+		#region Voiceover Accessibility Configuration
+		private static void ConfigureSelectCellAccessibilityAttributes(GMGridViewCell selectedCell, bool isSelected, string imageName)
+		{
+			selectedCell.AccessibilityTraits = UIAccessibilityTrait.Button;
+			selectedCell.IsAccessibilityElement = true;
+            if (imageName!=null)
+            {
+                selectedCell.AccessibilityLabel = imageName;
+            }
 
+			if (!isSelected)
+			{
+                selectedCell.AccessibilityHint = "picker.accessibility.check-to-select".Translate(defaultValue: "Check to select the image");
+			}
+			else
+			{
+                selectedCell.AccessibilityHint = "picker.accessibility.uncheck-to-deselect".Translate(defaultValue: "Uncheck to deselect the image");;
+			}
+		}
+		#endregion
+	}
 	#endregion
 }
 
