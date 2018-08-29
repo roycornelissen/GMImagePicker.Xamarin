@@ -15,6 +15,8 @@
     <PackageId>GMImagePicker.Xamarin</PackageId>
     <PackageVersion>999.999.999</PackageVersion>
     <Authors>Roy Cornelissen</Authors>
+    <RepositoryUrl>https://github.com/roycornelissen/GMImagePicker.Xamarin.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
     <PackageIconUrl>https://raw.githubusercontent.com/roycornelissen/GMImagePicker.Xamarin/master/GMImagePickerIcon.png</PackageIconUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/roycornelissen/GMImagePicker.Xamarin/master/LICENSE</PackageLicenseUrl>
     <Owners>Roy Cornelissen</Owners>
