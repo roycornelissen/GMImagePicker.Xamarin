@@ -21,7 +21,9 @@
     <PackageLicenseUrl>https://raw.githubusercontent.com/roycornelissen/GMImagePicker.Xamarin/master/LICENSE</PackageLicenseUrl>
     <Owners>Roy Cornelissen</Owners>
     <PackageProjectUrl>https://github.com/roycornelissen/GMImagePicker.Xamarin</PackageProjectUrl>
-    <PackageReleaseNotes>[2.3.2]
+    <PackageReleaseNotes>[2.3.3]
+- #55: Added ru translations. Thanks @ish-1313!
+[2.3.2]
 - #49: Fixed Blue Tick doesn't appear in iOS 12. Thanks @vksuman!
 - #51: Added basic Norwegian and Polish translations. Thanks @vksuman!
 [2.3.1]
@@ -42,10 +44,8 @@
 - Fixed #22: Added support for recording new videos with camera button (Thanks to Karim El Jed for the PR)
 - Fixed #19: Added support for custom additional UIToolbarItems (Thanks to Armin (@pragmatrix) for the PR)
 - Bugfix for a possible NullReferenceIssue (Thanks to Armin (@pragmatrix) for the PR)
-
 [2.0.1]
 - Fixed #18: inaccurate item count in album overview (Thanks to Erik Rodriguez for finding the cause)
-
 [2.0.0]
 - iOS 11 compatibility (Thanks to Lennard Sprong for the PR)
 - Fixed high memory pressure issues (Thanks to Rolf van Kuijen for the PR)
