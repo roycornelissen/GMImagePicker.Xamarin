@@ -150,7 +150,7 @@
   <ItemGroup>
     <BundleResource Include="pl.lproj\GMImagePicker.strings" />
     <None Include="packages.config" />
-    <BundleResource Include="no.lproj\GMImagePicker.strings" />
+    <BundleResource Include="nb.lproj\GMImagePicker.strings" />
   </ItemGroup>
   <Import Project="..\..\samples\packages\NuGet.Build.Packaging.0.1.276\build\NuGet.Build.Packaging.targets" Condition="Exists('..\..\samples\packages\NuGet.Build.Packaging.0.1.276\build\NuGet.Build.Packaging.targets')" />
   <Import Project="..\packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.targets" Condition="Exists('..\packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.targets')" />
