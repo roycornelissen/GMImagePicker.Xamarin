@@ -116,7 +116,7 @@ namespace GMImagePicker
 			};
 			_selectedButton.SetImage (null, UIControlState.Normal);
 			_selectedButton.SetImage (UIImage.FromFile ("GMSelected"), UIControlState.Selected);
-			AddSubview (_selectedButton);
+            _coverView.AddSubview(_selectedButton);
 
 			// Note: the views above are created in case this is toggled per cell, on the fly, etc.!
 			ShouldShowSelection = true;
