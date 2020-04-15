@@ -659,35 +659,66 @@ namespace GMImagePicker
 
 			SetupNavigationController ();
 		}
+		Task _viewDidLoadAsyncTask = Task.CompletedTask;
 
-		public override void ViewWillAppear (bool animated)
-		{
-			base.ViewWillAppear (animated);
+		public virtual Task ViewDidLoadAsync() {
+			return _viewDidLoadAsyncTask;
+		}
 
-			// Ensure nav and toolbar customisations are set. Defaults are in place, but the user may have changed them
-			View.BackgroundColor = PickerBackgroundColor;
-
-			_navigationController.Toolbar.Translucent = true;
-
-			_navigationController.Toolbar.BarTintColor = ToolbarBarTintColor;
-			_navigationController.Toolbar.TintColor = ToolbarTintColor;
-			_navigationController.Toolbar.BackgroundColor = ToolbarBackgroundColor;
-
-			_navigationController.NavigationBar.TintColor = NavigationBarTintColor;
-			_navigationController.NavigationBar.BarTintColor = NavigationBarBarTintColor;
-			_navigationController.NavigationBar.BackgroundColor = NavigationBarBackgroundColor;
-
-			UIStringAttributes attributes;
-			if (UseCustomFontForNavigationBar) {
-				attributes = new UIStringAttributes { ForegroundColor = NavigationBarTextColor, 
-					Font = UIFont.FromName (PickerBoldFontName, PickerFontHeaderSize)
-				};
-			} else {
-				attributes = new UIStringAttributes { ForegroundColor = NavigationBarTextColor };
+		public sealed override async void ViewDidLoad() {
+			try {
+				base.ViewDidLoad();
+				_viewDidLoadAsyncTask = ViewDidLoadAsync();
+				await _viewDidLoadAsyncTask;
 			}
-			_navigationController.NavigationBar.TitleTextAttributes = attributes;
+			catch (Exception ex) {
+				// Handle
+			}
+		}
 
-			UpdateToolbar ();
+		Task _viewWillAppearAsyncTask = Task.CompletedTask;
+
+		public virtual Task ViewWillAppearAsync() {
+			return _viewWillAppearAsyncTask;
+		}
+
+		public sealed override async void ViewWillAppear (bool animated)
+		{
+			try {
+				await _viewDidLoadAsyncTask;
+				base.ViewWillAppear (animated);
+
+				// Ensure nav and toolbar customisations are set. Defaults are in place, but the user may have changed them
+				View.BackgroundColor = PickerBackgroundColor;
+
+				_navigationController.Toolbar.Translucent = true;
+
+				_navigationController.Toolbar.BarTintColor = ToolbarBarTintColor;
+				_navigationController.Toolbar.TintColor = ToolbarTintColor;
+				_navigationController.Toolbar.BackgroundColor = ToolbarBackgroundColor;
+
+				_navigationController.NavigationBar.TintColor = NavigationBarTintColor;
+				_navigationController.NavigationBar.BarTintColor = NavigationBarBarTintColor;
+				_navigationController.NavigationBar.BackgroundColor = NavigationBarBackgroundColor;
+
+				UIStringAttributes attributes;
+				if (UseCustomFontForNavigationBar) {
+					attributes = new UIStringAttributes { ForegroundColor = NavigationBarTextColor, 
+						Font = UIFont.FromName (PickerBoldFontName, PickerFontHeaderSize)
+					};
+				} else {
+					attributes = new UIStringAttributes { ForegroundColor = NavigationBarTextColor };
+				}
+				_navigationController.NavigationBar.TitleTextAttributes = attributes;
+
+				UpdateToolbar ();
+				_viewWillAppearAsyncTask = ViewWillAppearAsync();
+				await _viewWillAppearAsyncTask;
+			}
+			catch (Exception ex) 
+			{
+				//Handle
+			}
 		}
 
 		/// <summary>
