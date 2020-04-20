@@ -17,6 +17,7 @@ using Foundation;
 using CoreFoundation;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace GMImagePicker
 {
@@ -188,55 +189,105 @@ namespace GMImagePicker
 			_picker.Dismiss (sender, args);
 		}
 
-		public override void ViewDidLoad ()
+		Task _viewDidLoadAsyncTask = Task.CompletedTask;
+
+		public virtual Task ViewDidLoadAsync() 
 		{
-			base.ViewDidLoad ();
-
-			SetupViews ();
-
-			if (!string.IsNullOrEmpty(_picker.CustomNavigationBarPrompt)) {
-				NavigationItem.Prompt = _picker.CustomNavigationBarPrompt;
-			}
-
-			_imageManager = new PHCachingImageManager ();
-			ResetCachedAssets ();
-
-			// Register for changes
-			PHPhotoLibrary.SharedPhotoLibrary.RegisterChangeObserver (this);
+			return _viewDidLoadAsyncTask;
 		}
 
-		public override void ViewWillAppear(bool animated)
+		public sealed override async void ViewDidLoad ()
 		{
-			base.ViewWillAppear(animated);
-			SetupButtons();
-			SetupToolbar();
-
-			if (_picker.GridSortOrder == SortOrder.Ascending)
+			try 
 			{
-				// Scroll to bottom (newest images are at the bottom)
-				CollectionView.SetNeedsLayout();
-				CollectionView.LayoutIfNeeded();
+				base.ViewDidLoad ();
 
-				CollectionView.SetContentOffset(new CGPoint(0, CollectionView.CollectionViewLayout.CollectionViewContentSize.Height), false);
+				SetupViews ();
 
-				var item = CollectionView.NumberOfItemsInSection(0) - 1;
-				_newestItemPath = NSIndexPath.FromItemSection(item, 0);
+				if (!string.IsNullOrEmpty(_picker.CustomNavigationBarPrompt)) {
+					NavigationItem.Prompt = _picker.CustomNavigationBarPrompt;
+				}
+
+				_imageManager = new PHCachingImageManager ();
+				ResetCachedAssets ();
+
+				// Register for changes
+				PHPhotoLibrary.SharedPhotoLibrary.RegisterChangeObserver (this);
+
+				_viewDidLoadAsyncTask = ViewDidLoadAsync();
+				await _viewDidLoadAsyncTask;
+
+			}
+			catch(Exception ex) 
+			{
+				//Handle
+			}
+		}
+
+		Task _viewWillAppearAsyncTask = Task.CompletedTask;
+
+		public virtual Task ViewWillAppearAsync() 
+		{
+			return _viewWillAppearAsyncTask;
+		}
+
+		public sealed override async void ViewWillAppear(bool animated)
+		{
+			try 
+			{
+				await _viewDidLoadAsyncTask;
+				base.ViewWillAppear(animated);
+				SetupButtons();
+				SetupToolbar();
+
+				if (_picker.GridSortOrder == SortOrder.Ascending) {
+					// Scroll to bottom (newest images are at the bottom)
+					CollectionView.SetNeedsLayout();
+					CollectionView.LayoutIfNeeded();
+
+					CollectionView.SetContentOffset(new CGPoint(0, CollectionView.CollectionViewLayout.CollectionViewContentSize.Height), false);
+
+					var item = CollectionView.NumberOfItemsInSection(0) - 1;
+					_newestItemPath = NSIndexPath.FromItemSection(item, 0);
+				}
+				_viewWillAppearAsyncTask = ViewWillAppearAsync();
+				await _viewWillAppearAsyncTask;
+			}
+			catch(Exception ex) 
+			{
+				//Handle
 			}
 		}
 
 		NSIndexPath _newestItemPath;
 
-		public override void ViewDidAppear (bool animated)
+		Task _viewDidAppearAsyncTask = Task.CompletedTask;
+		public virtual Task ViewDidAppearAsync() 
 		{
-			base.ViewDidAppear (animated);
+			return _viewDidAppearAsyncTask;
+		}
 
-			if (_newestItemPath != null && _newestItemPath.Section >= 0 && _newestItemPath.Row >= 0 && _newestItemPath.Item >= 0 && _picker.GridSortOrder == SortOrder.Ascending)
+		public sealed override async void ViewDidAppear (bool animated)
+		{
+			try 
 			{
-				// Scroll to bottom (newest images are at the bottom)
-				CollectionView.ScrollToItem(_newestItemPath, UICollectionViewScrollPosition.Bottom, false);
-			}
+				await _viewDidLoadAsyncTask;
+				await _viewWillAppearAsyncTask;
+				base.ViewDidAppear(animated);
 
-			UpdateCachedAssets();
+				if (_newestItemPath != null && _newestItemPath.Section >= 0 && _newestItemPath.Row >= 0 && _newestItemPath.Item >= 0 && _picker.GridSortOrder == SortOrder.Ascending) {
+					// Scroll to bottom (newest images are at the bottom)
+					CollectionView.ScrollToItem(_newestItemPath, UICollectionViewScrollPosition.Bottom, false);
+				}
+
+				UpdateCachedAssets();
+				_viewDidAppearAsyncTask = ViewDidAppearAsync();
+				await _viewDidAppearAsyncTask;
+			}
+			catch(Exception ex)
+			{
+				//Handle
+			}
 		}
 
 		#region Asset Caching
