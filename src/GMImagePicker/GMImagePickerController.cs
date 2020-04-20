@@ -704,7 +704,7 @@ namespace GMImagePicker
 				UIStringAttributes attributes;
 				if (UseCustomFontForNavigationBar) {
 					attributes = new UIStringAttributes { ForegroundColor = NavigationBarTextColor, 
-						Font = UIFont.FromName (PickerBoldFontName, PickerFontHeaderSize)
+						Font = FontParser.GetFont (PickerBoldFontName, PickerFontHeaderSize)
 					};
 				} else {
 					attributes = new UIStringAttributes { ForegroundColor = NavigationBarTextColor };
@@ -885,7 +885,7 @@ namespace GMImagePicker
 			get {
 				return new UITextAttributes {
 					TextColor = ToolbarTextColor,
-					Font = UIFont.FromName (PickerFontName, PickerFontHeaderSize)
+					Font = FontParser.GetFont (PickerFontName, PickerFontHeaderSize)
 				};
 			}
 		}

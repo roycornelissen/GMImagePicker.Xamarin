@@ -16,6 +16,7 @@ using System.Linq;
 using System.Collections.Generic;
 using CoreFoundation;
 using System.Diagnostics;
+using CoreText;
 
 namespace GMImagePicker
 {
@@ -121,7 +122,7 @@ namespace GMImagePicker
 			// Buttons
 			var barButtonItemAttributes = new UITextAttributes
 			{
-				Font = UIFont.FromName(_picker.PickerFontName, _picker.PickerFontHeaderSize)
+				Font = FontParser.GetFont(_picker.PickerFontName, _picker.PickerFontHeaderSize)
 			};
 
 			var cancelTitle = _picker.CustomCancelButtonTitle ?? "picker.navigation.cancel-button".Translate(defaultValue: "Cancel");
@@ -324,7 +325,7 @@ namespace GMImagePicker
 			cell.Tag = currentTag;
 
 			// Set the label
-			cell.TextLabel.Font = UIFont.FromName(_picker.PickerFontName, _picker.PickerFontHeaderSize);
+			cell.TextLabel.Font = FontParser.GetFont(_picker.PickerFontName, _picker.PickerFontHeaderSize);
 			cell.TextLabel.Text = _collectionsFetchResultsTitles[indexPath.Section][indexPath.Row];
 			cell.TextLabel.TextColor = _picker.PickerTextColor;
 
@@ -334,7 +335,7 @@ namespace GMImagePicker
 			// Display the number of assets
 			if (_picker.DisplayAlbumsNumberOfAssets)
 			{
-				cell.DetailTextLabel.Font = UIFont.FromName(_picker.PickerFontName, _picker.PickerFontNormalSize);
+				cell.DetailTextLabel.Font = FontParser.GetFont(_picker.PickerFontName, _picker.PickerFontNormalSize);
 				// Just use the number of assets. Album app does this:
 				cell.DetailTextLabel.Text = string.Format("{0:0}", assetsFetchResult.Count);
 				cell.DetailTextLabel.TextColor = _picker.PickerTextColor;
@@ -456,7 +457,7 @@ namespace GMImagePicker
 			header.BackgroundView.BackgroundColor = _picker.PickerBackgroundColor;
 
 			// Default is a bold font, but keep this styled as a normal font
-			header.TextLabel.Font = UIFont.FromName(_picker.PickerFontName, _picker.PickerFontNormalSize);
+			header.TextLabel.Font = FontParser.GetFont(_picker.PickerFontName, _picker.PickerFontNormalSize);
 			header.TextLabel.TextColor = _picker.PickerTextColor;
 		}
 
