@@ -21,7 +21,9 @@
     <PackageLicenseUrl>https://raw.githubusercontent.com/roycornelissen/GMImagePicker.Xamarin/master/LICENSE</PackageLicenseUrl>
     <Owners>Roy Cornelissen</Owners>
     <PackageProjectUrl>https://github.com/roycornelissen/GMImagePicker.Xamarin</PackageProjectUrl>
-    <PackageReleaseNotes>[2.3.6]
+    <PackageReleaseNotes>[2.4.0]
+- #74 Raise GMImagePickerController.Canceled when the view is closed by pulling it down on iOS 13. Thanks @ThomasHilbertAtCervis
+[2.3.6]
 - #70 Fixes system fonts in iOS 13 reverting to TimesNewRoman.
 - #71 Fixes Picker auto scroll to bottom when selecting images. Thanks @dustintnguyen
 [2.3.5]
