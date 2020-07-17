@@ -50,6 +50,11 @@ namespace GMImagePicker
 		private GMAlbumsViewController _albumsViewController;
 
 		/// <summary>
+		/// Inhibits raising of the Canceled event on ViewDidDisappear
+		/// </summary>
+		private bool _finishedPickingAssets;
+
+		/// <summary>
 		/// Contains the selected 'PHAsset' objects. The order of the objects is the selection order.
 		/// You can add assets before presenting the picker to show the user some preselected assets.
 		/// </summary>
@@ -355,13 +360,13 @@ namespace GMImagePicker
 			// Explicitly unregister observers because we cannot predict when the GC cleans up
 			Unregister ();
 
-			Canceled?.Invoke(this, EventArgs.Empty);
-
 			PresentingViewController?.DismissViewController (true, null);
 		}
 
 		public void FinishPickingAssets (object sender, EventArgs args)
 		{
+			_finishedPickingAssets = true;
+
 			// Explicitly unregister observers because we cannot predict when the GC cleans up
 			Unregister ();
 
@@ -688,6 +693,8 @@ namespace GMImagePicker
 				await _viewDidLoadAsyncTask;
 				base.ViewWillAppear (animated);
 
+				_finishedPickingAssets = false;
+
 				// Ensure nav and toolbar customisations are set. Defaults are in place, but the user may have changed them
 				View.BackgroundColor = PickerBackgroundColor;
 
@@ -719,6 +726,14 @@ namespace GMImagePicker
 			{
 				//Handle
 			}
+		}
+
+		public override void ViewDidDisappear(bool animated)
+		{
+			base.ViewDidDisappear(animated);
+
+			if ((IsBeingDismissed || IsMovingFromParentViewController) && !_finishedPickingAssets)
+				Canceled?.Invoke(this, EventArgs.Empty);
 		}
 
 		/// <summary>
