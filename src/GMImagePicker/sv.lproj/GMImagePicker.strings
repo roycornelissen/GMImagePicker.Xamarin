@@ -1,0 +1,86 @@
+﻿/* Cancel */
+"picker.navigation.cancel-button" = "Avbryt";
+
+/* Done */
+"picker.navigation.done-button" = "Färdig";
+
+/* Navigation bar default title */
+"picker.navigation.title" = "GMImagePicker";
+
+/* %@ Items Selected */
+"picker.selection.multiple-items" = "{0} Valda objekt";
+
+/* %@ Photos Selected */
+"picker.selection.multiple-photos" = "{0} Valda bilder";
+
+/* %@ Videos Selected */
+"picker.selection.multiple-videos" = "{0} Valda videos";
+
+/* 1 Photo Selected */
+"picker.selection.single-photo" = "1 Bild vald";
+
+/* 1 Video Selected */
+"picker.selection.single-video" = "1 Video vald";
+
+/* All photos */
+"picker.table.all-photos-label" = "Alla bilder";
+
+/* Smart Albums */
+"picker.table.smart-albums-header" = "SMARTA ALBUM";
+
+/* Albums */
+"picker.table.user-albums-header" = "ALBUM";
+
+/* Confirmation of single selection alert title */
+"picker.confirm.title" = "Är du säker?";
+
+/* Confirmation of single selection alert message */
+"picker.confirm.message" = "Vill du välja bilden du klickat på?";
+
+/* Action (button) deny/no/refuse */
+"picker.action.no" = "Nej";
+
+/* Action (button) agree/yes/approve */
+"picker.action.yes" = "Ja";
+
+/* Error title for access denied message */
+"picker.photo-access-denied.title" = "Ingen åtkomst till bilder";
+
+/* Error message for access denied message */
+"picker.photo-access-denied.message" = "Du har inte givit denna app åtkomst till dina bilder. Vänligen tillåt åtkomst i iOS-inställningar.";
+
+/* Error title for access denied message */
+"picker.camera-access-denied.title" = "Ingen åtkomst till bilder";
+
+/* Error message for access denied message */
+"picker.camera-access-denied.message" = "Du har inte givit denna app åtkomst till din kamera. Vänligen tillåt åtkomst i iOS-inställningar.";
+
+/* Button title for the Settings button */
+"picker.navigation.settings-button" = "Inställningar";
+
+/* Error title for camera not available */
+"picker.camera.not-available.title" = "Ingen kamera tillgänglig";
+
+/* Error message for camera not available */
+"picker.camera.not-available.message" = "Beklagar, denna enhet har ingen kamera.";
+
+/* Action (button) accepted/understand */
+"picker.action.ok" = "OK";
+
+/* Error title for camera photo could not be saved */
+"picker.camera.image-not-saved.title" = "Bild kunde inte sparas";
+
+/* Error message for camera photo could not be saved */
+"picker.camera.image-not-saved.message" = "Beklagar, kan inte lagra den nya bilden!";
+
+/* Error title for camera video could not be saved */
+"picker.camera.video-not-saved.title" = "Video kunde inte sparas";
+
+/* Error message for camera video could not be saved */
+"picker.camera.video-not-saved.message" = "Beklagar, kan inte lagra den nya videon!";
+
+/* Accessibility voiceover hint for image selection cursor */
+"picker.accessibility.check-to-select" = "Markera för att välja bilden";
+
+/* Accessibility voiceover hint for image deselection cursor */
+"picker.accessibility.uncheck-to-deselect" = "Ta bort markering för att avmarkera bilden";
