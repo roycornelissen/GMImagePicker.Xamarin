@@ -454,7 +454,18 @@ namespace GMImagePicker
 		{
 			var header = (UITableViewHeaderFooterView)headerView;
 			header.ContentView.BackgroundColor = UIColor.Clear;
-			header.BackgroundView.BackgroundColor = _picker.PickerBackgroundColor;
+
+			if (header.BackgroundView != null)
+			{
+				header.BackgroundView.BackgroundColor = _picker.PickerBackgroundColor;
+			}
+			else if (UIDevice.CurrentDevice.CheckSystemVersion(14, 0))
+			{
+				if (header.BackgroundConfiguration != null)
+				{
+					header.BackgroundConfiguration.BackgroundColor = _picker.PickerBackgroundColor;
+				}
+			}
 
 			// Default is a bold font, but keep this styled as a normal font
 			header.TextLabel.Font = FontParser.GetFont(_picker.PickerFontName, _picker.PickerFontNormalSize);
