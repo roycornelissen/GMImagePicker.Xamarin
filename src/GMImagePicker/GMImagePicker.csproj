@@ -21,74 +21,10 @@
     <PackageLicenseUrl>https://raw.githubusercontent.com/roycornelissen/GMImagePicker.Xamarin/master/LICENSE</PackageLicenseUrl>
     <Owners>Roy Cornelissen</Owners>
     <PackageProjectUrl>https://github.com/roycornelissen/GMImagePicker.Xamarin</PackageProjectUrl>
-    <PackageReleaseNotes>[2.4.0]
-- #74 Raise GMImagePickerController.Canceled when the view is closed by pulling it down on iOS 13. Thanks @ThomasHilbertAtCervis
-[2.3.6]
-- #70 Fixes system fonts in iOS 13 reverting to TimesNewRoman.
-- #71 Fixes Picker auto scroll to bottom when selecting images. Thanks @dustintnguyen
-[2.3.5]
-- #65: Fixes the checkmark image not being visible on selected items. Thanks @sergbuk
-[2.3.4]
-- #58: Fixes for Norwegian translations. Thanks @jasonctoms
-- #59: Spanish translations. Thanks @Jose7777
-[2.3.3]
-- #55: Added ru translations. Thanks @ish-1313!
-[2.3.2]
-- #49: Fixed Blue Tick doesn't appear in iOS 12. Thanks @vksuman!
-- #51: Added basic Norwegian and Polish translations. Thanks @vksuman!
-[2.3.1]
-- #42: Updated Portuguese translations. Thanks Breno Baronte!
-- #37: Updated German translations. Thanks Stefan Mehnert!
-[2.3.0]
-- Fixed #33: Add voiceover hints for image selection/deselection in GMGridViewController. Thanks Seara Chen for the PR!
-[2.2.3]
-- Minor fix: replaced use of deprecated API method call
-- Switched to VSTS for CI builds
-[2.2.2]
-- Fixed crash #31 that would occur when taking a screenshot after having selected an image. Thanks Alex for the repo.
-[2.2.1]
-- Fixed crash that could happen in certain scroll position while pressing camera button. Thanks Ivan for the PR!
-[2.2.0]
-- Fixed #25: Photos in iCloud collections were not displayed
-[2.1.0]
-- Fixed #22: Added support for recording new videos with camera button (Thanks to Karim El Jed for the PR)
-- Fixed #19: Added support for custom additional UIToolbarItems (Thanks to Armin (@pragmatrix) for the PR)
-- Bugfix for a possible NullReferenceIssue (Thanks to Armin (@pragmatrix) for the PR)
-[2.0.1]
-- Fixed #18: inaccurate item count in album overview (Thanks to Erik Rodriguez for finding the cause)
-[2.0.0]
-- iOS 11 compatibility (Thanks to Lennard Sprong for the PR)
-- Fixed high memory pressure issues (Thanks to Rolf van Kuijen for the PR)
-- New hi-res image resources, including @3x size
-- Feature toggle for "AllowEditingCameraImages"
-[1.0.1]
--Fixes #10: Crash when a library is empty (Thanks to Rolf van Kuijen for the PR)
-[1.0.0]
--Bumped version to 1.0.0
--Fix for older devices that were unable to render highest quality images (Thanks to Rolf van Kuijen for the PR)
-[0.0.10]
--Fixed issue [#5]: Navigation bar does not show images behind it blurred (translucent)
--Camera button image now takes tintcolor set via GMImagePicker.CameraButtonTintColor property
--Fixed tint and background colors for navigationbar and toolbar
--Merged PR [#8] No longer setting the navigation bar background and shadow image
-[0.0.9]
--Fixed issue [#7]: Invalid registrar for GMGridViewCell.ctor(CGRect frame)
-[0.0.8]
--Fixed issue [#1]: Toolbar gets hidden due to wrong evaluation of selection
--Fixed issue [#2]: Auto selection behaviour after creating a new picture with the camera was incorrect
-[0.0.7]
--User is taken directly to Settings app to enable camera / photos access.
-[0.0.6]
--Added error messages and graceful handling of situations when the user has denied access to images and/or camera.
--Changed default sort order of photo grid to Creation Date Ascending to resemble native Photos app (this is customizable).
-[0.0.5]
--Asset preselection now works as expected.
-[0.0.4]
--Fixed loading of resource images in GMImagePicker DLL.
-[0.0.3]
--Cleaned up the public API as to not cause confusion about the API entry and extension points.
-[0.0.2]
--First version, feature parity with the original GMImagePicker version 0.0.2</PackageReleaseNotes>
+    <PackageReleaseNotes>[2.5.0]
+- #77 Fix for NullReferenceException crash when setting BackgroundView color in iOS >= 14.0. Thanks @csamzhou for the PR!
+- #76 Svenska översättningar läggs till. Tack till @henzinger! (Swedish translations)
+- #62 Options for customizing the back button.</PackageReleaseNotes>
     <Summary>Select multiple images and/or videos from the iOS gallery and camera. Uses iOS PhotoKit API's for optimal efficiency.</Summary>
     <PackageTags>photos, images, image picker, ios, GMImagePicker, xamarin, plugin, xamarin.ios</PackageTags>
     <Title>GMImagePicker for Xamarin.iOS</Title>
