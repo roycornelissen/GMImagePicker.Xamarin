@@ -137,8 +137,8 @@ namespace GMImagePicker
 		/// </summary>
 		/// <remarks>
 		/// Overrides CustomBackButtonTitle if set to true!
-        /// Supported from iOS >= 14.0
-		/// For backwards compatibility, in iOS < 14.0 UINavigationItemBackButtonDisplayMode.Minimal will set the title to ""
+        /// Supported from iOS &gt;= 14.0
+		/// For backwards compatibility, in iOS &lt; 14.0 UINavigationItemBackButtonDisplayMode.Minimal will set the title to ""
 		/// </remarks>
 		public UINavigationItemBackButtonDisplayMode BackButtonDisplayMode { get; set; } = UINavigationItemBackButtonDisplayMode.Default;
 

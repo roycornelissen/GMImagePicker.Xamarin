@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.props" Condition="Exists('..\packages\NuGet.Build.Packaging.0.2.2\build\NuGet.Build.Packaging.props')" />
   <Import Project="..\..\samples\packages\NuGet.Build.Packaging.0.1.276\build\NuGet.Build.Packaging.props" Condition="Exists('..\..\samples\packages\NuGet.Build.Packaging.0.1.276\build\NuGet.Build.Packaging.props')" />
@@ -22,7 +22,7 @@
     <Owners>Roy Cornelissen</Owners>
     <PackageProjectUrl>https://github.com/roycornelissen/GMImagePicker.Xamarin</PackageProjectUrl>
     <PackageReleaseNotes>[2.5.0]
-- #77 Fix for NullReferenceException crash when setting BackgroundView color in iOS >= 14.0. Thanks @csamzhou for the PR!
+- #77 Fix for NullReferenceException crash when setting BackgroundView color in iOS &gt;= 14.0. Thanks @csamzhou for the PR!
 - #76 Svenska översättningar läggs till. Tack till @henzinger! (Swedish translations)
 - #62 Options for customizing the back button.</PackageReleaseNotes>
     <Summary>Select multiple images and/or videos from the iOS gallery and camera. Uses iOS PhotoKit API's for optimal efficiency.</Summary>
