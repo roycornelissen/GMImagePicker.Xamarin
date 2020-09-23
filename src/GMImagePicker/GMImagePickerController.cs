@@ -127,6 +127,22 @@ namespace GMImagePicker
 		public string CustomCancelButtonTitle { get; set; }
 
 		/// <summary>
+		/// If set, it displays this string instead of the localised default of "Back" on the back button.
+		/// </summary>
+		/// <value>The custom back button title.</value>
+		public string CustomBackButtonTitle { get; set; }
+
+		/// <summary>
+		/// Customizes the display mode of the back button.
+		/// </summary>
+		/// <remarks>
+		/// Overrides CustomBackButtonTitle if set to true!
+        /// Supported from iOS >= 14.0
+		/// For backwards compatibility, in iOS < 14.0 UINavigationItemBackButtonDisplayMode.Minimal will set the title to ""
+		/// </remarks>
+		public UINavigationItemBackButtonDisplayMode BackButtonDisplayMode { get; set; } = UINavigationItemBackButtonDisplayMode.Default;
+
+		/// <summary>
 		/// If set, it displays a prompt in the navigation bar.
 		/// </summary>
 		/// <value>The custom navigation bar prompt.</value>
@@ -678,6 +694,7 @@ namespace GMImagePicker
 			}
 			catch (Exception ex) {
 				// Handle
+				Console.WriteLine(ex);
 			}
 		}
 
@@ -725,6 +742,7 @@ namespace GMImagePicker
 			catch (Exception ex) 
 			{
 				//Handle
+				Console.WriteLine(ex);
 			}
 		}
 
@@ -970,4 +988,3 @@ namespace GMImagePicker
 		}
 	}		
 }
-

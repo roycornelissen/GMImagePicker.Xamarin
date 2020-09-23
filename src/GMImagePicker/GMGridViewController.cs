@@ -161,6 +161,23 @@ namespace GMImagePicker
 					UIBarButtonItemStyle.Done,
 					Dismiss);
 			}
+
+			if (!string.IsNullOrWhiteSpace(_picker.CustomBackButtonTitle))
+			{
+				NavigationItem.BackButtonTitle = _picker.CustomBackButtonTitle;
+			}
+			if (UIDevice.CurrentDevice.CheckSystemVersion(14, 0))
+			{
+				NavigationItem.BackButtonDisplayMode = _picker.BackButtonDisplayMode;
+			}
+			else
+            {
+				if (_picker.BackButtonDisplayMode == UINavigationItemBackButtonDisplayMode.Minimal)
+                {
+					NavigationItem.BackButtonTitle = "";
+                }
+            }
+
 			if (_picker.UseCustomFontForNavigationBar) {
 				var barButtonItemAttributes = new UITextAttributes {
 					Font = FontParser.GetFont(_picker.PickerFontName, _picker.PickerFontHeaderSize)
@@ -218,9 +235,10 @@ namespace GMImagePicker
 				await _viewDidLoadAsyncTask;
 
 			}
-			catch(Exception ex) 
+			catch (Exception ex) 
 			{
 				//Handle
+				Console.WriteLine(ex);
 			}
 		}
 
@@ -253,9 +271,10 @@ namespace GMImagePicker
 				_viewWillAppearAsyncTask = ViewWillAppearAsync();
 				await _viewWillAppearAsyncTask;
 			}
-			catch(Exception ex) 
+			catch (Exception ex) 
 			{
 				//Handle
+				Console.WriteLine(ex);
 			}
 		}
 
@@ -284,9 +303,10 @@ namespace GMImagePicker
 				_viewDidAppearAsyncTask = ViewDidAppearAsync();
 				await _viewDidAppearAsyncTask;
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				//Handle
+				Console.WriteLine(ex);
 			}
 		}
 

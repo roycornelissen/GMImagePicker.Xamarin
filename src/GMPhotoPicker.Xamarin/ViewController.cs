@@ -36,6 +36,8 @@ namespace GMPhotoPicker.Xamarin
 				Title = "Custom Title",
 				CustomDoneButtonTitle = "Finished",
 				CustomCancelButtonTitle = "Nope",
+				CustomBackButtonTitle = "Previous",
+				BackButtonDisplayMode = UINavigationItemBackButtonDisplayMode.Minimal, // overrides CustomBackButtonTitle
 				CustomNavigationBarPrompt = "Take a new photo or select an existing one!",
 				ColsInPortrait = 3,
 				ColsInLandscape = 5,
@@ -186,4 +188,3 @@ namespace GMPhotoPicker.Xamarin
 		}
 	}
 }
-

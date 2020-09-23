@@ -8,19 +8,18 @@
 //
 
 using System;
-using UIKit;
-using CoreGraphics;
-using Photos;
-using Foundation;
-using System.Linq;
 using System.Collections.Generic;
-using CoreFoundation;
 using System.Diagnostics;
-using CoreText;
+using System.Linq;
+using CoreFoundation;
+using CoreGraphics;
+using Foundation;
+using Photos;
+using UIKit;
 
 namespace GMImagePicker
 {
-	internal class GMAlbumsViewController: UITableViewController, IPHPhotoLibraryChangeObserver
+    internal class GMAlbumsViewController: UITableViewController, IPHPhotoLibraryChangeObserver
 	{
 		private const string CellReuseIdentifier = "AlbumCell";
 
@@ -129,6 +128,22 @@ namespace GMImagePicker
 			NavigationItem.LeftBarButtonItem = new UIBarButtonItem(cancelTitle,
 				UIBarButtonItemStyle.Plain,
 				Dismiss);
+
+			if (!string.IsNullOrWhiteSpace(_picker.CustomBackButtonTitle))
+            {
+				NavigationItem.BackButtonTitle = _picker.CustomBackButtonTitle;
+            }
+			if (UIDevice.CurrentDevice.CheckSystemVersion(14, 0))
+            {
+				NavigationItem.BackButtonDisplayMode = _picker.BackButtonDisplayMode;
+            }
+			else
+			{
+				if (_picker.BackButtonDisplayMode == UINavigationItemBackButtonDisplayMode.Minimal)
+				{
+					NavigationItem.BackButtonTitle = "";
+				}
+			}
 
 			if (_picker.UseCustomFontForNavigationBar)
 			{
