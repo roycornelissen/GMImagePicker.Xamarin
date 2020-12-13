@@ -21,10 +21,9 @@
     <PackageLicenseUrl>https://raw.githubusercontent.com/roycornelissen/GMImagePicker.Xamarin/master/LICENSE</PackageLicenseUrl>
     <Owners>Roy Cornelissen</Owners>
     <PackageProjectUrl>https://github.com/roycornelissen/GMImagePicker.Xamarin</PackageProjectUrl>
-    <PackageReleaseNotes>[2.5.0]
-- #77 Fix for NullReferenceException crash when setting BackgroundView color in iOS &gt;= 14.0. Thanks @csamzhou for the PR!
-- #76 Svenska översättningar läggs till. Tack till @henzinger! (Swedish translations)
-- #62 Options for customizing the back button.</PackageReleaseNotes>
+    <PackageReleaseNotes>[2.5.1]
+- #40 Updated French translations. Merci @osc117!
+- #80 Fix for endless recursion crash when using custom fonts</PackageReleaseNotes>
     <Summary>Select multiple images and/or videos from the iOS gallery and camera. Uses iOS PhotoKit API's for optimal efficiency.</Summary>
     <PackageTags>photos, images, image picker, ios, GMImagePicker, xamarin, plugin, xamarin.ios</PackageTags>
     <Title>GMImagePicker for Xamarin.iOS</Title>
@@ -40,6 +39,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <MtouchLink>SdkOnly</MtouchLink>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -49,6 +49,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
     <DocumentationFile>bin\Release\GMImagePicker.Xamarin.XML</DocumentationFile>
+    <MtouchLink>SdkOnly</MtouchLink>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
