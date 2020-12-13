@@ -106,4 +106,8 @@
       <Name>GMImagePicker</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\OpenSans-Regular.ttf" />
+    <BundleResource Include="Resources\OpenSans-Bold.ttf" />
+  </ItemGroup>
 </Project>

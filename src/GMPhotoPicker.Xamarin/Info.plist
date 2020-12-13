@@ -63,5 +63,12 @@
 		<string>sv</string>
 		<string>zh-Hans</string>
 	</array>
+	<key>CFBundleDisplayName</key>
+	<string>GMPhotoPicker</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>OpenSans-Regular.ttf</string>
+		<string>OpenSans-Bold.ttf</string>
+	</array>
 </dict>
 </plist>

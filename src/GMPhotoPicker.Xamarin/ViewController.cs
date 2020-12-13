@@ -50,29 +50,30 @@ namespace GMPhotoPicker.Xamarin
 				ModalPresentationStyle = UIModalPresentationStyle.Popover,
 				MediaTypes = new[] { PHAssetMediaType.Image },
 
-				// Other customizations to play with:
-				//AdditionalToolbarItems = new UIBarButtonItem[] { new UIBarButtonItem(UIBarButtonSystemItem.Bookmarks), new UIBarButtonItem("Custom", UIBarButtonItemStyle.Bordered, (s, e) => { Console.WriteLine("test"); })},
-				//GridSortOrder = SortOrder.Descending,
-				//ConfirmSingleSelection = true,
-				//ConfirmSingleSelectionPrompt = "Do you want to select the image you have chosen?",
-				//PickerBackgroundColor = UIColor.Black,
-				//PickerTextColor = UIColor.White,
-				//ToolbarBarTintColor = UIColor.Red,
-				//ToolbarBackgroundColor = UIColor.Yellow,
-				//ToolbarTextColor = UIColor.White,
-				//ToolbarTintColor = UIColor.Red,
-				//NavigationBarBackgroundColor = UIColor.DarkGray,
-				//NavigationBarBarTintColor = UIColor.DarkGray,
-				//NavigationBarTextColor = UIColor.White,
-				//NavigationBarTintColor = UIColor.Red,
-				//CameraButtonTintColor = UIColor.Red,
-				//PickerFontName = "Verdana",
-				//PickerBoldFontName = "Verdana-Bold",
-				//PickerFontNormalSize = 14.0f,
-				//PickerFontHeaderSize = 17.0f,
-				//PickerStatusBarStyle = UIStatusBarStyle.LightContent,
-				//UseCustomFontForNavigationBar = true,
-			};
+				PickerBoldFontName = "OpenSans-Bold",
+				PickerFontName = "OpenSans-Regular",
+				UseCustomFontForNavigationBar = true,
+
+			// Other customizations to play with:
+			//AdditionalToolbarItems = new UIBarButtonItem[] { new UIBarButtonItem(UIBarButtonSystemItem.Bookmarks), new UIBarButtonItem("Custom", UIBarButtonItemStyle.Bordered, (s, e) => { Console.WriteLine("test"); })},
+			//GridSortOrder = SortOrder.Descending,
+			//ConfirmSingleSelection = true,
+			//ConfirmSingleSelectionPrompt = "Do you want to select the image you have chosen?",
+			//PickerBackgroundColor = UIColor.Black,
+			//PickerTextColor = UIColor.White,
+			//ToolbarBarTintColor = UIColor.Red,
+			//ToolbarBackgroundColor = UIColor.Yellow,
+			//ToolbarTextColor = UIColor.White,
+			//ToolbarTintColor = UIColor.Red,
+			//NavigationBarBackgroundColor = UIColor.DarkGray,
+			//NavigationBarBarTintColor = UIColor.DarkGray,
+			//NavigationBarTextColor = UIColor.White,
+			//NavigationBarTintColor = UIColor.Red,
+			//CameraButtonTintColor = UIColor.Red,
+			//PickerFontNormalSize = 14.0f,
+			//PickerFontHeaderSize = 17.0f,
+			//PickerStatusBarStyle = UIStatusBarStyle.LightContent,
+		};
 
 			// You can limit which galleries are available to browse through
 			picker.CustomSmartCollections = new [] { 

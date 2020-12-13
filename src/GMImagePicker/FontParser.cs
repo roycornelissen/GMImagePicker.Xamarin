@@ -25,7 +25,7 @@ namespace GMImagePicker
 			}
 			else
 			{
-				result = GetFont(family, size);
+				result = UIFont.FromName(family, size);
 				if (result != null)
 					return result;
 			}
