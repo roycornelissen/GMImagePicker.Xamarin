@@ -118,15 +118,6 @@ namespace GMImagePicker
 			TableView.RowHeight = AlbumRowHeight;
 			TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
 
-			try
-			{
-				var f = FontParser.GetFont("OpenSans", _picker.PickerFontHeaderSize);
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine(e);
-			}
-
 			// Buttons
 			var barButtonItemAttributes = new UITextAttributes
 			{
