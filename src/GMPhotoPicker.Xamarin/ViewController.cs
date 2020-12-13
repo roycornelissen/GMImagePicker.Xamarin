@@ -1,11 +1,11 @@
 ﻿using System;
-using UIKit;
-using Foundation;
-using Photos;
-using GMImagePicker;
 using System.Threading.Tasks;
 using CoreGraphics;
-using MobileCoreServices;
+using Foundation;
+using GMImagePicker;
+using Photos;
+using PhotosUI;
+using UIKit;
 
 namespace GMPhotoPicker.Xamarin
 {
@@ -134,34 +134,36 @@ namespace GMPhotoPicker.Xamarin
 				imagePreview.Image = null;
 
 				// Get information about the asset, e.g. file patch
-				asset.RequestContentEditingInput(new PHContentEditingInputRequestOptions(), 
-					(input, _) => 
-					{ 
-						Console.WriteLine(input.FullSizeImageUrl); 
+				asset.RequestContentEditingInput(new PHContentEditingInputRequestOptions(),
+					(input, _) =>
+					{
+						Console.WriteLine(input.FullSizeImageUrl);
 					});
 
-				imageManager.RequestImageForAsset (asset, 
-					new CGSize(asset.PixelWidth, asset.PixelHeight), 
-					PHImageContentMode.Default, 
-					null, 
+				imageManager.RequestImageForAsset(asset,
+					new CGSize(asset.PixelWidth, asset.PixelHeight),
+					PHImageContentMode.Default,
+					null,
 					(image, info) => {
 						imagePreview.Image = image;
-				});
-				await Task.Delay (1000);
+					});
+				await Task.Delay(1000);
 			}
 		}
 
-		partial void ShowUIImagePicker (NSObject sender)
+		partial void ShowPHImagePicker (NSObject sender)
 		{
-			var picker = new UIImagePickerController {
-				SourceType = UIImagePickerControllerSourceType.PhotoLibrary,
-				ModalPresentationStyle = UIModalPresentationStyle.Popover,
-				MediaTypes = new string[] { UTType.Image },
+			var config = new PHPickerConfiguration
+			{
+				Filter = PHPickerFilter.ImagesFilter,
+				SelectionLimit = 0
 			};
 
-			picker.FinishedPickingMedia += Picker_FinishedPickingMedia;
-			picker.FinishedPickingImage += Picker_FinishedPickingImage;
-			picker.Canceled += Picker_Canceled;
+			var picker = new PHPickerViewController(config)
+			{
+				ModalPresentationStyle = UIModalPresentationStyle.Popover,
+				Delegate = new PickerDelegate(imagePreview)
+			};
 
 			var popPC = picker.PopoverPresentationController;
 			popPC.PermittedArrowDirections = UIPopoverArrowDirection.Any;
@@ -171,20 +173,30 @@ namespace GMPhotoPicker.Xamarin
 			ShowViewController (picker, this);
 		}
 
-		void Picker_FinishedPickingImage (object sender, UIImagePickerImagePickedEventArgs e)
+		private class PickerDelegate : PHPickerViewControllerDelegate
 		{
-			((UIImagePickerController)sender).DismissViewController (true, null);
+			readonly UIImageView imageView;
 
-			Console.WriteLine ("UIImagePicker finished picking image");
-			imagePreview.Image = e.Image;
-		}
+			public PickerDelegate(UIImageView imageView)
+			{
+				this.imageView = imageView;
+			}
 
-		void Picker_FinishedPickingMedia (object sender, UIImagePickerMediaPickedEventArgs e)
-		{
-			((UIImagePickerController)sender).DismissViewController (true, null);
+			public override async void DidFinishPicking(PHPickerViewController picker, PHPickerResult[] results)
+			{
+				picker.DismissViewController(true, null);
+				Console.WriteLine("PHPickerViewController finished picking image");
 
-			Console.WriteLine ("UIImagePicker finished picking media");
-			imagePreview.Image = e.OriginalImage;
+				foreach (var result in results)
+				{
+					if (result.ItemProvider.CanLoadObject(typeof(UIImage)))
+					{
+						var image = await result.ItemProvider.LoadObjectAsync<UIImage>();
+						BeginInvokeOnMainThread(() => imageView.Image = image);
+						await Task.Delay(1000);
+					}
+				}
+			}
 		}
 	}
 }

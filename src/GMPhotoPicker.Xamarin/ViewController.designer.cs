@@ -25,7 +25,7 @@ namespace GMPhotoPicker.Xamarin
 		partial void ShowGMImagePicker (Foundation.NSObject sender);
 
 		[Action ("ShowUIImagePicker:")]
-		partial void ShowUIImagePicker (Foundation.NSObject sender);
+		partial void ShowPHImagePicker (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
